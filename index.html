@@ -92,17 +92,24 @@ const KURSY = [
 const dannye = {};
 let progress = {};
 
-function hranilishe(){ return tg && tg.CloudStorage ? tg.CloudStorage : null; }
+function hranilishe(){
+  if (!tg || !tg.CloudStorage || !tg.isVersionAtLeast || !tg.isVersionAtLeast("6.9")) return null;
+  return tg.CloudStorage;
+}
 
 function chitayuProgress(gotovo){
   const h = hranilishe();
-  if (h) {
+  let uzhe = false;
+  const odinRaz = () => { if (!uzhe) { uzhe = true; gotovo(); } };
+  if (!h) { mestniy(); odinRaz(); return; }
+  setTimeout(() => { if (!uzhe) { mestniy(); odinRaz(); } }, 2500);
+  try {
     h.getItem("progress", (osh, znach) => {
       if (!osh && znach) { try { progress = JSON.parse(znach); } catch(e){} }
       if (!Object.keys(progress).length) mestniy();
-      gotovo();
+      odinRaz();
     });
-  } else { mestniy(); gotovo(); }
+  } catch(e) { mestniy(); odinRaz(); }
 }
 function mestniy(){
   try { progress = JSON.parse(localStorage.getItem("progress") || "{}"); } catch(e){ progress = {}; }
@@ -111,7 +118,7 @@ function pishuProgress(){
   const stroka = JSON.stringify(progress);
   try { localStorage.setItem("progress", stroka); } catch(e){}
   const h = hranilishe();
-  if (h) h.setItem("progress", stroka, () => {});
+  if (h) { try { h.setItem("progress", stroka, () => {}); } catch(e){} }
 }
 
 async function gruzhu(fayl){
