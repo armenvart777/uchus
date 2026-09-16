@@ -289,6 +289,12 @@
   .klod-glavnaya{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;font-size:17px;margin-top:6px}
   .klod-pod{margin:8px 2px 4px;font-size:13px}
   .klod-tekst{margin:0;font-size:15px}
+  .metka[for]{display:block}
+  .klod-pismo textarea{min-height:120px}
+  .klod-schet{text-align:right;color:var(--vtoroy);font-size:13px;margin:6px 2px 0;font-variant-numeric:tabular-nums}
+  .klod-schet.mnogo{color:var(--krasniy);font-weight:600}
+  .klod-drugie{margin-top:0;padding-top:8px;border-top:1px solid var(--liniya)}
+  .klod-kuda{color:var(--vtoroy);font-size:13px;margin:8px 2px 12px}
   .fraza-pochemu{color:var(--vtoroy);font-size:13px;margin:-6px 0 4px}
   .fraza-var{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid var(--liniya)}
   .fraza-var:last-child{padding-bottom:0}
@@ -303,7 +309,7 @@
 <script src="zal.js?v=1"></script>
 <script src="zal_ekran.js?v=1"></script>
 <script src="zal_trenirovka.js?v=1"></script>
-<script src="klod.js?v=1"></script>
+<script src="klod.js?v=2"></script>
 <script>
 const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 if (tg) { tg.ready(); tg.expand(); }
@@ -1383,7 +1389,7 @@ function spravkaEkran(){
     ["Фокус", "25 минут работы, потом 5 перерыва. Таймер помнит время, даже если закрыть тетрадь.\n\nВторая кнопка запускает круг и просит бота написать в чат, когда он кончится."],
     ["Итог дня", "Три строки вечером. Сохраняются сами, пока пишешь. Прошлые дни лежат в строке Итоги и прошлые дни на главной."],
     ["Зал", "Три дня по кругу: А, Б, В. Вкладка сама подскажет, какой сегодня и какой вес ставить.\n\nСделал подход, жми Записать. Таймер отдыха включится сам и провибрирует, когда пора. Закончил, жми Закончить и записать: спорт в плане дня отметится."],
-    ["Клод", "Входы во все чаты Кай. Написать Клоду открывает обычный разговор. Вкладки с ноутбука это живые сессии: пишешь в тему, текст уходит прямо в открытую вкладку.\n\nОткрыть чат токенов не тратит. Сообщение стоит столько же, сколько в телеграме напрямую."],
+    ["Клод", "Пишешь в поле, выбираешь куда и жмешь Отправить. Тетрадь закроется, бот отправит текст от твоего имени и пришлет кнопку Открыть. Быстрое это обычный разговор. Кай Kwork, Project и Обучение это вкладки с ноутбука: бот спросит, в какую из открытых.\n\nНе ушло, текст вернется в чат, черновик в тетради тоже останется. Отправка токенов не тратит, ответ Клода стоит столько же, сколько в телеграме напрямую."],
     ["Назад", "Стрелка в шапке телеграма возвращает на прошлый экран. Нажатие на открытую вкладку поднимает страницу наверх."],
     ["Команды в чате", "/napomni 18:00 текст ставит напоминание\n/napomni без текста покажет список\n/trener начинает спарринг\n/razbor разбирает спарринг\n/kejs дает кейс"],
     ["Где хранится", "В облаке телеграма и копией на телефоне. Если облако запись не приняло, рядом с Итогом дня будет написано Сохранено в телефоне."]

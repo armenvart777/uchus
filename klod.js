@@ -1,9 +1,8 @@
 /* ---------- вкладка Клод ---------- */
 const KLOD_KAY = "4433217449";
-const KLOD_BYSTROE = 20;
 const KLOD_TEMY = [
   ["Работа", [
-    ["Кворк и клиенты", 3], ["Входящие от клиентов", 78], ["Отклики", 108],
+    ["Быстрое", 20], ["Кворк и клиенты", 3], ["Входящие от клиентов", 78], ["Отклики", 108],
     ["Прочие заказы", 75], ["Парсеры", 104], ["Дежурный", 2274], ["Мотор", 3323]
   ]],
   ["Остальное", [
@@ -12,10 +11,11 @@ const KLOD_TEMY = [
   ]]
 ];
 const KLOD_KOMNATY = [
-  ["Project", "4309080906", "проекты"],
-  ["Kwork", "3563887426", "заказы"],
-  ["Обучение", "3985585296", "учеба"]
+  ["Kwork", "kwork", "заказы"],
+  ["Project", "project", "проекты"],
+  ["Обучение", "obuchenie", "учеба"]
 ];
+const KLOD_PREDEL = 1900;
 
 function klodSsylka(chat, tema){ return "https://t.me/c/" + chat + "/" + tema; }
 function klodOtkryt(url){
@@ -25,23 +25,104 @@ function klodOtkryt(url){
   }
   window.location.href = url;
 }
+function klodLs(k, v){
+  try {
+    if (v === undefined) return localStorage.getItem(k) || "";
+    if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v);
+  } catch(e){}
+  return "";
+}
+function klodImyaTemy(id){
+  for (const [, temy] of KLOD_TEMY) for (const [imya, t] of temy) if (t === id) return imya;
+  return "";
+}
+function klodKudaPodpis(kuda){
+  const [vid, cel] = kuda.split(":");
+  if (vid === "kay") return "Уйдет в тему " + klodImyaTemy(Number(cel)) + " группы Кай. Ответ придет туда.";
+  const k = KLOD_KOMNATY.find(x => x[1] === cel);
+  return "Бот спросит, в какую вкладку Кай " + (k ? k[0] : "") + " отправить. Кнопки придут в чат.";
+}
+
+function klodPismo(){
+  if (klodLs("klod_ushlo") === "1") { klodLs("klod_chernovik", null); klodLs("klod_ushlo", null); }
+  let kuda = klodLs("klod_kuda");
+  if (!/^kay:\d+$/.test(kuda) && !/^komnata:[a-z]+$/.test(kuda)) kuda = "kay:20";
+  if (kuda.startsWith("kay:") && !klodImyaTemy(Number(kuda.slice(4)))) kuda = "kay:20";
+
+  const b = el("div","blok klod-pismo");
+  const metka = el("label","metka","Написать Клоду");
+  metka.htmlFor = "klod-tekst";
+  const pole = document.createElement("textarea");
+  pole.id = "klod-tekst";
+  pole.placeholder = "Что сказать Клоду";
+  pole.value = klodLs("klod_chernovik");
+  const schet = el("div","klod-schet");
+  const chipy = el("div","nap-chipy");
+  const drugie = el("div","nap-chipy klod-drugie");
+  const podpis = el("div","klod-kuda");
+
+  const glavnye = [["Быстрое","kay:20"]].concat(KLOD_KOMNATY.map(([imya, slag]) => ["Кай " + imya, "komnata:" + slag]));
+  function risovat(){
+    chipy.innerHTML = ""; drugie.innerHTML = "";
+    const svoya = kuda.startsWith("kay:") && kuda !== "kay:20";
+    glavnye.forEach(([imya, k]) => {
+      const c = el("button","nap-chip" + (k === kuda ? " vybran" : ""), imya);
+      c.onclick = () => { tryaska(); kuda = k; drugie.hidden = true; klodLs("klod_kuda", kuda); risovat(); };
+      chipy.append(c);
+    });
+    const dr = el("button","nap-chip" + (svoya ? " vybran" : ""), svoya ? klodImyaTemy(Number(kuda.slice(4))) : "Другая тема");
+    dr.setAttribute("aria-expanded", drugie.hidden ? "false" : "true");
+    dr.onclick = () => { tryaska(); drugie.hidden = !drugie.hidden; risovat(); };
+    chipy.append(dr);
+    KLOD_TEMY.forEach(([, temy]) => temy.forEach(([imya, id]) => {
+      if (id === 20) return;
+      const c = el("button","nap-chip" + ("kay:" + id === kuda ? " vybran" : ""), imya);
+      c.onclick = () => { tryaska(); kuda = "kay:" + id; drugie.hidden = true; klodLs("klod_kuda", kuda); risovat(); };
+      drugie.append(c);
+    }));
+    podpis.textContent = klodKudaPodpis(kuda);
+  }
+  drugie.hidden = true;
+
+  function schitat(){
+    const n = pole.value.trim().length;
+    schet.hidden = n < KLOD_PREDEL - 400;
+    schet.textContent = n + " из " + KLOD_PREDEL;
+    schet.classList.toggle("mnogo", n > KLOD_PREDEL);
+  }
+  pole.oninput = () => { klodLs("klod_chernovik", pole.value); schitat(); };
+
+  const otpr = el("button","knopka klod-glavnaya");
+  otpr.append(svgIkonka(IKONKI.samolet, 20), el("span","","Отправить"));
+  otpr.onclick = () => {
+    const tekst = pole.value.trim();
+    if (!tekst) { tost("Сначала напиши текст"); pole.focus(); return; }
+    if (tekst.length > KLOD_PREDEL) { tost("Длинновато. Сократи до " + KLOD_PREDEL + " знаков или отправь двумя сообщениями"); return; }
+    tryaska();
+    klodLs("klod_chernovik", pole.value);
+    klodLs("klod_ushlo", "1");
+    otpravitVChat({tip:"klod", kuda, tekst}, () => klodLs("klod_ushlo", null));
+  };
+
+  risovat(); schitat();
+  b.append(metka, pole, schet, chipy, drugie, podpis, otpr);
+  return b;
+}
 
 function klodEkran(){
   ochistit();
   const e = ekran();
   e.append(el("div","nadzag","Кай на твоей подписке"));
   e.append(el("div","zag-vk","Клод"));
-  e.append(el("p","podpis","Все чаты с Клодом в одном месте. Нажал, открылся нужный чат в телеграме."));
+  e.append(el("p","podpis","Пишешь тут, текст уходит в чат Кай от твоего имени. Тетрадь закроется, бот ответит, что ушло."));
+  e.append(klodPismo());
 
-  const glavnaya = el("button","knopka klod-glavnaya");
-  glavnaya.append(svgIkonka(IKONKI.samolet, 20), el("span","","Написать Клоду"));
-  glavnaya.onclick = () => klodOtkryt(klodSsylka(KLOD_KAY, KLOD_BYSTROE));
-  e.append(glavnaya);
-  e.append(el("p","podpis klod-pod","Обычный разговор, тема Быстрое в группе Кай."));
-
-  e.append(oglavGruppa("Вкладки с ноутбука", KLOD_KOMNATY.map(([imya, chat, status]) =>
-    oglavStroka("Кай " + imya, status, () => klodOtkryt(klodSsylka(chat, 1)), "noutbuk", "sin"))));
-  e.append(el("div","pochemu","Каждая тема там это открытая вкладка Клода на ноутбуке. Ответы появляются в теме, пока Клод пишет. Пишешь в тему, текст уходит прямо в эту вкладку. Вкладка затихла на сутки, тема закрывается сама."));
+  e.append(oglavGruppa("Вкладки с ноутбука", KLOD_KOMNATY.map(([imya, slag, status]) =>
+    oglavStroka("Кай " + imya, status, () => {
+      tryaska();
+      otpravitVChat({tip:"klod_vkladki", komnata: slag});
+    }, "noutbuk", "sin"))));
+  e.append(el("div","pochemu","Нажал, бот пришлет открытые вкладки кнопками, тетрадь закроется. Каждая вкладка это тема в комнате: ответы Клода идут туда, пока он пишет."));
 
   KLOD_TEMY.forEach(([zag, temy]) => {
     e.append(oglavGruppa(zag, temy.map(([imya, id]) =>
@@ -51,7 +132,7 @@ function klodEkran(){
   const b = el("div","blok");
   b.style.marginTop = "18px";
   b.append(el("div","metka","Про токены"));
-  b.append(el("p","klod-tekst","Открыть чат ничего не стоит: тетрадь просто ведет в телеграм. Сообщение Клоду тратит столько же, сколько если написать ему напрямую. Все идет по твоей подписке."));
+  b.append(el("p","klod-tekst","Отправка из тетради ничего не стоит, это просто сообщение в телеграм. Клод тратит на ответ столько же, сколько если написать ему напрямую. Все идет по твоей подписке."));
   e.append(b);
 }
 
