@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Армен учится</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+try {
+  const n = JSON.parse(localStorage.getItem("nastroyki") || "{}") || {};
+  const k = document.documentElement;
+  if (/^(okean|grafit|yantar|sliva)$/.test(n.oform)) k.setAttribute("data-oform", n.oform);
+  if (n.tema === "light" || n.tema === "dark") k.setAttribute("data-theme", n.tema);
+  if (n.razmer === "m" || n.razmer === "k") k.setAttribute("data-razmer", n.razmer);
+} catch(e){}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -125,7 +134,7 @@
   .geroy-pod{font-size:14px;opacity:.85}
   .geroy svg circle:first-child{stroke:color-mix(in srgb,var(--geroy-tekst) 22%,transparent)!important}
   .geroy svg circle + circle{stroke:var(--geroy-tekst)!important}
-  .bystro{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+  .bystro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-top:16px}
   .bystro-knopka{display:flex;align-items:center;gap:8px;min-height:56px;padding:9px 10px 9px 12px;border:0;border-radius:14px;
     background:color-mix(in srgb,var(--geroy-tekst) 13%,transparent);color:inherit;font:inherit;text-align:left;cursor:pointer;
     transition:transform .1s,background .15s}
@@ -300,16 +309,55 @@
   .fraza-var:last-child{padding-bottom:0}
   .fraza-tekst{flex:1;min-width:0;margin:0;font-size:15px}
   .fraza-var .knopka{flex:0 0 auto}
+  :root[data-oform="okean"]{--fon:#F1F4F8; --karta:#FFFFFF; --tekst:#18212C; --vtoroy:#65707E; --liniya:#E1E7EF; --dorozhka:#E3E9F0; --akcent:#2F5FA8; --na-akcente:#FFFFFF; --geroy-fon:#2F5FA8; --geroy-tekst:#FFFFFF;}
+  @media (prefers-color-scheme: dark){ :root[data-oform="okean"]:not([data-theme="light"]){--fon:#0B0F15; --karta:#151B24; --tekst:#E6ECF3; --vtoroy:#8B96A5; --liniya:#232B36; --dorozhka:#262F3B; --akcent:#7AA7F0; --na-akcente:#0A1220; --geroy-fon:#1D3557; --geroy-tekst:#E4EDF9;} }
+  :root[data-oform="okean"][data-theme="dark"]{--fon:#0B0F15; --karta:#151B24; --tekst:#E6ECF3; --vtoroy:#8B96A5; --liniya:#232B36; --dorozhka:#262F3B; --akcent:#7AA7F0; --na-akcente:#0A1220; --geroy-fon:#1D3557; --geroy-tekst:#E4EDF9;}
+  :root[data-oform="grafit"]{--fon:#F3F3F2; --karta:#FFFFFF; --tekst:#1C1C1B; --vtoroy:#6C6C68; --liniya:#E5E5E2; --dorozhka:#E7E7E4; --akcent:#2A2A28; --na-akcente:#FFFFFF; --geroy-fon:#262624; --geroy-tekst:#F5F5F2;}
+  @media (prefers-color-scheme: dark){ :root[data-oform="grafit"]:not([data-theme="light"]){--fon:#0E0E0E; --karta:#1A1A1A; --tekst:#EDEDEB; --vtoroy:#92928F; --liniya:#2A2A29; --dorozhka:#2C2C2B; --akcent:#E8E6E0; --na-akcente:#151515; --geroy-fon:#2A2A28; --geroy-tekst:#F2F1EC;} }
+  :root[data-oform="grafit"][data-theme="dark"]{--fon:#0E0E0E; --karta:#1A1A1A; --tekst:#EDEDEB; --vtoroy:#92928F; --liniya:#2A2A29; --dorozhka:#2C2C2B; --akcent:#E8E6E0; --na-akcente:#151515; --geroy-fon:#2A2A28; --geroy-tekst:#F2F1EC;}
+  :root[data-oform="yantar"]{--fon:#F6F3EE; --karta:#FFFFFF; --tekst:#2A2118; --vtoroy:#766A5C; --liniya:#EAE3D9; --dorozhka:#ECE5DB; --akcent:#A35A12; --na-akcente:#FFFFFF; --geroy-fon:#A35A12; --geroy-tekst:#FFF8F0;}
+  @media (prefers-color-scheme: dark){ :root[data-oform="yantar"]:not([data-theme="light"]){--fon:#120F0C; --karta:#1E1914; --tekst:#F0E9E0; --vtoroy:#9C9083; --liniya:#2E2720; --dorozhka:#312922; --akcent:#E5A060; --na-akcente:#1A0F05; --geroy-fon:#4A2C12; --geroy-tekst:#F7E8D8;} }
+  :root[data-oform="yantar"][data-theme="dark"]{--fon:#120F0C; --karta:#1E1914; --tekst:#F0E9E0; --vtoroy:#9C9083; --liniya:#2E2720; --dorozhka:#312922; --akcent:#E5A060; --na-akcente:#1A0F05; --geroy-fon:#4A2C12; --geroy-tekst:#F7E8D8;}
+  :root[data-oform="sliva"]{--fon:#F5F2F6; --karta:#FFFFFF; --tekst:#231B26; --vtoroy:#72677A; --liniya:#E8E1EB; --dorozhka:#EAE3ED; --akcent:#7A3F8C; --na-akcente:#FFFFFF; --geroy-fon:#6A3579; --geroy-tekst:#FFFFFF;}
+  @media (prefers-color-scheme: dark){ :root[data-oform="sliva"]:not([data-theme="light"]){--fon:#100C12; --karta:#1C161F; --tekst:#EEE7F1; --vtoroy:#9A8FA0; --liniya:#2C2430; --dorozhka:#2F2733; --akcent:#C99BDB; --na-akcente:#1B0F21; --geroy-fon:#3F2349; --geroy-tekst:#F3E8F7;} }
+  :root[data-oform="sliva"][data-theme="dark"]{--fon:#100C12; --karta:#1C161F; --tekst:#EEE7F1; --vtoroy:#9A8FA0; --liniya:#2C2430; --dorozhka:#2F2733; --akcent:#C99BDB; --na-akcente:#1B0F21; --geroy-fon:#3F2349; --geroy-tekst:#F3E8F7;}
+  :root[data-razmer="m"] .pole{zoom:.92}
+  :root[data-razmer="k"] .pole{zoom:1.1}
+  .oform-setka{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px 10px}
+  .oform{display:flex;flex-direction:column;min-width:0;background:none;border:0;padding:0;text-align:left;
+    color:inherit;font:inherit;cursor:pointer}
+  .oform-obrazec{position:relative;display:block;height:64px;border-radius:14px;padding:10px 10px 0;
+    box-shadow:inset 0 0 0 1px var(--liniya);overflow:hidden}
+  .oform-karta{display:flex;flex-direction:column;gap:5px;height:100%;border-radius:8px 8px 0 0;padding:8px}
+  .oform-polosa{display:block;height:6px;border-radius:3px;width:70%}
+  .oform-polosa.korotkaya{width:42%;opacity:.35}
+  .oform.vybran .oform-obrazec{box-shadow:inset 0 0 0 2px var(--akcent)}
+  .oform-galka{position:absolute;top:6px;right:6px;width:20px;height:20px;border-radius:50%;
+    background:var(--akcent);color:var(--na-akcente);display:flex;align-items:center;justify-content:center}
+  .oform-imya{font-weight:600;font-size:14px;margin-top:7px}
+  .oform-pod{color:var(--vtoroy);font-size:12px;line-height:1.3}
+  .oform:active .oform-obrazec{transform:scale(.97)}
+  .nastr-ryad{display:flex;align-items:center;gap:14px}
+  .nastr-tekst{flex:1;min-width:0}
+  .nastr-zag{font-weight:600}
+  .chat-opis{color:var(--vtoroy);font-size:14px;margin:8px 2px 0}
+  .nastr-tekst .chat-opis{margin:2px 0 0}
+  .chat-vopros textarea{min-height:120px}
+  .chat-zagotovki{margin-top:10px}
+  .chat-novy{margin:14px 2px 12px;cursor:pointer}
+  label.nastr-tekst{cursor:pointer}
 </style>
 </head>
 <body>
 <div class="pole" id="ekran"></div>
 <nav class="vkladki" id="vkladki"></nav>
 <div class="tost" id="tost" role="status" aria-live="polite"></div>
+<script src="nastroyki.js?v=1"></script>
 <script src="zal.js?v=1"></script>
 <script src="zal_ekran.js?v=1"></script>
 <script src="zal_trenirovka.js?v=1"></script>
-<script src="klod.js?v=2"></script>
+<script src="klod.js?v=3"></script>
+<script src="chat.js?v=1"></script>
 <script>
 const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 if (tg) { tg.ready(); tg.expand(); }
@@ -317,7 +365,9 @@ try { if (tg && tg.isVersionAtLeast && tg.isVersionAtLeast("7.7") && tg.disableV
 
 /* ---------- тема ---------- */
 function primenitTemu(){
-  if (!tg) return;
+  const vybor = typeof nastroyki === "object" ? nastroyki.tema : "tg";
+  if (vybor === "light" || vybor === "dark") { document.documentElement.setAttribute("data-theme", vybor); return; }
+  if (!tg) { document.documentElement.removeAttribute("data-theme"); return; }
   if (tg.colorScheme === "dark") document.documentElement.setAttribute("data-theme","dark");
   else if (tg.colorScheme === "light") document.documentElement.setAttribute("data-theme","light");
   else document.documentElement.removeAttribute("data-theme");
@@ -329,9 +379,8 @@ function kraskiTelegrama(){
     if (fon) { tg.setHeaderColor(fon); tg.setBackgroundColor(fon); }
   } catch(e){}
 }
+primenitNastroyki();
 if (tg){
-  primenitTemu();
-  kraskiTelegrama();
   try { tg.onEvent && tg.onEvent("themeChanged", () => { primenitTemu(); kraskiTelegrama(); renderVkladku(); }); } catch(e){}
 }
 function temnayaTema(){
@@ -446,6 +495,7 @@ async function gruzhu(fayl){
 }
 
 function tryaska(){
+  if (!nastroyki.vibro) return;
   try { if (tg && tg.isVersionAtLeast && tg.isVersionAtLeast("6.1")) tg.HapticFeedback.impactOccurred("light"); } catch(e){}
 }
 
@@ -719,7 +769,7 @@ async function fcSkolkoKSegodnya(){
 }
 
 /* ---------- маршрутизация экранов ---------- */
-let vkladkaTekushhaya = "segodnya";
+let vkladkaTekushhaya = nastroyki.pervaya;
 let stekEkranov = [], stekProkrutki = [];
 let aktivnyInterval = null;
 let tekushhiyEkran = null;
@@ -792,7 +842,9 @@ const IKONKI = {
   klod: ["M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9-1.9 5.1-1.9-5.1-5.1-1.9 5.1-1.9z","M18.5 16l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"],
   frazy: ["M5 6h14v9h-8l-4 3.5v-3.5h-2z","M9.5 9v2.5","M14.5 9v2.5"],
   samolet: ["M20.5 3.5l-17 7 7 2.5 2.5 7z","M20.5 3.5l-10 9.5"],
-  noutbuk: ["M5 5.5h14v9.5h-14z","M3 18.5h18"]
+  noutbuk: ["M5 5.5h14v9.5h-14z","M3 18.5h18"],
+  chat: ["M5 6h14v9h-8l-4 3.5v-3.5h-2z","M12 7.8l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z"],
+  nastroyki: ["M4 7.5h8","M16 7.5h4","M4 16.5h3","M11 16.5h9","M12 7.5a2 2 0 1 0 4 0a2 2 0 1 0 -4 0","M7 16.5a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"]
 };
 const VKLADKA_PUTI = {segodnya: IKONKI.dom, zal: IKONKI.zal, ucheba: IKONKI.kniga, kletki: IKONKI.kletki, klod: IKONKI.klod};
 const KURS_IKONKA = {peregovory: ["peregovory","fio"], prodazhi: ["prodazhi","yan"], english: ["english","sin"], tehminimum: ["tehminimum","ser"]};
@@ -1007,7 +1059,7 @@ async function napominaniyaEkran(){
   metkaPolya.htmlFor = "nap-tekst";
   forma.append(metkaPolya);
   const pole = document.createElement("textarea");
-  pole.id = "nap-tekst"; pole.maxLength = 300; pole.placeholder = "Например, ответить Вадиму про смету";
+  pole.id = "nap-tekst"; pole.maxLength = 300; pole.placeholder = "Например, ответить заказчику про смету";
   pole.style.minHeight = "84px";
   forma.append(pole);
   e.append(forma);
@@ -1154,7 +1206,7 @@ async function segodnyaEkran(){
   if (!spr.spravka) {
     const kak = el("div","blok");
     kak.append(el("div","metka","Как пользоваться"));
-    kak.append(el("div","teoriya","Сделал заход, жми на привычку в зеленом блоке. Ошибся, жми Отменить внизу экрана.\nУрок, кейс и карточки отмечаются в плане дня сами."));
+    kak.append(el("div","teoriya","Сделал заход, жми на привычку в блоке Клетки сегодня. Ошибся, жми Отменить внизу экрана.\nУрок, кейс и карточки отмечаются в плане дня сами."));
     const ryad = el("div","stroka");
     const vse = el("button","knopka tihaya","Все подсказки");
     vse.onclick = () => otkrytEkran(spravkaEkran);
@@ -1332,11 +1384,13 @@ async function segodnyaEkran(){
   e.append(planBlok);
 
   e.append(oglavGruppa("Под рукой", [
+    oglavStroka("Чат с Клодом", chatImya(CHAT_REZHIMY, chatVybor("chat_rezhim", CHAT_REZHIMY)).toLowerCase(), () => otkrytEkran(chatEkran), "chat", "fio"),
     oglavStroka("Спарринг с заказчиком", "в чате", () => otkrytEkran(sparringEkran), "sparring", "roz"),
     oglavStroka("Напоминания", skoro ? napFormatVremya(skoro.k) : "нет", () => otkrytEkran(napominaniyaEkran), "napominaniya", "yan"),
     oglavStroka("Фразы для заказчика", "9 ситуаций", () => otkrytEkran(frazyEkran), "frazy", "zel"),
     oglavStroka("Фокус 25 / 5", fokusStatus(), () => otkrytEkran(fokusEkran), "fokus", "fio"),
     oglavStroka("Итоги и прошлые дни", "", () => otkrytEkran(itogiEkran), "itogi", "sin"),
+    oglavStroka("Настройки", chatImya(OFORMLENIYA, nastroyki.oform).toLowerCase(), () => otkrytEkran(nastroykiEkran), "nastroyki", "ser"),
     oglavStroka("Как пользоваться", "", () => otkrytEkran(spravkaEkran), "vopros", "ser")
   ]));
 
@@ -1347,9 +1401,9 @@ async function segodnyaEkran(){
   itogRyad.append(sohr);
   itogBlok.append(itogRyad);
   const polya3 = [
-    ["sdelal","Что сделал","Например, сдал правки Николаю"],
+    ["sdelal","Что сделал","Например, сдал правки заказчику"],
     ["sdvinul","Что сдвинул в продажах","Например, два отклика на Kwork"],
-    ["zavtra","Что завтра первым делом","Например, ответить Вадиму"]
+    ["zavtra","Что завтра первым делом","Например, дописать отклик на Kwork"]
   ];
   polya3.forEach(([kod, podpis, primer]) => {
     const metka = el("label","podpis", podpis);
@@ -1390,8 +1444,10 @@ function spravkaEkran(){
     ["Итог дня", "Три строки вечером. Сохраняются сами, пока пишешь. Прошлые дни лежат в строке Итоги и прошлые дни на главной."],
     ["Зал", "Три дня по кругу: А, Б, В. Вкладка сама подскажет, какой сегодня и какой вес ставить.\n\nСделал подход, жми Записать. Таймер отдыха включится сам и провибрирует, когда пора. Закончил, жми Закончить и записать: спорт в плане дня отметится."],
     ["Клод", "Пишешь в поле, выбираешь куда и жмешь Отправить. Тетрадь закроется, бот отправит текст от твоего имени и пришлет кнопку Открыть. Быстрое это обычный разговор. Кай Kwork, Project и Обучение это вкладки с ноутбука: бот спросит, в какую из открытых.\n\nНе ушло, текст вернется в чат, черновик в тетради тоже останется. Отправка токенов не тратит, ответ Клода стоит столько же, сколько в телеграме напрямую."],
+    ["Чат с Клодом", "Пишешь боту обычным сообщением, отвечает Клод на твоей подписке. Помнит разговор, разбирает фото с подписью, сам ищет в интернете.\n\nРежим меняет манеру: Продажи разбирают клиента и дают ответ, Английский правит ошибки, Простыми словами объясняет без жаргона. Opus умнее Sonnet, но быстрее тратит лимит.\n\n/new начинает заново, /stop обрывает длинный ответ. Экран Чат с Клодом на главной отправляет вопрос с выбранным режимом."],
+    ["Настройки", "Пять оформлений, тема, размер текста, вибрация и вкладка, с которой тетрадь открывается. Меняется сразу и хранится в облаке телеграма. Вернуть как было можно кнопкой внизу экрана."],
     ["Назад", "Стрелка в шапке телеграма возвращает на прошлый экран. Нажатие на открытую вкладку поднимает страницу наверх."],
-    ["Команды в чате", "/napomni 18:00 текст ставит напоминание\n/napomni без текста покажет список\n/trener начинает спарринг\n/razbor разбирает спарринг\n/kejs дает кейс"],
+    ["Команды в чате", "/chat режим и модель чата с Клодом\n/new новый разговор, /stop остановить ответ\n/napomni 18:00 текст ставит напоминание\n/napomni без текста покажет список\n/trener начинает спарринг\n/razbor разбирает спарринг\n/kejs дает кейс"],
     ["Где хранится", "В облаке телеграма и копией на телефоне. Если облако запись не приняло, рядом с Итогом дня будет написано Сохранено в телефоне."]
   ];
   razdely.forEach(([zag, tekst]) => {
@@ -2266,6 +2322,7 @@ async function itogiEkran(){
 
 fokusZagruzit();
 chitayuProgress(renderVkladku);
+nastrIzOblaka();
 </script>
 </body>
 </html>

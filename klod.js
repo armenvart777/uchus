@@ -116,6 +116,9 @@ function klodEkran(){
   e.append(el("div","zag-vk","Клод"));
   e.append(el("p","podpis","Пишешь тут, текст уходит в чат Кай от твоего имени. Тетрадь закроется, бот ответит, что ушло."));
   e.append(klodPismo());
+  e.append(oglavGruppa("Прямо в боте", [
+    oglavStroka("Чат с Клодом", "в боте", () => otkrytEkran(chatEkran), "chat", "fio")
+  ]));
 
   e.append(oglavGruppa("Вкладки с ноутбука", KLOD_KOMNATY.map(([imya, slag, status]) =>
     oglavStroka("Кай " + imya, status, () => {
