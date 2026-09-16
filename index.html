@@ -5,93 +5,225 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Армен учится</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Pangolin&display=swap" rel="stylesheet">
 <style>
   :root{
-    --fon:#f4f5f7; --karta:#ffffff; --tekst:#141619; --tusklo:#6b7280;
-    --liniya:#e3e6ea; --akcent:#2f6fed; --akcent-tekst:#ffffff;
-    --zeleniy:#1f9254; --krasniy:#c9372c; --ten:0 1px 2px rgba(16,20,30,.06);
-    --radius:14px;
+    --bumaga:#F4F6F1; --setka:#DCE3E8; --chernila:#213A5C; --karandash:#6B7480; --polya:#D6524A;
+    --zeleniy:#3F7D52; --krasniy:#D6524A;
+    --radius:10px;
+    --font-text:"Golos Text",system-ui,sans-serif;
+    --font-krupno:"Pangolin",system-ui,sans-serif;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --fon:#17181c; --karta:#212329; --tekst:#eef0f3; --tusklo:#9aa1ab;
-      --liniya:#2e3138; --akcent:#5d93ff; --akcent-tekst:#0d1017;
-      --zeleniy:#4ac07d; --krasniy:#ef6a5f; --ten:0 1px 2px rgba(0,0,0,.35);
+      --bumaga:#14171C; --setka:#222932; --chernila:#C9D6E8; --karandash:#8A94A3; --polya:#E0675F;
+      --zeleniy:#6FAE86; --krasniy:#E0675F;
     }
   }
   :root[data-theme="dark"]{
-    --fon:#17181c; --karta:#212329; --tekst:#eef0f3; --tusklo:#9aa1ab;
-    --liniya:#2e3138; --akcent:#5d93ff; --akcent-tekst:#0d1017;
-    --zeleniy:#4ac07d; --krasniy:#ef6a5f;
+    --bumaga:#14171C; --setka:#222932; --chernila:#C9D6E8; --karandash:#8A94A3; --polya:#E0675F;
+    --zeleniy:#6FAE86; --krasniy:#E0675F;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--fon);color:var(--tekst);
-    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    -webkit-font-smoothing:antialiased}
-  .obolochka{max-width:680px;margin:0 auto;padding:16px 16px 40px}
-  h1{font-size:22px;margin:4px 0 2px;letter-spacing:-.02em}
-  h2{font-size:17px;margin:0 0 6px;letter-spacing:-.01em}
-  .podpis{color:var(--tusklo);font-size:13px;margin:0 0 18px}
-  .setka{display:flex;flex-direction:column;gap:10px}
-  .karta{background:var(--karta);border:1px solid var(--liniya);border-radius:var(--radius);
-    padding:14px 15px;box-shadow:var(--ten);cursor:pointer;text-align:left;width:100%;
-    color:inherit;font:inherit;display:block}
-  .karta:active{transform:scale(.995)}
-  .karta .ryad{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  html,body{background:var(--bumaga)}
+  body{margin:0;color:var(--chernila);font:15px/1.5 var(--font-text);
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;min-height:100vh;
+    background-color:var(--bumaga);
+    background-image:linear-gradient(var(--setka) 1px,transparent 1px),
+                      linear-gradient(90deg,var(--setka) 1px,transparent 1px);
+    background-size:22px 22px;}
+  body::before{content:"";position:fixed;top:0;bottom:0;left:8px;width:1px;
+    background:var(--polya);opacity:.5;pointer-events:none;z-index:0}
+  button{-webkit-tap-highlight-color:transparent}
+  button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline:2px solid var(--chernila);outline-offset:2px}
+  @media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
+
+  .pole{position:relative;z-index:1;max-width:430px;min-width:0;margin:0 auto;
+    padding:16px 16px 92px;min-height:100vh}
+  .zag-vk{font-family:var(--font-krupno);font-size:26px;margin:2px 0 4px;font-weight:400}
+  h2{font-size:16px;margin:0 0 6px;font-weight:600}
+  .podpis{color:var(--karandash);font-size:13px;margin:0 0 16px}
+  .setka-list{display:flex;flex-direction:column;gap:0}
+  .liniya-blok{border-top:1px solid var(--setka);padding:14px 0}
+  .liniya-blok:first-child{border-top:0;padding-top:0}
+  .metka{text-transform:uppercase;letter-spacing:.07em;font-size:11px;color:var(--karandash);
+    margin-bottom:8px;font-weight:600}
+  .karta-kurs{display:block;width:100%;text-align:left;background:none;border:0;
+    border-top:1px solid var(--setka);padding:13px 0;color:inherit;font:inherit;cursor:pointer}
+  .karta-kurs:first-child{border-top:0}
+  .ryad{display:flex;align-items:center;justify-content:space-between;gap:12px}
   .znak{font-size:22px;line-height:1}
-  .opis{color:var(--tusklo);font-size:13px;margin-top:3px}
-  .polosa{height:5px;background:var(--liniya);border-radius:99px;margin-top:11px;overflow:hidden}
-  .polosa i{display:block;height:100%;background:var(--akcent);border-radius:99px;transition:width .3s}
-  .schet{font-variant-numeric:tabular-nums;color:var(--tusklo);font-size:12px;margin-top:6px}
-  .nazad{background:none;border:0;color:var(--akcent);font:inherit;padding:6px 0;cursor:pointer;
-    margin-bottom:8px;display:inline-block}
-  .blok{background:var(--karta);border:1px solid var(--liniya);border-radius:var(--radius);
-    padding:15px;margin-bottom:12px;box-shadow:var(--ten)}
-  .metka{text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--tusklo);
-    margin-bottom:7px;font-weight:600}
+  .opis{color:var(--karandash);font-size:13px;margin-top:3px}
+  .polosa{height:4px;background:var(--setka);border-radius:99px;margin-top:10px;overflow:hidden}
+  .polosa i{display:block;height:100%;background:var(--chernila);border-radius:99px}
+  .schet{font-variant-numeric:tabular-nums;color:var(--karandash);font-size:12px;margin-top:6px}
+  .blok{padding:14px 0;border-top:1px solid var(--setka)}
+  .blok:first-child{border-top:0}
   .teoriya{white-space:pre-wrap}
-  .fraza{padding:10px 0;border-bottom:1px solid var(--liniya)}
+  .fraza{padding:10px 0;border-bottom:1px solid var(--setka)}
   .fraza:last-child{border-bottom:0;padding-bottom:0}
   .fraza b{font-weight:600}
-  .fraza .per{color:var(--tusklo);font-size:13px;margin-top:2px}
-  .fraza .kogda{color:var(--tusklo);font-size:12px;margin-top:4px;font-style:italic}
-  .shablon{padding:10px 0;border-bottom:1px solid var(--liniya);white-space:pre-wrap}
+  .fraza .per{color:var(--karandash);font-size:13px;margin-top:2px}
+  .fraza .kogda{color:var(--karandash);font-size:12px;margin-top:4px;font-style:italic}
+  .shablon{padding:10px 0;border-bottom:1px solid var(--setka);white-space:pre-wrap}
   .shablon:last-child{border-bottom:0}
-  .variant{display:block;width:100%;text-align:left;background:var(--fon);border:1px solid var(--liniya);
+  .variant{display:block;width:100%;text-align:left;background:var(--bumaga);border:1px solid var(--setka);
     border-radius:10px;padding:11px 12px;margin-bottom:8px;color:inherit;font:inherit;cursor:pointer}
-  .variant.verno{border-color:var(--zeleniy);background:color-mix(in srgb,var(--zeleniy) 12%,transparent)}
+  .variant.verno{border-color:var(--zeleniy);background:color-mix(in srgb,var(--zeleniy) 14%,transparent)}
   .variant.neverno{border-color:var(--krasniy);background:color-mix(in srgb,var(--krasniy) 12%,transparent)}
-  .pochemu{font-size:13px;color:var(--tusklo);margin-top:6px}
-  .knopka{background:var(--akcent);color:var(--akcent-tekst);border:0;border-radius:11px;
+  .pochemu{font-size:13px;color:var(--karandash);margin-top:6px}
+  .knopka{background:var(--chernila);color:var(--bumaga);border:0;border-radius:11px;
     padding:13px 16px;font:inherit;font-weight:600;width:100%;cursor:pointer}
-  .knopka[disabled]{opacity:.45}
-  .knopka.tihaya{background:var(--karta);color:var(--tekst);border:1px solid var(--liniya)}
-  textarea{width:100%;min-height:130px;background:var(--fon);color:var(--tekst);
-    border:1px solid var(--liniya);border-radius:11px;padding:12px;font:inherit;resize:vertical}
-  .kejs{white-space:pre-wrap;border-left:3px solid var(--akcent);padding-left:12px}
-  .schetchik{font-size:12px;color:var(--tusklo);text-align:right;margin-top:6px;
+  .knopka[disabled]{opacity:.4}
+  .knopka.tihaya{background:none;color:var(--chernila);border:1px solid var(--setka)}
+  .knopka.malaya{width:auto;padding:9px 14px;border-radius:9px;font-size:13px}
+  textarea,input[type=text],input[type=time]{width:100%;background:var(--bumaga);color:var(--chernila);
+    border:1px solid var(--setka);border-radius:10px;padding:11px;font:inherit;resize:vertical}
+  textarea{min-height:110px}
+  input[type=time]{width:auto}
+  .kejs{white-space:pre-wrap;border-left:3px solid var(--chernila);padding-left:12px}
+  .schetchik{font-size:12px;color:var(--karandash);text-align:right;margin-top:6px;
     font-variant-numeric:tabular-nums}
-  .pusto{color:var(--tusklo);text-align:center;padding:30px 10px}
+  .pusto{color:var(--karandash);text-align:center;padding:30px 10px}
   .stroka{display:flex;gap:8px;margin-top:10px}
   .stroka .knopka{flex:1}
+  .cifra{font-family:var(--font-krupno);font-variant-numeric:tabular-nums}
+
+  .vkladki{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;
+    background:var(--bumaga);border-top:1px solid var(--setka);
+    box-shadow:0 -2px 10px rgba(0,0,0,.08);
+    padding-bottom:env(safe-area-inset-bottom)}
+  .vk-btn{flex:1;background:none;border:0;color:var(--karandash);font:12px var(--font-text);
+    padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+  .vk-btn .vk-znak{font-size:19px}
+  .vk-btn.aktivna{color:var(--chernila);font-weight:600}
+
+  .plashka{border:1px solid var(--polya);border-radius:10px;padding:10px 12px;margin-bottom:14px;
+    color:var(--polya);font-size:13px}
+
+  .koltso-obl{display:flex;align-items:center;gap:16px;padding:6px 0 16px}
+  .koltso-cifra{font-family:var(--font-krupno);font-size:30px;line-height:1}
+  .koltso-podpis{color:var(--karandash);font-size:13px}
+
+  .privychka-stroka{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 0;border-top:1px solid var(--setka);gap:10px}
+  .privychka-stroka:first-child{border-top:0}
+  .privychka-imya{display:flex;align-items:center;gap:9px}
+  .tochka-cveta{width:11px;height:11px;border-radius:50%;flex:0 0 auto}
+  .privychka-chislo{font-variant-numeric:tabular-nums;font-weight:600;min-width:22px;text-align:center}
+  .krug-knopka{width:34px;height:34px;border-radius:50%;border:1px solid var(--setka);
+    background:var(--bumaga);color:var(--chernila);font-size:17px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center}
+
+  .plan-punkt{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--setka)}
+  .plan-punkt:first-child{border-top:0}
+  .galochka{width:23px;height:23px;border-radius:50%;border:1.5px solid var(--karandash);
+    background:none;flex:0 0 auto;cursor:pointer;color:var(--bumaga);font-size:13px;
+    display:flex;align-items:center;justify-content:center}
+  .galochka.on{background:var(--chernila);border-color:var(--chernila)}
+  .plan-tekst{flex:1;text-align:left;background:none;border:0;color:inherit;font:inherit;
+    padding:0;cursor:pointer}
+  .plan-hvost{color:var(--karandash);font-size:13px;font-variant-numeric:tabular-nums}
+
+  .dnevnik-stroka{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12px}
+  .dnevnik-den{width:20px;color:var(--karandash);font-variant-numeric:tabular-nums;flex:0 0 auto}
+  .dnevnik-kletki{display:flex;gap:2px;flex-wrap:wrap;flex:1}
+  .dnevnik-kletki i{width:9px;height:9px;border-radius:2px;display:inline-block}
+  .dnevnik-summa{width:16px;text-align:right;color:var(--karandash);font-variant-numeric:tabular-nums}
+  .dnevnik-stroka.pustoy{background:color-mix(in srgb,var(--polya) 8%,transparent);
+    border-radius:6px;margin:0 -6px;padding:5px 6px}
+
+  .list-obl{margin:12px 0}
+  #list-canvas{width:100%;height:auto;border:1px solid var(--setka);border-radius:8px;display:block}
+  .list-podpis{color:var(--karandash);font-size:12px;margin-top:8px}
+
+  .teplokarta{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin:10px 0}
+  .teplokarta i{aspect-ratio:1;border-radius:3px;display:block;background:var(--setka)}
+
+  .bary7{display:flex;align-items:flex-end;gap:8px;height:120px;margin:14px 0;position:relative}
+  .bar7-stolb{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;
+    justify-content:flex-end;gap:6px}
+  .bar7-zalivka{width:100%;background:var(--chernila);border-radius:4px 4px 0 0;min-height:2px}
+  .bar7-podpis{font-size:11px;color:var(--karandash)}
+  .norma-liniya{position:absolute;left:0;right:0;border-top:1px dashed var(--polya)}
+
+  .palitra{display:flex;gap:10px;margin:10px 0}
+  .cvet-obraz{width:30px;height:30px;border-radius:50%;border:2px solid transparent;cursor:pointer}
+  .cvet-obraz.vybran{border-color:var(--chernila)}
+
+  .fc-karta{border:1px solid var(--setka);border-radius:12px;padding:26px 16px;min-height:150px;
+    display:flex;align-items:center;justify-content:center;text-align:center;font-size:19px;
+    margin-bottom:16px;cursor:pointer}
+  .fc-perevod{color:var(--karandash);font-size:15px;margin-top:10px}
+  .fc-schet{text-align:center;color:var(--karandash);font-size:13px;margin-bottom:10px;
+    font-variant-numeric:tabular-nums}
+
+  .fokus-svg{display:block;margin:10px auto}
+  .fokus-vremya{font-family:var(--font-krupno);font-size:15px}
+
+  .itog-karta{border-top:1px solid var(--setka);padding:10px 0;font-size:13px}
+  .itog-karta .m{color:var(--karandash);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+
+  .znak{display:flex;align-items:center}
+  .vk-znak{display:flex}
+
+  .oglav-stroka{display:flex;align-items:flex-end;gap:8px;width:100%;min-height:44px;
+    background:none;border:0;padding:11px 0;color:inherit;font:inherit;text-align:left;cursor:pointer}
+  .oglav-imya{flex:0 1 auto}
+  .oglav-tochki{flex:1;min-width:16px;border-bottom:1px dotted var(--karandash);margin:0 2px;height:.9em}
+  .oglav-status{flex:0 0 auto;color:var(--karandash);font-size:13px;font-variant-numeric:tabular-nums}
+
+  .nap-chipy{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+  .nap-chip{background:none;border:1px solid var(--setka);border-radius:9px;padding:8px 12px;
+    font:inherit;font-size:13px;color:inherit;cursor:pointer}
+  .nap-chip.vybran{border-color:var(--chernila);background:color-mix(in srgb,var(--chernila) 10%,transparent)}
+  .nap-vremya-blok{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+  .nap-podpis-malaya{color:var(--karandash);font-size:13px}
+  .nap-zapis{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--setka)}
+  .nap-zapis:first-child{border-top:0}
+  .nap-zapis-vremya{color:var(--karandash);font-size:12px;flex:0 0 auto}
 </style>
 </head>
 <body>
-<div class="obolochka" id="ekran"></div>
+<div class="pole" id="ekran"></div>
+<nav class="vkladki" id="vkladki"></nav>
 <script>
 const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 if (tg) { tg.ready(); tg.expand(); }
 
+/* ---------- тема ---------- */
+function primenitTemu(){
+  if (!tg) return;
+  if (tg.colorScheme === "dark") document.documentElement.setAttribute("data-theme","dark");
+  else if (tg.colorScheme === "light") document.documentElement.setAttribute("data-theme","light");
+  else document.documentElement.removeAttribute("data-theme");
+}
+if (tg){
+  primenitTemu();
+  try { tg.onEvent && tg.onEvent("themeChanged", primenitTemu); } catch(e){}
+}
+function temnayaTema(){
+  const atr = document.documentElement.getAttribute("data-theme");
+  if (atr === "dark") return true;
+  if (atr === "light") return false;
+  return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+}
+
+/* ---------- курсы (как было) ---------- */
 const KURSY = [
-  {id:"peregovory", znak:"\u{1F94A}", nazvanie:"Переговоры с заказчиком", opis:"Реальные кейсы. Отвечаешь, получаешь разбор в чат.", fayl:null},
-  {id:"prodazhi", znak:"\u{1F4B0}", nazvanie:"Продажи и цена", opis:"Как называть цену, держать объем, поднимать чек.", fayl:"kurs_prodazhi.json"},
-  {id:"english", znak:"\u{1F1EC}\u{1F1E7}", nazvanie:"Английский для заказчиков", opis:"Переписка, правки, сроки, деньги.", fayl:"kurs_english.json"},
-  {id:"tehminimum", znak:"\u{1F527}", nazvanie:"Техминимум", opis:"Что вообще происходит в твоих проектах.", fayl:"kurs_tehminimum.json"}
+  {id:"peregovory", nazvanie:"Переговоры с заказчиком", opis:"Реальные кейсы. Отвечаешь, получаешь разбор в чат.", fayl:null},
+  {id:"prodazhi", nazvanie:"Продажи и цена", opis:"Как называть цену, держать объем, поднимать чек.", fayl:"kurs_prodazhi.json"},
+  {id:"english", nazvanie:"Английский для заказчиков", opis:"Переписка, правки, сроки, деньги.", fayl:"kurs_english.json"},
+  {id:"tehminimum", nazvanie:"Техминимум", opis:"Что вообще происходит в твоих проектах.", fayl:"kurs_tehminimum.json"}
 ];
 
 const dannye = {};
 let progress = {};
 
+/* ---------- хранилище: правила старого кода не трогаем ---------- */
 function hranilishe(){
   if (!tg || !tg.CloudStorage || !tg.isVersionAtLeast || !tg.isVersionAtLeast("6.9")) return null;
   return tg.CloudStorage;
@@ -121,6 +253,42 @@ function pishuProgress(){
   if (h) { try { h.setItem("progress", stroka, () => {}); } catch(e){} }
 }
 
+/* ---------- обобщенное хранилище: клетки, план дня, карточки ---------- */
+function citatKlyuchi(klyuchi, gotovo){
+  const h = hranilishe();
+  let uzhe = false;
+  const rezultat = {};
+  const odinRaz = () => { if (!uzhe) { uzhe = true; gotovo(rezultat); } };
+  const izLokalnogo = () => {
+    klyuchi.forEach(k => { try { const v = localStorage.getItem(k); if (v != null) rezultat[k] = v; } catch(e){} });
+  };
+  if (!h || !h.getItems) { izLokalnogo(); odinRaz(); return; }
+  setTimeout(() => { if (!uzhe) { izLokalnogo(); odinRaz(); } }, 2500);
+  try {
+    h.getItems(klyuchi, (osh, znach) => {
+      if (!osh && znach) Object.assign(rezultat, znach);
+      if (!Object.keys(rezultat).length) izLokalnogo();
+      odinRaz();
+    });
+  } catch(e) { izLokalnogo(); odinRaz(); }
+}
+function citatKlyuchiP(klyuchi){ return new Promise(res => citatKlyuchi(klyuchi, res)); }
+
+function pishuKlyuch(klyuch, znachenie){
+  try { localStorage.setItem(klyuch, znachenie); } catch(e){}
+  const h = hranilishe();
+  if (h) { try { h.setItem(klyuch, znachenie, () => {}); } catch(e){} }
+}
+
+function poluchitVseKlyuchi(gotovo){
+  const h = hranilishe();
+  if (h && h.getKeys) {
+    try { h.getKeys((osh, spisok) => { gotovo(osh ? [] : (spisok || [])); }); return; } catch(e){}
+  }
+  try { gotovo(Object.keys(localStorage)); } catch(e){ gotovo([]); }
+}
+function poluchitVseKlyuchiP(){ return new Promise(res => poluchitVseKlyuchi(res)); }
+
 async function gruzhu(fayl){
   if (!fayl) return [];
   if (dannye[fayl]) return dannye[fayl];
@@ -132,40 +300,891 @@ async function gruzhu(fayl){
   } catch(e){ return []; }
 }
 
+function tryaska(){
+  try { if (tg && tg.isVersionAtLeast && tg.isVersionAtLeast("6.1")) tg.HapticFeedback.impactOccurred("light"); } catch(e){}
+}
+
+/* ---------- даты ---------- */
+const NEDELYA = ["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
+const NEDELYA_KOR = ["Вс","Пн","Вт","Ср","Чт","Пт","Сб"];
+const MESYACY = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
+function pad2(n){ return n < 10 ? "0" + n : "" + n; }
+function slovamiData(d){ return NEDELYA[d.getDay()] + ", " + d.getDate() + " " + MESYACY[d.getMonth()]; }
+function klMonthKey(d){ return "kl_" + d.getFullYear() + "_" + pad2(d.getMonth()+1); }
+function dnMonthKey(d){ return "dn_" + d.getFullYear() + "_" + pad2(d.getMonth()+1); }
+function denNomer(d){ return String(d.getDate()); }
+function denEpohi(d){ return Math.floor(d.getTime() / 86400000); }
+function denEpohiSeychas(){ return denEpohi(new Date()); }
+function novayaData(smeshhenieDney){
+  const d = new Date();
+  d.setHours(0,0,0,0);
+  d.setDate(d.getDate() + (smeshhenieDney || 0));
+  return d;
+}
+
+/* ---------- привычки: клетки ---------- */
+const PALITRA = [
+  {colorL:"#2E5266", colorD:"#6FA8C4"},
+  {colorL:"#4C7A6D", colorD:"#77B49F"},
+  {colorL:"#7C5F94", colorD:"#A78CC0"},
+  {colorL:"#B4703A", colorD:"#D69A5E"}
+];
+const PRIVYCHKI_PO_UMOLCHANIYU = [
+  {id:"pull", name:"Подтягивания", unit:"подход", colorL:"#2E5266", colorD:"#6FA8C4"},
+  {id:"push", name:"Отжимания", unit:"подход", colorL:"#4C7A6D", colorD:"#77B49F"},
+  {id:"skin", name:"Кожа", unit:"ритуал", colorL:"#7C5F94", colorD:"#A78CC0"},
+  {id:"learn", name:"Учеба", unit:"20 минут", colorL:"#B4703A", colorD:"#D69A5E"}
+];
+const NORMA_KLETOK = 5;
+const CENA_LISTA = 5 * 365 / 2500;
+const LIST_RYADOV = 60, LIST_STOLBCOV = 42;
+
+function cvetPrivychki(p){ return temnayaTema() ? p.colorD : p.colorL; }
+
+let privychkiCache = null;
+async function poluchitPrivychki(){
+  if (privychkiCache) return privychkiCache;
+  const rez = await citatKlyuchiP(["kl_cfg"]);
+  if (rez.kl_cfg) { try { privychkiCache = JSON.parse(rez.kl_cfg); } catch(e){ privychkiCache = null; } }
+  if (!privychkiCache) privychkiCache = PRIVYCHKI_PO_UMOLCHANIYU.slice();
+  return privychkiCache;
+}
+function sohranitPrivychki(spisok){
+  privychkiCache = spisok;
+  pishuKlyuch("kl_cfg", JSON.stringify(spisok));
+}
+
+const klMesyacy = {};
+async function poluchitMesyacKletok(mk){
+  if (klMesyacy[mk]) return klMesyacy[mk];
+  const rez = await citatKlyuchiP([mk]);
+  let dan = {};
+  if (rez[mk]) { try { dan = JSON.parse(rez[mk]); } catch(e){ dan = {}; } }
+  klMesyacy[mk] = dan;
+  return dan;
+}
+function summaDnya(dan, den){
+  const zap = dan[den] || {};
+  return Object.values(zap).reduce((a,b) => a + b, 0);
+}
+
+let klTaymer = null, klTaymerMk = null;
+function otlozhitZapisKletok(mk){
+  klTaymerMk = mk;
+  clearTimeout(klTaymer);
+  klTaymer = setTimeout(() => { pishuKlyuch(klTaymerMk, JSON.stringify(klMesyacy[klTaymerMk])); }, 600);
+}
+async function izmenitKletku(privychkaId, delta){
+  const seg = novayaData(0);
+  const mk = klMonthKey(seg);
+  const dan = await poluchitMesyacKletok(mk);
+  const den = denNomer(seg);
+  if (!dan[den]) dan[den] = {};
+  const bylo = dan[den][privychkaId] || 0;
+  const novoe = Math.max(0, bylo + delta);
+  if (novoe === 0) delete dan[den][privychkaId]; else dan[den][privychkaId] = novoe;
+  otlozhitZapisKletok(mk);
+  if (delta > 0) tryaska();
+  return novoe;
+}
+
+async function summaZaDney(dney){
+  let itog = 0;
+  const seg = novayaData(0);
+  for (let i = 0; i < dney; i++){
+    const d = novayaData(-i);
+    const dan = await poluchitMesyacKletok(klMonthKey(d));
+    itog += summaDnya(dan, denNomer(d));
+  }
+  return itog;
+}
+
+async function vsegoZahodov(){
+  const vseKlyuchi = await poluchitVseKlyuchiP();
+  const mesKlyuchi = vseKlyuchi.filter(k => /^kl_\d{4}_\d{2}$/.test(k));
+  if (!mesKlyuchi.length) return 0;
+  const rez = await citatKlyuchiP(mesKlyuchi);
+  let itog = 0;
+  for (const k of mesKlyuchi){
+    if (!rez[k]) continue;
+    try {
+      const dan = JSON.parse(rez[k]);
+      klMesyacy[k] = klMesyacy[k] || dan;
+      Object.values(dan).forEach(den => { itog += Object.values(den).reduce((a,b) => a+b, 0); });
+    } catch(e){}
+  }
+  return itog;
+}
+
+async function serii(){
+  let s1 = 0, s5 = 0, s5slomana = false;
+  for (let i = 0; i < 3650; i++){
+    const d = novayaData(-i);
+    const dan = await poluchitMesyacKletok(klMonthKey(d));
+    const summa = summaDnya(dan, denNomer(d));
+    if (summa === 0) break;
+    s1++;
+    if (!s5slomana){ if (summa >= NORMA_KLETOK) s5++; else s5slomana = true; }
+  }
+  return {s1, s5};
+}
+
+/* ---------- план и итог дня ---------- */
+const dnMesyacy = {};
+async function poluchitMesyacDnya(mk){
+  if (dnMesyacy[mk]) return dnMesyacy[mk];
+  const rez = await citatKlyuchiP([mk]);
+  let dan = {};
+  if (rez[mk]) { try { dan = JSON.parse(rez[mk]); } catch(e){ dan = {}; } }
+  dnMesyacy[mk] = dan;
+  return dan;
+}
+let dnTaymer = null, dnTaymerMk = null;
+function otlozhitZapisDnya(mk){
+  dnTaymerMk = mk;
+  clearTimeout(dnTaymer);
+  dnTaymer = setTimeout(() => { pishuKlyuch(dnTaymerMk, JSON.stringify(dnMesyacy[dnTaymerMk])); }, 600);
+}
+async function poluchitZapisSegodnya(){
+  const seg = novayaData(0);
+  const mk = dnMonthKey(seg);
+  const dan = await poluchitMesyacDnya(mk);
+  const den = denNomer(seg);
+  if (!dan[den]) dan[den] = {plan:{}, itog:{}};
+  if (!dan[den].plan) dan[den].plan = {};
+  if (!dan[den].itog) dan[den].itog = {};
+  return {mk, den, zapis: dan[den]};
+}
+async function pravkaPlana(pole, znach){
+  const {mk, zapis} = await poluchitZapisSegodnya();
+  zapis.plan[pole] = znach;
+  otlozhitZapisDnya(mk);
+}
+async function pravkaItoga(pole, znach){
+  const {mk, zapis} = await poluchitZapisSegodnya();
+  zapis.itog[pole] = znach;
+  otlozhitZapisDnya(mk);
+}
+
+/* ---------- карточки английского (Лейтнер) ---------- */
+const LEITNER_DNI = [0,1,3,7,14];
+let fcKolodaCache = null;
+async function fcKoloda(){
+  if (fcKolodaCache) return fcKolodaCache;
+  const uroki = await gruzhu("kurs_english.json");
+  const karty = [];
+  uroki.forEach(u => (u.frazy || []).forEach(f => karty.push({en:f.en || "", ru:f.ru || ""})));
+  fcKolodaCache = karty;
+  return karty;
+}
+let fcSost = null;
+async function fcZagrusit(){
+  if (fcSost) return fcSost;
+  const rez = await citatKlyuchiP(["fc"]);
+  try { fcSost = rez.fc ? JSON.parse(rez.fc) : {}; } catch(e){ fcSost = {}; }
+  return fcSost;
+}
+let fcTaymer = null;
+function fcSohranitOtlozheno(){
+  clearTimeout(fcTaymer);
+  fcTaymer = setTimeout(() => { pishuKlyuch("fc", JSON.stringify(fcSost)); }, 600);
+}
+async function fcOcheredKart(limit){
+  const koloda = await fcKoloda();
+  await fcZagrusit();
+  const seg = denEpohiSeychas();
+  const spisok = koloda.map((k,i) => {
+    const zap = fcSost[i];
+    const box = zap != null ? Math.floor(zap / 100000) : 0;
+    const due = zap != null ? zap % 100000 : seg;
+    return {i, en:k.en, ru:k.ru, box, due};
+  });
+  const gotovyye = spisok.filter(k => k.due <= seg).sort((a,b) => a.box - b.box);
+  if (gotovyye.length >= limit) return gotovyye.slice(0, limit);
+  const ostalnye = spisok.filter(k => k.due > seg);
+  return gotovyye.concat(ostalnye.slice(0, limit - gotovyye.length));
+}
+function fcOtvetit(karta, znayu){
+  const seg = denEpohiSeychas();
+  const box = znayu ? Math.min(karta.box + 1, 4) : 0;
+  const due = seg + LEITNER_DNI[box];
+  fcSost[karta.i] = box * 100000 + due;
+  fcSohranitOtlozheno();
+}
+async function fcSkolkoKSegodnya(){
+  const koloda = await fcKoloda();
+  if (!koloda.length) return null;
+  await fcZagrusit();
+  const seg = denEpohiSeychas();
+  let n = 0;
+  koloda.forEach((k, i) => {
+    const due = fcSost[i] != null ? fcSost[i] % 100000 : seg;
+    if (due <= seg) n++;
+  });
+  return n;
+}
+
+/* ---------- маршрутизация экранов ---------- */
+let vkladkaTekushhaya = "menu";
+let stekEkranov = [];
+let aktivnyInterval = null;
+
 function ekran(){ return document.getElementById("ekran"); }
-function ochistit(){ ekran().innerHTML = ""; window.scrollTo(0,0); }
+function ochistit(){
+  if (aktivnyInterval) { clearInterval(aktivnyInterval); aktivnyInterval = null; }
+  ekran().innerHTML = "";
+  window.scrollTo(0,0);
+}
 function el(tag, klass, tekst){
   const u = document.createElement(tag);
   if (klass) u.className = klass;
   if (tekst !== undefined) u.textContent = tekst;
   return u;
 }
-function nazad(kuda){
-  const k = el("button","nazad","← Назад");
-  k.onclick = kuda;
-  return k;
+function pokazatBack(){ if (tg && tg.BackButton) { try { tg.BackButton.show(); } catch(e){} } }
+function skrytBack(){ if (tg && tg.BackButton) { try { tg.BackButton.hide(); } catch(e){} } }
+function otkrytEkran(renderFn){
+  stekEkranov.push(renderFn);
+  pokazatBack();
+  renderFn();
 }
-function tryaska(){
-  try { if (tg && tg.isVersionAtLeast && tg.isVersionAtLeast("6.1")) tg.HapticFeedback.impactOccurred("light"); } catch(e){}
+function nazadPoSteku(){
+  stekEkranov.pop();
+  if (stekEkranov.length) { stekEkranov[stekEkranov.length - 1](); pokazatBack(); }
+  else { skrytBack(); renderVkladku(); }
+}
+if (tg && tg.BackButton) { try { tg.BackButton.onClick(nazadPoSteku); } catch(e){} }
+
+const VKLADKI = [
+  {id:"menu", nazvanie:"Меню"},
+  {id:"segodnya", nazvanie:"Сегодня"},
+  {id:"kletki", nazvanie:"Клетки"},
+  {id:"ucheba", nazvanie:"Учеба"},
+  {id:"itogi", nazvanie:"Итоги"}
+];
+const VKLADKA_PUTI = {
+  menu: ["M5 7h14","M5 12h14","M5 17h9"],
+  segodnya: ["M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0","M12 3v3","M12 18v3","M3 12h3","M18 12h3"],
+  kletki: ["M4 4h16v16h-16z","M12 4v16","M4 12h16"],
+  ucheba: ["M4 6h7v13h-7z","M13 6h7v13h-7z","M6 9h3","M6 12h3"],
+  itogi: ["M7 19v-7","M12 19v-11","M17 19v-5"]
+};
+function svgIkonka(putey, razmer){
+  const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("viewBox","0 0 24 24");
+  svg.setAttribute("width", razmer); svg.setAttribute("height", razmer);
+  svg.setAttribute("fill","none"); svg.setAttribute("stroke","currentColor");
+  svg.setAttribute("stroke-width","1.6"); svg.setAttribute("stroke-linecap","round"); svg.setAttribute("stroke-linejoin","round");
+  putey.forEach(d => {
+    const p = document.createElementNS(svg.namespaceURI,"path");
+    p.setAttribute("d", d);
+    svg.append(p);
+  });
+  return svg;
+}
+function svgGalochka(razmer){
+  return svgIkonka(["M4 12.5l5.5 5.5L20 6.5"], razmer || 14);
+}
+function postavitGalochku(elem, vkl){
+  elem.className = elem.className.replace(/\s*\bon\b/,"") + (vkl ? " on" : "");
+  elem.innerHTML = "";
+  if (vkl) elem.append(svgGalochka(13));
+}
+function otrisovatVkladki(){
+  const nav = document.getElementById("vkladki");
+  nav.innerHTML = "";
+  VKLADKI.forEach(v => {
+    const b = el("button", "vk-btn" + (v.id === vkladkaTekushhaya ? " aktivna" : ""));
+    const znakObl = el("span","vk-znak");
+    znakObl.append(svgIkonka(VKLADKA_PUTI[v.id], 20));
+    b.append(znakObl);
+    b.append(el("span","", v.nazvanie));
+    b.onclick = () => { if (vkladkaTekushhaya !== v.id || stekEkranov.length) { vkladkaTekushhaya = v.id; renderVkladku(); } };
+    nav.append(b);
+  });
+}
+function renderVkladku(){
+  stekEkranov = [];
+  skrytBack();
+  otrisovatVkladki();
+  if (vkladkaTekushhaya === "menu") menuEkran();
+  else if (vkladkaTekushhaya === "segodnya") segodnyaEkran();
+  else if (vkladkaTekushhaya === "kletki") kletkiEkran();
+  else if (vkladkaTekushhaya === "ucheba") uchebaEkran();
+  else itogiEkran();
 }
 
-async function glavnaya(){
+/* ---------- вкладка Меню (оглавление) ---------- */
+function oglavStroka(imya, status, onClick){
+  const b = el("button","oglav-stroka");
+  b.append(el("span","oglav-imya", imya));
+  b.append(el("span","oglav-tochki"));
+  b.append(el("span","oglav-status", status));
+  b.onclick = onClick;
+  return b;
+}
+function oglavGruppa(zagolovok, stroki){
+  const blok = el("div","liniya-blok");
+  blok.append(el("div","metka", zagolovok));
+  stroki.forEach(s => blok.append(s));
+  return blok;
+}
+async function menuEkran(){
   ochistit();
   const e = ekran();
-  e.append(el("h1","","Армен учится"));
-  e.append(el("p","podpis","Четыре направления. Пятнадцать минут в день дают больше, чем час раз в неделю."));
-  const setka = el("div","setka");
+  e.append(el("div","zag-vk","Оглавление"));
+
+  const seg = novayaData(0);
+  const {zapis: planZapis} = await poluchitZapisSegodnya();
+  const dan = await poluchitMesyacKletok(klMonthKey(seg));
+  const zapisDnya = dan[denNomer(seg)] || {};
+  const summaSegodnya = Object.values(zapisDnya).reduce((a,b) => a+b, 0);
+  const itogEst = !!(planZapis.itog.sdelal || planZapis.itog.sdvinul || planZapis.itog.zavtra);
+
+  e.append(oglavGruppa("День", [
+    oglavStroka("План дня", summaSegodnya + " из " + NORMA_KLETOK, () => { vkladkaTekushhaya = "segodnya"; renderVkladku(); }),
+    oglavStroka("Клетки", String(summaSegodnya), () => { vkladkaTekushhaya = "kletki"; renderVkladku(); }),
+    oglavStroka("Итог дня", itogEst ? "записан" : "пусто", () => { vkladkaTekushhaya = "segodnya"; renderVkladku(); })
+  ]));
+
+  const uchStroki = [oglavStroka("Спарринг с заказчиком", "в чате", () => otkrytEkran(sparringEkran))];
+  for (const kurs of KURSY){
+    const spisok = kurs.id === "peregovory" ? await gruzhu("scenarii.json") : await gruzhu(kurs.fayl);
+    const sdelano = kurs.id === "peregovory" ? (progress.peregovory || []).length : (progress[kurs.id] || []).length;
+    uchStroki.push(oglavStroka(kurs.nazvanie, sdelano + " из " + spisok.length,
+      () => { tryaska(); otkrytEkran(kurs.id === "peregovory" ? spisokKejsov : () => spisokUrokov(kurs)); }));
+  }
+  const kSegodnya = await fcSkolkoKSegodnya();
+  uchStroki.push(oglavStroka("Карточки английского", kSegodnya != null ? String(kSegodnya) : "", () => otkrytEkran(fcSessiyaEkran)));
+  uchStroki.push(oglavStroka("Фокус 25 / 5", "", () => otkrytEkran(fokusEkran)));
+  e.append(oglavGruppa("Учеба", uchStroki));
+
+  const skoro = await napSkoroBudushhaya();
+  const {s1} = await serii();
+  e.append(oglavGruppa("Жизнь", [
+    oglavStroka("Напоминания", skoro ? napFormatVremya(skoro.k) : "нет", () => otkrytEkran(napominaniyaEkran)),
+    oglavStroka("Итоги", "серия " + s1 + " дн.", () => { vkladkaTekushhaya = "itogi"; renderVkladku(); })
+  ]));
+}
+
+/* ---------- спарринг с заказчиком ---------- */
+function sparringEkran(){
+  ochistit();
+  const e = ekran();
+  e.append(el("div","zag-vk","Спарринг с заказчиком"));
+  const blok = el("div","blok");
+  blok.append(el("div","teoriya","Заказчик пишет тебе в чат. Давит на цену, просит лишнее, грозит отзывом. Отвечаешь как в жизни.\n\nПосле шести реплик жми /razbor: оценка, что отдал, что удержал, эталонный ответ."));
+  e.append(blok);
+  const soobshenieBezTg = el("div","pochemu","Спарринг идет в телеграме, открой тетрадь кнопкой внизу чата.");
+  soobshenieBezTg.hidden = true;
+  const knopka = el("button","knopka","Начать в чате");
+  knopka.style.marginTop = "8px";
+  knopka.onclick = () => {
+    if (tg && tg.sendData) tg.sendData(JSON.stringify({tip:"trener"}));
+    else soobshenieBezTg.hidden = false;
+  };
+  e.append(knopka);
+  e.append(soobshenieBezTg);
+}
+
+/* ---------- напоминания ---------- */
+function baytyStroki(s){
+  try { return new TextEncoder().encode(s).length; } catch(e){ return s.length; }
+}
+async function napGruzim(){
+  const rez = await citatKlyuchiP(["nap"]);
+  let spisok = [];
+  if (rez.nap) { try { spisok = JSON.parse(rez.nap); } catch(e){ spisok = []; } }
+  return Array.isArray(spisok) ? spisok : [];
+}
+function napFormatVremya(kogdaSek){
+  const d = new Date(kogdaSek * 1000);
+  const seg = novayaData(0), zavtra = novayaData(1);
+  const chch = pad2(d.getHours()) + ":" + pad2(d.getMinutes());
+  const toZheDen = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
+  if (toZheDen(d, seg)) return "сегодня " + chch;
+  if (toZheDen(d, zavtra)) return "завтра " + chch;
+  return pad2(d.getDate()) + "." + pad2(d.getMonth()+1) + " " + chch;
+}
+async function napSkoroBudushhaya(){
+  const spisok = await napGruzim();
+  const seg = Math.floor(Date.now()/1000);
+  const budushhie = spisok.filter(z => z && z.k > seg).sort((a,b) => a.k - b.k);
+  return budushhie.length ? budushhie[0] : null;
+}
+async function napDobavit(tekst, kogda){
+  let spisok = await napGruzim();
+  const seg = Math.floor(Date.now()/1000);
+  spisok = spisok.filter(z => z && typeof z.k === "number" && z.k > seg - 86400);
+  spisok.push({t: tekst, k: kogda});
+  spisok.sort((a,b) => a.k - b.k);
+  if (spisok.length > 20) spisok = spisok.slice(spisok.length - 20);
+  let stroka = JSON.stringify(spisok);
+  while (baytyStroki(stroka) > 4000 && spisok.length > 1){
+    spisok.shift();
+    stroka = JSON.stringify(spisok);
+  }
+  pishuKlyuch("nap", stroka);
+  return spisok;
+}
+async function napominaniyaEkran(){
+  ochistit();
+  const e = ekran();
+  e.append(el("div","zag-vk","Напоминания"));
+
+  const pole = document.createElement("textarea");
+  pole.id = "nap-tekst"; pole.maxLength = 300; pole.placeholder = "Что напомнить";
+  pole.style.minHeight = "70px";
+  e.append(pole);
+
+  let kogdaSek = null;
+  const chipKnopki = [];
+  const chipy = el("div","nap-chipy");
+  const varianty = [
+    ["Через час", () => Math.floor(Date.now()/1000) + 3600],
+    ["Через 3 часа", () => Math.floor(Date.now()/1000) + 3*3600],
+    ["Сегодня в 21:00", () => { const d = novayaData(0); d.setHours(21,0,0,0); return Math.floor(d.getTime()/1000); }],
+    ["Завтра в 10:00", () => { const d = novayaData(1); d.setHours(10,0,0,0); return Math.floor(d.getTime()/1000); }]
+  ];
+  varianty.forEach(([podpis, poluchit]) => {
+    const chip = el("button","nap-chip", podpis);
+    chip.onclick = () => {
+      kogdaSek = poluchit();
+      chipKnopki.forEach(c => c.classList.remove("vybran"));
+      chip.classList.add("vybran");
+      vremyaPole.value = "";
+      obnovit();
+    };
+    chipKnopki.push(chip);
+    chipy.append(chip);
+  });
+  e.append(chipy);
+
+  const vremyaBlok = el("div","nap-vremya-blok");
+  vremyaBlok.append(el("span","nap-podpis-malaya","или ко времени"));
+  const vremyaPole = document.createElement("input");
+  vremyaPole.type = "time"; vremyaPole.id = "nap-vremya";
+  vremyaBlok.append(vremyaPole);
+  e.append(vremyaBlok);
+  vremyaPole.oninput = () => {
+    chipKnopki.forEach(c => c.classList.remove("vybran"));
+    if (!vremyaPole.value){ kogdaSek = null; obnovit(); return; }
+    const [chh, cmm] = vremyaPole.value.split(":").map(Number);
+    let d = novayaData(0);
+    d.setHours(chh, cmm, 0, 0);
+    if (d.getTime() <= Date.now()) { d = novayaData(1); d.setHours(chh, cmm, 0, 0); }
+    kogdaSek = Math.floor(d.getTime()/1000);
+    obnovit();
+  };
+
+  const knopka = el("button","knopka","Напомнить");
+  knopka.style.marginTop = "14px";
+  knopka.disabled = true;
+  const soobshenieBezTg = el("div","pochemu","Напоминания идут в телеграме, открой тетрадь кнопкой внизу чата.");
+  soobshenieBezTg.hidden = true;
+  function obnovit(){ knopka.disabled = !(pole.value.trim().length && kogdaSek != null); }
+  pole.oninput = obnovit;
+  knopka.onclick = async () => {
+    const tekst = pole.value.trim();
+    if (!tekst || kogdaSek == null) return;
+    await napDobavit(tekst, kogdaSek);
+    if (tg && tg.sendData) tg.sendData(JSON.stringify({tip:"napomni", tekst, kogda: kogdaSek}));
+    else { knopka.disabled = true; soobshenieBezTg.hidden = false; }
+  };
+  e.append(knopka);
+  e.append(soobshenieBezTg);
+  e.append(el("p","podpis","Напоминание придет сообщением от бота."));
+
+  const spisokBlok = el("div","liniya-blok");
+  spisokBlok.append(el("div","metka","Запланировано"));
+  const spisok = await napGruzim();
+  const seg2 = Math.floor(Date.now()/1000);
+  const budushhie = spisok.filter(z => z && z.k > seg2).sort((a,b) => a.k - b.k);
+  if (!budushhie.length) spisokBlok.append(el("p","pusto","Пока ничего не запланировано."));
+  budushhie.forEach(z => {
+    const stroka = el("div","nap-zapis");
+    stroka.append(el("span","", z.t));
+    stroka.append(el("span","nap-zapis-vremya", napFormatVremya(z.k)));
+    spisokBlok.append(stroka);
+  });
+  e.append(spisokBlok);
+}
+
+/* ---------- вкладка Сегодня ---------- */
+async function segodnyaEkran(){
+  ochistit();
+  const e = ekran();
+  const seg = novayaData(0);
+  e.append(el("div","zag-vk", slovamiData(seg)));
+
+  const [privychki, itogVchera, {zapis: planZapis}] = await Promise.all([
+    poluchitPrivychki(),
+    (async () => {
+      const v = novayaData(-1);
+      const dan = await poluchitMesyacKletok(klMonthKey(v));
+      const den = denNomer(v);
+      if (!Object.keys(dan).some(k => Number(k) < v.getDate() && summaDnya(dan, k) > 0)) return null;
+      return summaDnya(dan, den);
+    })(),
+    poluchitZapisSegodnya()
+  ]);
+  if (itogVchera === 0) {
+    e.append(el("div","plashka","Вчера было пусто. Сегодня минимум одна клетка."));
+  }
+
+  const dan = await poluchitMesyacKletok(klMonthKey(seg));
+  const zapisDnya = dan[denNomer(seg)] || {};
+  const summaSegodnya = Object.values(zapisDnya).reduce((a,b) => a+b, 0);
+
+  const koltsoObl = el("div","koltso-obl");
+  koltsoObl.append(svgKoltso(summaSegodnya, NORMA_KLETOK));
+  const podpisKoltsa = el("div");
+  podpisKoltsa.append(el("div","koltso-cifra", summaSegodnya + " из " + NORMA_KLETOK));
+  podpisKoltsa.append(el("div","koltso-podpis","клеток за сегодня"));
+  koltsoObl.append(podpisKoltsa);
+  e.append(koltsoObl);
+
+  const privBlok = el("div","liniya-blok");
+  privychki.forEach(p => {
+    const stroka = el("div","privychka-stroka");
+    const levo = el("div","privychka-imya");
+    const tochka = el("i","tochka-cveta");
+    tochka.style.background = cvetPrivychki(p);
+    levo.append(tochka);
+    levo.append(el("span","", p.name));
+    stroka.append(levo);
+    stroka.append(el("span","privychka-chislo", String(zapisDnya[p.id] || 0)));
+    privBlok.append(stroka);
+  });
+  e.append(privBlok);
+
+  const planBlok = el("div","liniya-blok");
+  planBlok.append(el("div","metka","План дня"));
+
+  const punktKejs = el("div","plan-punkt");
+  const galKejs = el("button","galochka" + (planZapis.plan.kejs ? " on" : ""));
+  if (planZapis.plan.kejs) galKejs.append(svgGalochka(13));
+  galKejs.onclick = async () => { const nov = !planZapis.plan.kejs; postavitGalochku(galKejs, nov); await pravkaPlana("kejs", nov); };
+  punktKejs.append(galKejs);
+  const tekstKejs = el("button","plan-tekst","Кейс на 15 минут");
+  tekstKejs.onclick = () => { tryaska(); otkrytEkran(spisokKejsov); };
+  punktKejs.append(tekstKejs);
+  planBlok.append(punktKejs);
+
+  const punktUrok = el("div","plan-punkt");
+  const galUrok = el("button","galochka" + (planZapis.plan.urok ? " on" : ""));
+  if (planZapis.plan.urok) galUrok.append(svgGalochka(13));
+  galUrok.onclick = async () => { const nov = !planZapis.plan.urok; postavitGalochku(galUrok, nov); await pravkaPlana("urok", nov); };
+  punktUrok.append(galUrok);
+  const tekstUrok = el("button","plan-tekst","Урок на 20 минут");
+  tekstUrok.onclick = async () => { tryaska(); await otkrytPervyyNeproydennyy(); };
+  punktUrok.append(tekstUrok);
+  planBlok.append(punktUrok);
+
+  const punktKart = el("div","plan-punkt");
+  const galKart = el("button","galochka" + (planZapis.plan.kartochki ? " on" : ""));
+  if (planZapis.plan.kartochki) galKart.append(svgGalochka(13));
+  galKart.onclick = async () => { const nov = !planZapis.plan.kartochki; postavitGalochku(galKart, nov); await pravkaPlana("kartochki", nov); };
+  punktKart.append(galKart);
+  const tekstKart = el("button","plan-tekst","10 карточек английского");
+  tekstKart.onclick = () => { tryaska(); otkrytEkran(fcSessiyaEkran); };
+  punktKart.append(tekstKart);
+  planBlok.append(punktKart);
+
+  const kasaniya = planZapis.plan.kasaniya || 0;
+  const punktKasaniya = el("div","plan-punkt");
+  const galKasaniya = el("span","galochka" + (kasaniya >= 3 ? " on" : ""));
+  if (kasaniya >= 3) galKasaniya.append(svgGalochka(13));
+  punktKasaniya.append(galKasaniya);
+  const tekstKasaniya = el("button","plan-tekst","3 касания клиентам");
+  const hvostKasaniya = el("span","plan-hvost", kasaniya + "/3");
+  tekstKasaniya.onclick = async () => {
+    tryaska();
+    const nov = Math.min(3, kasaniya + 1);
+    hvostKasaniya.textContent = nov + "/3";
+    postavitGalochku(punktKasaniya.firstChild, nov >= 3);
+    await pravkaPlana("kasaniya", nov);
+  };
+  punktKasaniya.append(tekstKasaniya);
+  punktKasaniya.append(hvostKasaniya);
+  planBlok.append(punktKasaniya);
+
+  const sportSdelan = (zapisDnya.pull || 0) > 0 || (zapisDnya.push || 0) > 0;
+  const punktSport = el("div","plan-punkt");
+  const galSport = el("span","galochka" + (sportSdelan ? " on" : ""));
+  if (sportSdelan) galSport.append(svgGalochka(13));
+  punktSport.append(galSport);
+  const tekstSport = el("button","plan-tekst","Спорт");
+  tekstSport.onclick = () => { if (!sportSdelan) { vkladkaTekushhaya = "kletki"; renderVkladku(); } };
+  punktSport.append(tekstSport);
+  planBlok.append(punktSport);
+
+  e.append(planBlok);
+
+  const itogBlok = el("div","liniya-blok");
+  itogBlok.append(el("div","metka","Итог дня"));
+  const polya3 = [["sdelal","Что сделал"],["sdvinul","Что сдвинул в продажах"],["zavtra","Что завтра первым делом"]];
+  polya3.forEach(([kod, podpis]) => {
+    itogBlok.append(el("div","podpis", podpis));
+    const pole = document.createElement("textarea");
+    pole.style.minHeight = "50px";
+    pole.style.marginBottom = "10px";
+    pole.value = planZapis.itog[kod] || "";
+    pole.oninput = () => pravkaItoga(kod, pole.value);
+    itogBlok.append(pole);
+  });
+  e.append(itogBlok);
+}
+
+async function otkrytPervyyNeproydennyy(){
+  for (const kurs of KURSY){
+    if (!kurs.fayl) continue;
+    const uroki = await gruzhu(kurs.fayl);
+    const proydennye = progress[kurs.id] || [];
+    const urok = uroki.find(u => !proydennye.includes(u.id));
+    if (urok){ otkrytEkran(() => urokEkran(kurs, urok)); return; }
+  }
+  vkladkaTekushhaya = "ucheba";
+  renderVkladku();
+}
+
+function svgKoltso(znachenie, norma){
+  const r = 34, l = 2 * Math.PI * r, dolya = Math.min(1, znachenie / norma);
+  const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("width","84"); svg.setAttribute("height","84"); svg.setAttribute("viewBox","0 0 84 84");
+  const fon = document.createElementNS(svg.namespaceURI,"circle");
+  fon.setAttribute("cx","42"); fon.setAttribute("cy","42"); fon.setAttribute("r",r);
+  fon.setAttribute("fill","none"); fon.setAttribute("stroke","var(--setka)"); fon.setAttribute("stroke-width","8");
+  const perednyy = document.createElementNS(svg.namespaceURI,"circle");
+  perednyy.setAttribute("cx","42"); perednyy.setAttribute("cy","42"); perednyy.setAttribute("r",r);
+  perednyy.setAttribute("fill","none"); perednyy.setAttribute("stroke","var(--chernila)"); perednyy.setAttribute("stroke-width","8");
+  perednyy.setAttribute("stroke-linecap","round");
+  perednyy.setAttribute("stroke-dasharray", (l*dolya) + " " + l);
+  perednyy.setAttribute("transform","rotate(-90 42 42)");
+  svg.append(fon, perednyy);
+  return svg;
+}
+
+/* ---------- вкладка Клетки ---------- */
+let dnevnikMesyats = novayaData(0);
+async function kletkiEkran(){
+  ochistit();
+  const e = ekran();
+  e.append(el("div","zag-vk","Клетки"));
+  e.append(el("p","podpis","Клетка это один заход: подход, ритуал, двадцать минут. Норма " + NORMA_KLETOK + " клеток в день на все привычки вместе."));
+
+  const privychki = await poluchitPrivychki();
+  const seg = novayaData(0);
+  const dan = await poluchitMesyacKletok(klMonthKey(seg));
+  const zapisDnya = dan[denNomer(seg)] || {};
+
+  const spisokBlok = el("div","liniya-blok");
+  privychki.forEach(p => {
+    const stroka = el("div","privychka-stroka");
+    const levo = el("div","privychka-imya");
+    const tochka = el("i","tochka-cveta"); tochka.style.background = cvetPrivychki(p);
+    levo.append(tochka);
+    const imyaObl = el("div");
+    imyaObl.append(el("div","",p.name));
+    imyaObl.append(el("div","opis",p.unit));
+    levo.append(imyaObl);
+    stroka.append(levo);
+
+    const pravo = el("div","stroka"); pravo.style.marginTop = "0";
+    const minus = el("button","krug-knopka","−");
+    const chislo = el("span","privychka-chislo", String(zapisDnya[p.id] || 0));
+    const plyus = el("button","krug-knopka","+");
+    minus.onclick = async () => { const nov = await izmenitKletku(p.id,-1); chislo.textContent = nov; };
+    plyus.onclick = async () => { const nov = await izmenitKletku(p.id,1); chislo.textContent = nov; };
+    pravo.append(minus, chislo, plyus);
+    stroka.append(pravo);
+    spisokBlok.append(stroka);
+  });
+  e.append(spisokBlok);
+
+  const upravlenie = el("div","liniya-blok");
+  const knopkaDobavit = el("button","knopka tihaya malaya","Добавить привычку");
+  knopkaDobavit.onclick = () => otkrytEkran(() => dobavitPrivychkuEkran());
+  upravlenie.append(knopkaDobavit);
+  if (privychki.length > 1) {
+    const knopkaUbrat = el("button","knopka tihaya malaya","Убрать привычку");
+    knopkaUbrat.style.marginLeft = "8px";
+    knopkaUbrat.onclick = () => otkrytEkran(() => ubratPrivychkuEkran());
+    upravlenie.append(knopkaUbrat);
+  }
+  e.append(upravlenie);
+
+  const dnevBlok = el("div","liniya-blok");
+  dnevBlok.append(el("div","metka","Дневник месяца"));
+  const dniVMesyace = new Date(dnevnikMesyats.getFullYear(), dnevnikMesyats.getMonth()+1, 0).getDate();
+  const danMes = await poluchitMesyacKletok(klMonthKey(dnevnikMesyats));
+  for (let d = 1; d <= dniVMesyace; d++){
+    const dataDnya = new Date(dnevnikMesyats.getFullYear(), dnevnikMesyats.getMonth(), d);
+    if (dataDnya > seg) break;
+    const zap = danMes[String(d)] || {};
+    const summa = Object.values(zap).reduce((a,b)=>a+b,0);
+    const stroka = el("div","dnevnik-stroka" + (summa === 0 ? " pustoy" : ""));
+    stroka.append(el("span","dnevnik-den", String(d)));
+    const kletkiObl = el("div","dnevnik-kletki");
+    privychki.forEach(p => {
+      const n = zap[p.id] || 0;
+      for (let i = 0; i < n; i++){
+        const kv = el("i","");
+        kv.style.background = cvetPrivychki(p);
+        kletkiObl.append(kv);
+      }
+    });
+    stroka.append(kletkiObl);
+    stroka.append(el("span","dnevnik-summa", String(summa)));
+    dnevBlok.append(stroka);
+  }
+  e.append(dnevBlok);
+
+  const serieObl = el("div","liniya-blok");
+  serieObl.append(el("div","metka","Серия"));
+  const {s1, s5} = await serii();
+  serieObl.append(el("div","", "Дней подряд хотя бы с одной клеткой: " + s1));
+  serieObl.append(el("div","", "Дней подряд с нормой: " + s5));
+  e.append(serieObl);
+
+  const listObl = el("div","liniya-blok");
+  listObl.append(el("div","metka","Лист на стену"));
+  const canvas = document.createElement("canvas");
+  canvas.id = "list-canvas";
+  canvas.width = LIST_STOLBCOV * 8; canvas.height = LIST_RYADOV * 8;
+  const podpisList = el("div","list-podpis","Считаю...");
+  listObl.append(canvas); listObl.append(podpisList);
+  e.append(listObl);
+
+  const [vsego, zaDveNedeli] = await Promise.all([vsegoZahodov(), summaZaDney(14)]);
+  narisovatList(canvas, vsego);
+  const zakrasheno = Math.floor(vsego / CENA_LISTA);
+  const vsegoKletokLista = LIST_RYADOV * LIST_STOLBCOV;
+  const tempVDen = zaDveNedeli / 14 / CENA_LISTA;
+  let podpisTekst = "Закрашено " + zakrasheno + " из " + vsegoKletokLista + ".";
+  if (tempVDen > 0 && zakrasheno < vsegoKletokLista){
+    const dneyOstalos = Math.ceil((vsegoKletokLista - zakrasheno) / tempVDen);
+    const dataZakrytiya = novayaData(dneyOstalos);
+    podpisTekst += " По темпу последних 14 дней лист закроется примерно " + dataZakrytiya.getDate() + " " + MESYACY[dataZakrytiya.getMonth()] + " " + dataZakrytiya.getFullYear() + ".";
+  }
+  podpisList.textContent = podpisTekst;
+}
+
+function narisovatList(canvas, vsegoZahodovChislo){
+  const ctx = canvas.getContext("2d");
+  const w = canvas.width / LIST_STOLBCOV, h = canvas.height / LIST_RYADOV;
+  const zakrasheno = Math.floor(vsegoZahodovChislo / CENA_LISTA);
+  const chernila = getComputedStyle(document.documentElement).getPropertyValue("--chernila").trim() || "#213A5C";
+  const setka = getComputedStyle(document.documentElement).getPropertyValue("--setka").trim() || "#DCE3E8";
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  let n = 0;
+  for (let r = 0; r < LIST_RYADOV; r++){
+    for (let c = 0; c < LIST_STOLBCOV; c++){
+      ctx.fillStyle = n < zakrasheno ? chernila : "transparent";
+      ctx.strokeStyle = setka;
+      ctx.lineWidth = 1;
+      ctx.fillRect(c*w, r*h, w, h);
+      ctx.strokeRect(c*w, r*h, w, h);
+      n++;
+    }
+  }
+}
+
+function slugId(){ return "h_" + Date.now().toString(36) + Math.floor(Math.random()*999); }
+
+function dobavitPrivychkuEkran(){
+  ochistit();
+  const e = ekran();
+  e.append(el("div","zag-vk","Новая привычка"));
+  e.append(el("p","podpis","Имя, единица захода, цвет из палитры."));
+  const imyaPole = document.createElement("input"); imyaPole.type = "text"; imyaPole.placeholder = "Например, чтение";
+  const edPole = document.createElement("input"); edPole.type = "text"; edPole.placeholder = "Например, страница";
+  e.append(el("div","podpis","Имя")); e.append(imyaPole);
+  const blokEd = el("div"); blokEd.style.marginTop = "12px";
+  blokEd.append(el("div","podpis","Единица захода")); blokEd.append(edPole);
+  e.append(blokEd);
+  const palBlok = el("div"); palBlok.style.marginTop = "12px";
+  palBlok.append(el("div","podpis","Цвет"));
+  const palitraObl = el("div","palitra");
+  let vybranIndex = 0;
+  PALITRA.forEach((cv, i) => {
+    const kruzhok = el("button","cvet-obraz" + (i===0 ? " vybran" : ""));
+    kruzhok.style.background = temnayaTema() ? cv.colorD : cv.colorL;
+    kruzhok.onclick = () => {
+      vybranIndex = i;
+      palitraObl.querySelectorAll(".cvet-obraz").forEach(x => x.classList.remove("vybran"));
+      kruzhok.classList.add("vybran");
+    };
+    palitraObl.append(kruzhok);
+  });
+  palBlok.append(palitraObl);
+  e.append(palBlok);
+  const knopka = el("button","knopka","Добавить");
+  knopka.style.marginTop = "16px";
+  knopka.onclick = async () => {
+    const imya = imyaPole.value.trim();
+    if (!imya) return;
+    const privychki = await poluchitPrivychki();
+    const cv = PALITRA[vybranIndex];
+    privychki.push({id: slugId(), name: imya, unit: edPole.value.trim() || "заход", colorL: cv.colorL, colorD: cv.colorD});
+    sohranitPrivychki(privychki);
+    nazadPoSteku();
+  };
+  e.append(knopka);
+}
+
+async function ubratPrivychkuEkran(){
+  ochistit();
+  const e = ekran();
+  e.append(el("div","zag-vk","Убрать привычку"));
+  const privychki = await poluchitPrivychki();
+  const spisok = el("div","liniya-blok");
+  privychki.forEach(p => {
+    const stroka = el("div","privychka-stroka");
+    const levo = el("div","privychka-imya");
+    const tochka = el("i","tochka-cveta"); tochka.style.background = cvetPrivychki(p);
+    levo.append(tochka); levo.append(el("span","",p.name));
+    stroka.append(levo);
+    const knopka = el("button","knopka tihaya malaya","Убрать");
+    knopka.onclick = () => {
+      const ostalos = privychki.filter(x => x.id !== p.id);
+      sohranitPrivychki(ostalos);
+      nazadPoSteku();
+    };
+    stroka.append(knopka);
+    spisok.append(stroka);
+  });
+  e.append(spisok);
+}
+
+/* ---------- вкладка Учеба ---------- */
+async function uchebaEkran(){
+  ochistit();
+  const e = ekran();
+  e.append(el("div","zag-vk","Учеба"));
+  e.append(el("p","podpis","Спарринг с заказчиком, четыре направления, карточки английского и фокус-таймер."));
+  const setka = el("div","");
+
+  const kartaSparring = el("button","karta-kurs");
+  const ryadSparring = el("div","ryad");
+  const levoSparring = el("div");
+  levoSparring.append(el("h2","","Спарринг с заказчиком"));
+  levoSparring.append(el("div","opis","Живой чат с заказчиком, разбор после шести реплик."));
+  ryadSparring.append(levoSparring);
+  kartaSparring.append(ryadSparring);
+  kartaSparring.onclick = () => { tryaska(); otkrytEkran(sparringEkran); };
+  setka.append(kartaSparring);
+
   for (const kurs of KURSY){
     const spisok = await gruzhu(kurs.fayl);
     const vsego = kurs.id === "peregovory" ? (await gruzhu("scenarii.json")).length : spisok.length;
     const sdelano = (progress[kurs.id] || []).length;
-    const karta = el("button","karta");
+    const karta = el("button","karta-kurs");
     const ryad = el("div","ryad");
     const levo = el("div");
     levo.append(el("h2","",kurs.nazvanie));
     levo.append(el("div","opis",kurs.opis));
     ryad.append(levo);
-    ryad.append(el("div","znak",kurs.znak));
     karta.append(ryad);
     const polosa = el("div","polosa");
     const zapolnenie = el("i");
@@ -173,32 +1192,55 @@ async function glavnaya(){
     polosa.append(zapolnenie);
     karta.append(polosa);
     karta.append(el("div","schet", vsego ? sdelano + " из " + vsego : "готовится"));
-    karta.onclick = () => { tryaska(); kurs.id === "peregovory" ? spisokKejsov() : spisokUrokov(kurs); };
+    karta.onclick = () => { tryaska(); otkrytEkran(kurs.id === "peregovory" ? spisokKejsov : () => spisokUrokov(kurs)); };
     setka.append(karta);
   }
   e.append(setka);
+
+  const dopBlok = el("div","liniya-blok");
+  const kartaFc = el("button","karta-kurs");
+  const ryadFc = el("div","ryad");
+  const levoFc = el("div");
+  levoFc.append(el("h2","","Карточки английского"));
+  levoFc.append(el("div","opis","Слова и фразы из курса, система с пятью коробками."));
+  ryadFc.append(levoFc);
+  kartaFc.append(ryadFc);
+  kartaFc.onclick = () => { tryaska(); otkrytEkran(fcSessiyaEkran); };
+  dopBlok.append(kartaFc);
+
+  const kartaFokus = el("button","karta-kurs");
+  const ryadFokus = el("div","ryad");
+  const levoFokus = el("div");
+  levoFokus.append(el("h2","","Фокус 25 / 5"));
+  levoFokus.append(el("div","opis","Таймер помидора: 25 минут работы, 5 минут отдыха."));
+  ryadFokus.append(levoFokus);
+  kartaFokus.append(ryadFokus);
+  kartaFokus.onclick = () => { tryaska(); otkrytEkran(fokusEkran); };
+  dopBlok.append(kartaFokus);
+  e.append(dopBlok);
 }
 
 async function spisokUrokov(kurs){
   const uroki = await gruzhu(kurs.fayl);
   ochistit();
   const e = ekran();
-  e.append(nazad(glavnaya));
-  e.append(el("h1","",kurs.nazvanie));
+  e.append(el("div","zag-vk",kurs.nazvanie));
   if (!uroki.length){ e.append(el("p","pusto","Уроки еще готовятся.")); return; }
   e.append(el("p","podpis", uroki.length + " уроков, в каждом теория и три вопроса."));
-  const setka = el("div","setka");
+  const setka = el("div","");
   uroki.forEach((urok, nomer) => {
     const proydeno = (progress[kurs.id] || []).includes(urok.id);
-    const karta = el("button","karta");
+    const karta = el("button","karta-kurs");
     const ryad = el("div","ryad");
     const levo = el("div");
     levo.append(el("h2","", (nomer+1) + ". " + urok.nazvanie));
     levo.append(el("div","opis", urok.zachem || ""));
     ryad.append(levo);
-    ryad.append(el("div","znak", proydeno ? "✅" : ""));
+    const znakUrok = el("div","znak");
+    if (proydeno) znakUrok.append(svgGalochka(18));
+    ryad.append(znakUrok);
     karta.append(ryad);
-    karta.onclick = () => { tryaska(); urokEkran(kurs, urok); };
+    karta.onclick = () => { tryaska(); otkrytEkran(() => urokEkran(kurs, urok)); };
     setka.append(karta);
   });
   e.append(setka);
@@ -207,8 +1249,7 @@ async function spisokUrokov(kurs){
 function urokEkran(kurs, urok){
   ochistit();
   const e = ekran();
-  e.append(nazad(() => spisokUrokov(kurs)));
-  e.append(el("h1","",urok.nazvanie));
+  e.append(el("div","zag-vk",urok.nazvanie));
   if (urok.zachem) e.append(el("p","podpis",urok.zachem));
 
   const teor = el("div","blok");
@@ -277,7 +1318,7 @@ function zakrytUrok(kurs, urok, verno, vsego){
   itog.append(el("div","", vsego ? ("Верных " + verno + " из " + vsego) : "Отмечен как пройденный"));
   const k = el("button","knopka","К списку уроков");
   k.style.marginTop = "12px";
-  k.onclick = () => spisokUrokov(kurs);
+  k.onclick = () => { stekEkranov.pop(); otkrytEkran(() => spisokUrokov(kurs)); };
   itog.append(k);
   e.append(itog);
   itog.scrollIntoView({behavior:"smooth", block:"end"});
@@ -287,23 +1328,24 @@ async function spisokKejsov(){
   const kejsy = await gruzhu("scenarii.json");
   ochistit();
   const e = ekran();
-  e.append(nazad(glavnaya));
-  e.append(el("h1","","Переговоры с заказчиком"));
+  e.append(el("div","zag-vk","Переговоры с заказчиком"));
   if (!kejsy.length){ e.append(el("p","pusto","Кейсы не загрузились.")); return; }
   e.append(el("p","podpis","Реальные сообщения заказчиков. Пишешь ответ, разбор приходит в чат."));
-  const setka = el("div","setka");
+  const setka = el("div","");
   kejsy.forEach((kejs, nomer) => {
     const proydeno = (progress.peregovory || []).includes(String(nomer));
-    const karta = el("button","karta");
+    const karta = el("button","karta-kurs");
     const ryad = el("div","ryad");
     const levo = el("div");
     levo.append(el("h2","", (nomer+1) + ". " + (kejs.kto || "Заказчик")));
     const kusok = (kejs.soobshenie || "").slice(0,90);
     levo.append(el("div","opis", kusok + ((kejs.soobshenie||"").length > 90 ? "..." : "")));
     ryad.append(levo);
-    ryad.append(el("div","znak", proydeno ? "✅" : ""));
+    const znakKejs = el("div","znak");
+    if (proydeno) znakKejs.append(svgGalochka(18));
+    ryad.append(znakKejs);
     karta.append(ryad);
-    karta.onclick = () => { tryaska(); kejsEkran(kejs, nomer); };
+    karta.onclick = () => { tryaska(); otkrytEkran(() => kejsEkran(kejs, nomer)); };
     setka.append(karta);
   });
   e.append(setka);
@@ -312,8 +1354,7 @@ async function spisokKejsov(){
 function kejsEkran(kejs, nomer){
   ochistit();
   const e = ekran();
-  e.append(nazad(spisokKejsov));
-  e.append(el("h1","", kejs.kto || "Заказчик"));
+  e.append(el("div","zag-vk", kejs.kto || "Заказчик"));
   if (kejs.chego_hotel) e.append(el("p","podpis", "Чего он добивается: " + kejs.chego_hotel));
 
   const blok = el("div","blok");
@@ -355,7 +1396,234 @@ function kejsEkran(kejs, nomer){
   e.append(otvetBlok);
 }
 
-chitayuProgress(glavnaya);
+/* ---------- сессия карточек английского ---------- */
+async function fcSessiyaEkran(){
+  ochistit();
+  const e = ekran();
+  e.append(el("div","zag-vk","Карточки английского"));
+  const ochered = await fcOcheredKart(10);
+  if (!ochered.length){ e.append(el("p","pusto","На сегодня карточек нет.")); return; }
+  let index = 0, otkryta = false, znayuSchet = 0;
+  const oblast = el("div","");
+  e.append(oblast);
+  function narisovat(){
+    oblast.innerHTML = "";
+    oblast.append(el("div","fc-schet", (index+1) + " из " + ochered.length));
+    const karta = ochered[index];
+    const kartaObl = el("div","fc-karta");
+    kartaObl.append(el("div","",karta.en));
+    if (otkryta) kartaObl.append(el("div","fc-perevod",karta.ru));
+    kartaObl.onclick = () => { otkryta = !otkryta; narisovat(); };
+    oblast.append(kartaObl);
+    const knopki = el("div","stroka");
+    const znayu = el("button","knopka","Знаю");
+    const neZnayu = el("button","knopka tihaya","Не знаю");
+    znayu.onclick = () => { fcOtvetit(karta, true); znayuSchet++; dalshe(); };
+    neZnayu.onclick = () => { fcOtvetit(karta, false); dalshe(); };
+    knopki.append(neZnayu, znayu);
+    oblast.append(knopki);
+  }
+  function dalshe(){
+    index++;
+    otkryta = false;
+    if (index >= ochered.length){
+      oblast.innerHTML = "";
+      oblast.append(el("div","blok").append(el("div","metka","Готово")) || el("div"));
+      const itog = el("div","blok");
+      itog.append(el("div","metka","Повторено"));
+      itog.append(el("div","", "Карточек: " + ochered.length + ", отмечено знаю: " + znayuSchet));
+      oblast.append(itog);
+      return;
+    }
+    narisovat();
+  }
+  narisovat();
+}
+
+/* ---------- фокус-таймер 25 / 5 ---------- */
+let fokusOstalos = 25*60*1000;
+let fokusKonec = null;
+let fokusRezhim = "rabota";
+function fokusEkran(){
+  ochistit();
+  const e = ekran();
+  e.append(el("div","zag-vk","Фокус 25 / 5"));
+  e.append(el("p","podpis", fokusRezhim === "rabota" ? "Двадцать пять минут работы." : "Пять минут отдыха."));
+
+  const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("class","fokus-svg"); svg.setAttribute("width","220"); svg.setAttribute("height","220");
+  svg.setAttribute("viewBox","0 0 220 220");
+  const fon = document.createElementNS(svg.namespaceURI,"circle");
+  fon.setAttribute("cx","110"); fon.setAttribute("cy","110"); fon.setAttribute("r","96");
+  fon.setAttribute("fill","none"); fon.setAttribute("stroke","var(--setka)"); fon.setAttribute("stroke-width","10");
+  const stlb = document.createElementNS(svg.namespaceURI,"circle");
+  stlb.setAttribute("cx","110"); stlb.setAttribute("cy","110"); stlb.setAttribute("r","96");
+  stlb.setAttribute("fill","none"); stlb.setAttribute("stroke","var(--chernila)"); stlb.setAttribute("stroke-width","10");
+  stlb.setAttribute("stroke-linecap","round"); stlb.setAttribute("transform","rotate(-90 110 110)");
+  svg.append(fon, stlb);
+  const tekstVremya = document.createElementNS(svg.namespaceURI,"text");
+  tekstVremya.setAttribute("x","110"); tekstVremya.setAttribute("y","118"); tekstVremya.setAttribute("text-anchor","middle");
+  tekstVremya.setAttribute("class","fokus-vremya"); tekstVremya.setAttribute("fill","var(--chernila)");
+  tekstVremya.setAttribute("font-size","30");
+  svg.append(tekstVremya);
+  e.append(svg);
+
+  const polnayaDlina = 2 * Math.PI * 96;
+  const dlinaRezhima = fokusRezhim === "rabota" ? 25*60*1000 : 5*60*1000;
+  function otrisovat(){
+    const ostalos = fokusKonec ? Math.max(0, fokusKonec - Date.now()) : fokusOstalos;
+    const min = Math.floor(ostalos/60000), sek = Math.floor((ostalos%60000)/1000);
+    tekstVremya.textContent = min + ":" + pad2(sek);
+    const dolya = ostalos / dlinaRezhima;
+    stlb.setAttribute("stroke-dasharray", (polnayaDlina*dolya) + " " + polnayaDlina);
+    if (fokusKonec && ostalos <= 0){
+      clearInterval(aktivnyInterval); aktivnyInterval = null;
+      fokusKonec = null; fokusOstalos = 0;
+      tryaska();
+      narisovatKnopkiPosleFinisha();
+    }
+  }
+  const knopki = el("div","stroka");
+  const staryKnopka = el("button","knopka", fokusKonec ? "Пауза" : "Старт");
+  const sbrosKnopka = el("button","knopka tihaya","Сброс");
+  staryKnopka.onclick = () => {
+    if (fokusKonec){
+      fokusOstalos = fokusKonec - Date.now();
+      fokusKonec = null;
+      if (aktivnyInterval) { clearInterval(aktivnyInterval); aktivnyInterval = null; }
+      staryKnopka.textContent = "Старт";
+    } else {
+      fokusKonec = Date.now() + fokusOstalos;
+      staryKnopka.textContent = "Пауза";
+      aktivnyInterval = setInterval(otrisovat, 500);
+    }
+  };
+  sbrosKnopka.onclick = () => {
+    if (aktivnyInterval) { clearInterval(aktivnyInterval); aktivnyInterval = null; }
+    fokusRezhim = "rabota"; fokusKonec = null; fokusOstalos = 25*60*1000;
+    otkrytEkranBezDobavleniya();
+  };
+  knopki.append(sbrosKnopka, staryKnopka);
+  e.append(knopki);
+
+  const posleFinisha = el("div","");
+  e.append(posleFinisha);
+  function narisovatKnopkiPosleFinisha(){
+    posleFinisha.innerHTML = "";
+    if (fokusRezhim === "rabota"){
+      const kZakrasit = el("button","knopka");
+      kZakrasit.style.marginTop = "12px";
+      kZakrasit.textContent = "Закрасить клетку Учеба";
+      kZakrasit.onclick = async () => { await izmenitKletku("learn", 1); kZakrasit.textContent = "Клетка закрашена"; kZakrasit.disabled = true; };
+      posleFinisha.append(kZakrasit);
+      const kPereryv = el("button","knopka tihaya");
+      kPereryv.style.marginTop = "10px";
+      kPereryv.textContent = "Начать перерыв 5 минут";
+      kPereryv.onclick = () => { fokusRezhim = "pereryv"; fokusOstalos = 5*60*1000; fokusKonec = null; otkrytEkranBezDobavleniya(); };
+      posleFinisha.append(kPereryv);
+    } else {
+      const kSnova = el("button","knopka");
+      kSnova.style.marginTop = "12px";
+      kSnova.textContent = "Новый круг 25 минут";
+      kSnova.onclick = () => { fokusRezhim = "rabota"; fokusOstalos = 25*60*1000; fokusKonec = null; otkrytEkranBezDobavleniya(); };
+      posleFinisha.append(kSnova);
+    }
+  }
+  function otkrytEkranBezDobavleniya(){ stekEkranov[stekEkranov.length-1] = fokusEkran; fokusEkran(); }
+
+  otrisovat();
+  if (fokusKonec) aktivnyInterval = setInterval(otrisovat, 500);
+}
+
+/* ---------- вкладка Итоги ---------- */
+async function itogiEkran(){
+  ochistit();
+  const e = ekran();
+  e.append(el("div","zag-vk","Итоги"));
+
+  const semDney = [];
+  for (let i = 6; i >= 0; i--){
+    const d = novayaData(-i);
+    const dan = await poluchitMesyacKletok(klMonthKey(d));
+    semDney.push({d, summa: summaDnya(dan, denNomer(d))});
+  }
+  const maxShkala = Math.max(NORMA_KLETOK, ...semDney.map(x => x.summa));
+  const barBlok = el("div","liniya-blok");
+  barBlok.append(el("div","metka","Клетки за 7 дней"));
+  const bary = el("div","bary7");
+  const normaLiniya = el("div","norma-liniya");
+  normaLiniya.style.bottom = (NORMA_KLETOK/maxShkala*100) + "%";
+  bary.append(normaLiniya);
+  semDney.forEach(x => {
+    const stolb = el("div","bar7-stolb");
+    const zalivka = el("div","bar7-zalivka");
+    zalivka.style.height = Math.max(2, x.summa/maxShkala*100) + "%";
+    stolb.append(zalivka);
+    stolb.append(el("div","bar7-podpis", NEDELYA_KOR[x.d.getDay()]));
+    bary.append(stolb);
+  });
+  barBlok.append(bary);
+  e.append(barBlok);
+
+  const teploBlok = el("div","liniya-blok");
+  teploBlok.append(el("div","metka","30 дней"));
+  const teplokartaObl = el("div","teplokarta");
+  for (let i = 29; i >= 0; i--){
+    const d = novayaData(-i);
+    const dan = await poluchitMesyacKletok(klMonthKey(d));
+    const summa = summaDnya(dan, denNomer(d));
+    const kv = el("i","");
+    const pct = Math.min(100, summa * 20);
+    kv.style.background = summa === 0 ? "var(--setka)" : "color-mix(in srgb, var(--chernila) " + pct + "%, var(--bumaga))";
+    teplokartaObl.append(kv);
+  }
+  teploBlok.append(teplokartaObl);
+  e.append(teploBlok);
+
+  const kursyBlok = el("div","liniya-blok");
+  kursyBlok.append(el("div","metka","Пройдено"));
+  for (const kurs of KURSY){
+    const spisok = kurs.id === "peregovory" ? await gruzhu("scenarii.json") : await gruzhu(kurs.fayl);
+    const sdelano = kurs.id === "peregovory" ? (progress.peregovory || []).length : (progress[kurs.id] || []).length;
+    kursyBlok.append(el("div","", kurs.nazvanie + ": " + sdelano + " из " + spisok.length));
+  }
+  e.append(kursyBlok);
+
+  const serieBlok = el("div","liniya-blok");
+  serieBlok.append(el("div","metka","Серии"));
+  const {s1, s5} = await serii();
+  serieBlok.append(el("div","", "Хотя бы одна клетка подряд: " + s1 + " дней"));
+  serieBlok.append(el("div","", "Норма подряд: " + s5 + " дней"));
+  e.append(serieBlok);
+
+  const itogiBlok = el("div","liniya-blok");
+  itogiBlok.append(el("div","metka","Последние итоги дня"));
+  const zapisi = [];
+  for (let i = 0; i < 3; i++){
+    const d = novayaData(0); d.setMonth(d.getMonth() - i);
+    const mk = dnMonthKey(d);
+    const dan = await poluchitMesyacDnya(mk);
+    Object.keys(dan).forEach(den => {
+      const it = dan[den].itog || {};
+      if (it.sdelal || it.sdvinul || it.zavtra){
+        zapisi.push({data: new Date(d.getFullYear(), d.getMonth(), Number(den)), itog: it});
+      }
+    });
+  }
+  zapisi.sort((a,b) => b.data - a.data);
+  if (!zapisi.length) itogiBlok.append(el("p","pusto","Пока нет ни одного итога дня."));
+  zapisi.slice(0,5).forEach(z => {
+    const karta = el("div","itog-karta");
+    karta.append(el("div","m", z.data.getDate() + " " + MESYACY[z.data.getMonth()]));
+    if (z.itog.sdelal) karta.append(el("div","", z.itog.sdelal));
+    if (z.itog.sdvinul) karta.append(el("div","", z.itog.sdvinul));
+    if (z.itog.zavtra) karta.append(el("div","", z.itog.zavtra));
+    itogiBlok.append(karta);
+  });
+  e.append(itogiBlok);
+}
+
+chitayuProgress(renderVkladku);
 </script>
 </body>
 </html>
