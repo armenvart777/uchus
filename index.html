@@ -145,7 +145,9 @@ function nazad(kuda){
   k.onclick = kuda;
   return k;
 }
-function tryaska(){ if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred("light"); }
+function tryaska(){
+  try { if (tg && tg.isVersionAtLeast && tg.isVersionAtLeast("6.1")) tg.HapticFeedback.impactOccurred("light"); } catch(e){}
+}
 
 async function glavnaya(){
   ochistit();
