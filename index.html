@@ -116,10 +116,8 @@
   .plashka{background:color-mix(in srgb,var(--krasniy) 11%,var(--karta));color:var(--tekst);border-radius:14px;
     padding:12px 14px;margin-bottom:12px;font-size:14px}
 
-  .geroy{display:flex;align-items:center;gap:16px;width:100%;text-align:left;border:0;cursor:pointer;
-    background:var(--geroy-fon);color:var(--geroy-tekst);border-radius:22px;padding:18px;margin:14px 0 22px;font:inherit;
-    transition:transform .12s}
-  .geroy:active{transform:scale(.985)}
+  .geroy{background:var(--geroy-fon);color:var(--geroy-tekst);border-radius:22px;padding:18px;margin:14px 0 12px}
+  .geroy-verh{display:flex;align-items:center;gap:16px}
   .geroy-tekst{flex:1;min-width:0}
   .geroy-metka{font-size:13px;opacity:.8;font-weight:500}
   .geroy-cifra{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:4px 0 2px;
@@ -127,6 +125,18 @@
   .geroy-pod{font-size:14px;opacity:.85}
   .geroy svg circle:first-child{stroke:color-mix(in srgb,var(--geroy-tekst) 22%,transparent)!important}
   .geroy svg circle + circle{stroke:var(--geroy-tekst)!important}
+  .bystro{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+  .bystro-knopka{display:flex;align-items:center;gap:8px;min-height:56px;padding:9px 10px 9px 12px;border:0;border-radius:14px;
+    background:color-mix(in srgb,var(--geroy-tekst) 13%,transparent);color:inherit;font:inherit;text-align:left;cursor:pointer;
+    transition:transform .1s,background .15s}
+  .bystro-knopka:active{transform:scale(.97);background:color-mix(in srgb,var(--geroy-tekst) 22%,transparent)}
+  .bystro-knopka.shirokaya{grid-column:1/-1}
+  .bystro-tekst{flex:1;min-width:0;display:flex;flex-direction:column}
+  .bystro-imya{font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bystro-pod{font-size:12px;opacity:.8;display:flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums}
+  .bystro-pod .tochka-cveta{width:8px;height:8px;border-radius:3px;box-shadow:0 0 0 1.5px color-mix(in srgb,var(--geroy-tekst) 70%,transparent)}
+  .bystro-plyus{width:26px;height:26px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+    background:var(--geroy-tekst);color:var(--geroy-fon);font-size:18px;font-weight:600;line-height:1}
 
   .koltso-obl{display:flex;align-items:center;gap:16px}
   .koltso-cifra{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
@@ -136,27 +146,38 @@
   .privychka-stroka{display:flex;align-items:center;justify-content:space-between;
     padding:10px 0;border-top:1px solid var(--liniya);gap:10px}
   .privychka-stroka:first-child,.metka + .privychka-stroka{border-top:0}
+  .metka-ryad + .privychka-stroka{border-top:0;padding-top:2px}
   .liniya-blok > .privychka-stroka:first-child{padding-top:0}
   .liniya-blok > .privychka-stroka:last-child{padding-bottom:0}
   .privychka-imya{display:flex;align-items:center;gap:12px;min-width:0}
   .tochka-cveta{width:12px;height:12px;border-radius:4px;flex:0 0 auto}
   .privychka-chislo{font-variant-numeric:tabular-nums;font-weight:600;min-width:26px;text-align:center;font-size:17px}
-  .shag{display:flex;align-items:center;gap:4px;margin:0;background:var(--fon);border-radius:99px;padding:3px}
+  .shag{display:flex;align-items:center;gap:4px;margin:0;background:var(--fon);border-radius:99px;padding:3px;flex:0 0 auto}
   .krug-knopka{width:36px;height:36px;border-radius:50%;border:0;background:var(--karta);box-shadow:var(--ten);
     color:var(--tekst);font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
     transition:transform .1s}
   .krug-knopka:active{transform:scale(.9)}
   .shag .krug-knopka:last-child{background:var(--akcent);color:var(--na-akcente)}
+  .shag.malyy .krug-knopka{width:30px;height:30px;font-size:17px}
+  .shag.malyy .privychka-chislo{min-width:20px;font-size:15px}
+  .metka-ryad{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
+  .metka-ryad .metka{margin:0}
+  .sohr{font-size:13px;color:var(--vtoroy);font-variant-numeric:tabular-nums;text-align:right}
 
-  .plan-punkt{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--liniya);min-height:48px}
-  .metka + .plan-punkt{border-top:0;padding-top:2px}
+  .plan-punkt{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--liniya);min-height:52px}
+  .metka + .plan-punkt,.metka-ryad + .plan-punkt{border-top:0;padding-top:2px}
   .liniya-blok > .plan-punkt:last-child{padding-bottom:0}
-  .galochka{width:26px;height:26px;border-radius:50%;border:2px solid var(--liniya);
-    background:none;flex:0 0 auto;cursor:pointer;color:var(--na-akcente);padding:0;
+  .galochka{position:relative;width:26px;height:26px;border-radius:50%;border:2px solid var(--liniya);
+    background:none;flex:0 0 auto;color:var(--na-akcente);padding:0;
     display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}
+  button.galochka{cursor:pointer}
+  button.galochka::before{content:"";position:absolute;inset:-10px}
   .galochka.on{background:var(--akcent);border-color:var(--akcent)}
-  .plan-tekst{flex:1;text-align:left;background:none;border:0;color:inherit;font:inherit;padding:0;cursor:pointer}
+  .plan-tekst{flex:1;min-width:0;text-align:left;background:none;border:0;color:inherit;font:inherit;padding:0;cursor:pointer}
+  .plan-zag{display:block}
+  .plan-detal{display:block;color:var(--vtoroy);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .plan-hvost{color:var(--vtoroy);font-size:14px;font-variant-numeric:tabular-nums}
+  .opasno{background:var(--krasniy)!important;color:var(--na-akcente)!important}
 
   .dnevnik-stroka{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:13px}
   .dnevnik-den{width:22px;color:var(--vtoroy);font-variant-numeric:tabular-nums;flex:0 0 auto}
@@ -217,18 +238,30 @@
   .nap-chip.vybran{background:var(--akcent);color:var(--na-akcente);font-weight:500}
   .nap-vremya-blok{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0}
   .nap-podpis-malaya{color:var(--vtoroy);font-size:14px}
-  .nap-zapis{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:10px 0;border-top:1px solid var(--liniya)}
+  .nap-zapis{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--liniya)}
   .metka + .nap-zapis{border-top:0;padding-top:0}
-  .nap-zapis-vremya{color:var(--akcent);font-size:14px;font-weight:500;flex:0 0 auto;font-variant-numeric:tabular-nums}
+  .nap-zapis-levo{flex:1;min-width:0;overflow-wrap:anywhere}
+  .nap-zapis-vremya{display:block;color:var(--akcent);font-size:14px;font-weight:500;font-variant-numeric:tabular-nums;margin-top:2px}
   .upravlenie{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+  [hidden]{display:none!important}
+  .tost{position:fixed;left:16px;right:16px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:9;max-width:448px;margin:0 auto;
+    display:flex;align-items:center;gap:12px;background:var(--tekst);color:var(--fon);border-radius:14px;padding:12px 14px;
+    box-shadow:0 6px 24px rgba(0,0,0,.18);font-size:15px;opacity:0;visibility:hidden;transform:translateY(8px);
+    transition:opacity .18s,transform .18s,visibility .18s}
+  .tost.vidno{opacity:1;visibility:visible;transform:none}
+  .tost-tekst{flex:1;min-width:0}
+  .tost-knopka{background:none;border:0;padding:6px 4px;font:inherit;font-weight:700;flex:0 0 auto;cursor:pointer;
+    color:color-mix(in srgb,var(--akcent) 45%,var(--fon))}
 </style>
 </head>
 <body>
 <div class="pole" id="ekran"></div>
 <nav class="vkladki" id="vkladki"></nav>
+<div class="tost" id="tost" role="status" aria-live="polite"></div>
 <script>
 const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 if (tg) { tg.ready(); tg.expand(); }
+try { if (tg && tg.isVersionAtLeast && tg.isVersionAtLeast("7.7") && tg.disableVerticalSwipes) tg.disableVerticalSwipes(); } catch(e){}
 
 /* ---------- тема ---------- */
 function primenitTemu(){
@@ -298,6 +331,9 @@ function pishuProgress(){
 }
 
 /* ---------- обобщенное хранилище: клетки, план дня, карточки ---------- */
+function mestnoGlavnee(k){
+  try { return localStorage.getItem("mestno_" + k) === "1"; } catch(e){ return false; }
+}
 function citatKlyuchi(klyuchi, gotovo){
   const h = hranilishe();
   let uzhe = false;
@@ -312,16 +348,29 @@ function citatKlyuchi(klyuchi, gotovo){
     h.getItems(klyuchi, (osh, znach) => {
       if (!osh && znach) Object.assign(rezultat, znach);
       if (!Object.keys(rezultat).length) izLokalnogo();
+      klyuchi.forEach(k => {
+        if (!mestnoGlavnee(k)) return;
+        try { const v = localStorage.getItem(k); if (v != null) rezultat[k] = v; } catch(e){}
+      });
       odinRaz();
     });
   } catch(e) { izLokalnogo(); odinRaz(); }
 }
 function citatKlyuchiP(klyuchi){ return new Promise(res => citatKlyuchi(klyuchi, res)); }
 
-function pishuKlyuch(klyuch, znachenie){
-  try { localStorage.setItem(klyuch, znachenie); } catch(e){}
+function pishuKlyuch(klyuch, znachenie, gotovo){
+  let lokalno = true, uzhe = false;
+  try { localStorage.setItem(klyuch, znachenie); localStorage.setItem("mestno_" + klyuch, "1"); } catch(e){ lokalno = false; }
   const h = hranilishe();
-  if (h) { try { h.setItem(klyuch, znachenie, () => {}); } catch(e){} }
+  if (!h) { if (gotovo) gotovo(lokalno ? "telefon" : "oshibka"); return; }
+  const itog = (oblako) => {
+    if (uzhe) return;
+    uzhe = true;
+    if (oblako) { try { if (localStorage.getItem(klyuch) === znachenie) localStorage.removeItem("mestno_" + klyuch); } catch(e){} }
+    if (gotovo) gotovo(oblako ? "ok" : (lokalno ? "telefon" : "oshibka"));
+  };
+  setTimeout(() => itog(false), 5000);
+  try { h.setItem(klyuch, znachenie, (osh, ok) => itog(!osh && ok !== false)); } catch(e){ itog(false); }
 }
 
 function poluchitVseKlyuchi(gotovo){
@@ -399,24 +448,38 @@ function sohranitPrivychki(spisok){
 }
 
 const klMesyacy = {};
-async function poluchitMesyacKletok(mk){
-  if (klMesyacy[mk]) return klMesyacy[mk];
-  const rez = await citatKlyuchiP([mk]);
-  let dan = {};
-  if (rez[mk]) { try { dan = JSON.parse(rez[mk]); } catch(e){ dan = {}; } }
-  klMesyacy[mk] = dan;
-  return dan;
+const klZhdem = {};
+function poluchitMesyacKletok(mk){
+  if (klMesyacy[mk]) return Promise.resolve(klMesyacy[mk]);
+  if (!klZhdem[mk]) {
+    klZhdem[mk] = citatKlyuchiP([mk]).then(rez => {
+      let dan = {};
+      if (rez[mk]) { try { dan = JSON.parse(rez[mk]); } catch(e){ dan = {}; } }
+      if (!dan || typeof dan !== "object") dan = {};
+      if (!klMesyacy[mk]) klMesyacy[mk] = dan;
+      delete klZhdem[mk];
+      return klMesyacy[mk];
+    });
+  }
+  return klZhdem[mk];
 }
 function summaDnya(dan, den){
   const zap = dan[den] || {};
   return Object.values(zap).reduce((a,b) => a + b, 0);
 }
 
-let klTaymer = null, klTaymerMk = null;
-function otlozhitZapisKletok(mk){
-  klTaymerMk = mk;
+const klNado = new Set();
+let klTaymer = null;
+function zapisatKletkiSeychas(){
   clearTimeout(klTaymer);
-  klTaymer = setTimeout(() => { pishuKlyuch(klTaymerMk, JSON.stringify(klMesyacy[klTaymerMk])); }, 600);
+  klTaymer = null;
+  klNado.forEach(mk => { if (klMesyacy[mk]) pishuKlyuch(mk, JSON.stringify(klMesyacy[mk])); });
+  klNado.clear();
+}
+function otlozhitZapisKletok(mk){
+  klNado.add(mk);
+  clearTimeout(klTaymer);
+  klTaymer = setTimeout(zapisatKletkiSeychas, 600);
 }
 async function izmenitKletku(privychkaId, delta){
   const seg = novayaData(0);
@@ -466,6 +529,7 @@ async function serii(){
     const d = novayaData(-i);
     const dan = await poluchitMesyacKletok(klMonthKey(d));
     const summa = summaDnya(dan, denNomer(d));
+    if (i === 0 && summa < NORMA_KLETOK) { if (summa > 0) s1++; continue; }
     if (summa === 0) break;
     s1++;
     if (!s5slomana){ if (summa >= NORMA_KLETOK) s5++; else s5slomana = true; }
@@ -475,19 +539,40 @@ async function serii(){
 
 /* ---------- план и итог дня ---------- */
 const dnMesyacy = {};
-async function poluchitMesyacDnya(mk){
-  if (dnMesyacy[mk]) return dnMesyacy[mk];
-  const rez = await citatKlyuchiP([mk]);
-  let dan = {};
-  if (rez[mk]) { try { dan = JSON.parse(rez[mk]); } catch(e){ dan = {}; } }
-  dnMesyacy[mk] = dan;
-  return dan;
+const dnZhdem = {};
+function poluchitMesyacDnya(mk){
+  if (dnMesyacy[mk]) return Promise.resolve(dnMesyacy[mk]);
+  if (!dnZhdem[mk]) {
+    dnZhdem[mk] = citatKlyuchiP([mk]).then(rez => {
+      let dan = {};
+      if (rez[mk]) { try { dan = JSON.parse(rez[mk]); } catch(e){ dan = {}; } }
+      if (!dan || typeof dan !== "object") dan = {};
+      if (!dnMesyacy[mk]) dnMesyacy[mk] = dan;
+      delete dnZhdem[mk];
+      return dnMesyacy[mk];
+    });
+  }
+  return dnZhdem[mk];
 }
-let dnTaymer = null, dnTaymerMk = null;
-function otlozhitZapisDnya(mk){
-  dnTaymerMk = mk;
+const dnNado = new Set();
+let dnTaymer = null, dnGotovo = [];
+function zapisatDenSeychas(){
   clearTimeout(dnTaymer);
-  dnTaymer = setTimeout(() => { pishuKlyuch(dnTaymerMk, JSON.stringify(dnMesyacy[dnTaymerMk])); }, 600);
+  dnTaymer = null;
+  const gotovo = dnGotovo;
+  dnGotovo = [];
+  const spisok = [...dnNado];
+  dnNado.clear();
+  spisok.forEach(mk => {
+    if (!dnMesyacy[mk]) return;
+    pishuKlyuch(mk, JSON.stringify(dnMesyacy[mk]), status => gotovo.forEach(f => f(status)));
+  });
+}
+function otlozhitZapisDnya(mk, gotovo){
+  dnNado.add(mk);
+  if (gotovo) dnGotovo.push(gotovo);
+  clearTimeout(dnTaymer);
+  dnTaymer = setTimeout(zapisatDenSeychas, 600);
 }
 async function poluchitZapisSegodnya(){
   const seg = novayaData(0);
@@ -504,10 +589,10 @@ async function pravkaPlana(pole, znach){
   zapis.plan[pole] = znach;
   otlozhitZapisDnya(mk);
 }
-async function pravkaItoga(pole, znach){
+async function pravkaItoga(pole, znach, gotovo){
   const {mk, zapis} = await poluchitZapisSegodnya();
   zapis.itog[pole] = znach;
-  otlozhitZapisDnya(mk);
+  otlozhitZapisDnya(mk, gotovo);
 }
 
 /* ---------- карточки английского (Лейтнер) ---------- */
@@ -529,10 +614,23 @@ async function fcZagrusit(){
   return fcSost;
 }
 let fcTaymer = null;
+function fcZapisatSeychas(){
+  if (fcTaymer == null) return;
+  clearTimeout(fcTaymer);
+  fcTaymer = null;
+  pishuKlyuch("fc", JSON.stringify(fcSost));
+}
 function fcSohranitOtlozheno(){
   clearTimeout(fcTaymer);
-  fcTaymer = setTimeout(() => { pishuKlyuch("fc", JSON.stringify(fcSost)); }, 600);
+  fcTaymer = setTimeout(fcZapisatSeychas, 600);
 }
+function sbrosOtlozhennyh(){
+  if (klNado.size) zapisatKletkiSeychas();
+  if (dnNado.size) zapisatDenSeychas();
+  fcZapisatSeychas();
+}
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") sbrosOtlozhennyh(); });
+window.addEventListener("pagehide", sbrosOtlozhennyh);
 async function fcOcheredKart(limit){
   const koloda = await fcKoloda();
   await fcZagrusit();
@@ -569,14 +667,19 @@ async function fcSkolkoKSegodnya(){
 }
 
 /* ---------- маршрутизация экранов ---------- */
-let vkladkaTekushhaya = "menu";
-let stekEkranov = [];
+let vkladkaTekushhaya = "segodnya";
+let stekEkranov = [], stekProkrutki = [];
 let aktivnyInterval = null;
+let tekushhiyEkran = null;
 
-function ekran(){ return document.getElementById("ekran"); }
+function ekran(){ return tekushhiyEkran || document.getElementById("ekran"); }
 function ochistit(){
   if (aktivnyInterval) { clearInterval(aktivnyInterval); aktivnyInterval = null; }
-  ekran().innerHTML = "";
+  skrytTost();
+  const koren = document.getElementById("ekran");
+  koren.innerHTML = "";
+  tekushhiyEkran = document.createElement("div");
+  koren.append(tekushhiyEkran);
   window.scrollTo(0,0);
 }
 function el(tag, klass, tekst){
@@ -589,18 +692,27 @@ function pokazatBack(){ if (tg && tg.BackButton) { try { tg.BackButton.show(); }
 function skrytBack(){ if (tg && tg.BackButton) { try { tg.BackButton.hide(); } catch(e){} } }
 function otkrytEkran(renderFn){
   stekEkranov.push(renderFn);
+  stekProkrutki.push(window.scrollY);
   pokazatBack();
-  renderFn();
+  return renderFn();
+}
+function zamenitEkran(renderFn){
+  if (!stekEkranov.length) return otkrytEkran(renderFn);
+  stekEkranov[stekEkranov.length - 1] = renderFn;
+  return renderFn();
 }
 function nazadPoSteku(){
+  if (!stekEkranov.length) return;
   stekEkranov.pop();
-  if (stekEkranov.length) { stekEkranov[stekEkranov.length - 1](); pokazatBack(); }
-  else { skrytBack(); renderVkladku(); }
+  const y = stekProkrutki.pop() || 0;
+  let rez;
+  if (stekEkranov.length) { pokazatBack(); rez = stekEkranov[stekEkranov.length - 1](); }
+  else rez = renderVkladku();
+  Promise.resolve(rez).then(() => window.scrollTo(0, y));
 }
 if (tg && tg.BackButton) { try { tg.BackButton.onClick(nazadPoSteku); } catch(e){} }
 
 const VKLADKI = [
-  {id:"menu", nazvanie:"Меню"},
   {id:"segodnya", nazvanie:"Сегодня"},
   {id:"kletki", nazvanie:"Клетки"},
   {id:"ucheba", nazvanie:"Учеба"},
@@ -621,22 +733,24 @@ const IKONKI = {
   itogi: ["M6 19v-6","M12 19v-12","M18 19v-9"],
   dom: ["M4 11l8-6.5 8 6.5","M6.5 9.5v10h11v-10","M10 19.5v-5h4v5"],
   kniga: ["M4 5.5h5.5a2.5 2.5 0 0 1 2.5 2.5v11.5a2 2 0 0 0 -2-2h-6z","M20 5.5h-5.5a2.5 2.5 0 0 0 -2.5 2.5v11.5a2 2 0 0 1 2-2h6z"],
-  strelka: ["M9.5 6l6 6-6 6"]
+  strelka: ["M9.5 6l6 6-6 6"],
+  vopros: ["M4 12a8 8 0 1 0 16 0a8 8 0 1 0 -16 0","M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5v.4","M12 16.5h.01"]
 };
-const VKLADKA_PUTI = {menu: IKONKI.dom, segodnya: IKONKI.den, kletki: IKONKI.kletki, ucheba: IKONKI.kniga, itogi: IKONKI.itogi};
+const VKLADKA_PUTI = {segodnya: IKONKI.dom, kletki: IKONKI.kletki, ucheba: IKONKI.kniga, itogi: IKONKI.itogi};
 const KURS_IKONKA = {peregovory: ["peregovory","fio"], prodazhi: ["prodazhi","yan"], english: ["english","sin"], tehminimum: ["tehminimum","ser"]};
 function ikonkaTon(imya, ton){
   const obl = el("span","oglav-ikonka ton-" + ton);
   obl.append(svgIkonka(IKONKI[imya], 19));
   return obl;
 }
-function slovoKletok(n){
+function sklon(n, odna, dve, pyat){
   const d = n % 100, e = n % 10;
-  if (d >= 11 && d <= 14) return "клеток";
-  if (e === 1) return "клетка";
-  if (e >= 2 && e <= 4) return "клетки";
-  return "клеток";
+  if (d >= 11 && d <= 14) return pyat;
+  if (e === 1) return odna;
+  if (e >= 2 && e <= 4) return dve;
+  return pyat;
 }
+function slovoKletok(n){ return sklon(n, "клетка", "клетки", "клеток"); }
 function svgIkonka(putey, razmer){
   const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
   svg.setAttribute("viewBox","0 0 24 24");
@@ -667,22 +781,75 @@ function otrisovatVkladki(){
     znakObl.append(svgIkonka(VKLADKA_PUTI[v.id], 22));
     b.append(znakObl);
     b.append(el("span","", v.nazvanie));
-    b.onclick = () => { if (vkladkaTekushhaya !== v.id || stekEkranov.length) { vkladkaTekushhaya = v.id; renderVkladku(); } };
+    b.onclick = () => {
+      if (vkladkaTekushhaya !== v.id || stekEkranov.length) { vkladkaTekushhaya = v.id; renderVkladku(); }
+      else window.scrollTo({top:0, behavior:"smooth"});
+    };
     nav.append(b);
   });
 }
 function renderVkladku(){
   stekEkranov = [];
+  stekProkrutki = [];
   skrytBack();
   otrisovatVkladki();
-  if (vkladkaTekushhaya === "menu") menuEkran();
-  else if (vkladkaTekushhaya === "segodnya") segodnyaEkran();
-  else if (vkladkaTekushhaya === "kletki") kletkiEkran();
-  else if (vkladkaTekushhaya === "ucheba") uchebaEkran();
-  else itogiEkran();
+  if (vkladkaTekushhaya === "kletki") return kletkiEkran();
+  if (vkladkaTekushhaya === "ucheba") return uchebaEkran();
+  if (vkladkaTekushhaya === "itogi") return itogiEkran();
+  vkladkaTekushhaya = "segodnya";
+  return segodnyaEkran();
 }
 
-/* ---------- вкладка Меню (оглавление) ---------- */
+/* ---------- подсказки внизу и отправка в чат ---------- */
+let tostTaymer = null;
+function skrytTost(){
+  clearTimeout(tostTaymer);
+  const t = document.getElementById("tost");
+  if (t) t.classList.remove("vidno");
+}
+function tost(tekst, deystvie, onDeystvie, dlitelnost){
+  const t = document.getElementById("tost");
+  clearTimeout(tostTaymer);
+  t.innerHTML = "";
+  t.append(el("span","tost-tekst", tekst));
+  if (deystvie) {
+    const k = el("button","tost-knopka", deystvie);
+    k.onclick = () => { skrytTost(); if (onDeystvie) onDeystvie(); };
+    t.append(k);
+  }
+  t.classList.add("vidno");
+  tostTaymer = setTimeout(skrytTost, dlitelnost || (deystvie ? 4500 : 2200));
+}
+const NE_USHLO = "Бот не получил. Открой тетрадь кнопкой Открыть тетрадь под полем ввода в чате.";
+function otpravitVChat(obj, esliNeUshlo){
+  const stroka = JSON.stringify(obj);
+  const neVyshlo = (tekst) => { tost(tekst, null, null, 7000); if (esliNeUshlo) esliNeUshlo(); };
+  if (!tg || !tg.sendData) { neVyshlo("Это работает только внутри телеграма."); return false; }
+  if (baytyStroki(stroka) > 4096) { neVyshlo("Слишком длинно для отправки, сократи текст."); return false; }
+  try { sbrosOtlozhennyh(); tg.sendData(stroka); }
+  catch(e){ neVyshlo(NE_USHLO); return false; }
+  setTimeout(() => neVyshlo(NE_USHLO), 2500);
+  return true;
+}
+function podtverzhdenie(knopka, vopros, deystvie){
+  const ishodnyy = knopka.textContent;
+  let taymer = null;
+  const sbros = () => { knopka.classList.remove("opasno"); knopka.textContent = ishodnyy; };
+  knopka.onclick = () => {
+    if (!knopka.classList.contains("opasno")) {
+      knopka.classList.add("opasno");
+      knopka.textContent = vopros;
+      tryaska();
+      taymer = setTimeout(sbros, 3000);
+      return;
+    }
+    clearTimeout(taymer);
+    sbros();
+    deystvie();
+  };
+}
+
+/* ---------- строки оглавления ---------- */
 function oglavStroka(imya, status, onClick, ikonka, ton){
   const b = el("button","oglav-stroka");
   if (ikonka) b.append(ikonkaTon(ikonka, ton || "zel"));
@@ -709,64 +876,6 @@ function privetstvie(){
   if (h >= 18 && h < 23) return "Добрый вечер";
   return "Доброй ночи";
 }
-async function menuEkran(){
-  ochistit();
-  const e = ekran();
-  const seg = novayaData(0);
-  e.append(el("div","nadzag", slovamiData(seg)));
-  e.append(el("div","zag-vk", privetstvie()));
-
-  const {zapis: planZapis} = await poluchitZapisSegodnya();
-  const dan = await poluchitMesyacKletok(klMonthKey(seg));
-  const zapisDnya = dan[denNomer(seg)] || {};
-  const summaSegodnya = Object.values(zapisDnya).reduce((a,b) => a+b, 0);
-  const itogEst = !!(planZapis.itog.sdelal || planZapis.itog.sdvinul || planZapis.itog.zavtra);
-  const sportSdelan = (zapisDnya.pull || 0) > 0 || (zapisDnya.push || 0) > 0;
-  const planGotovo = [planZapis.plan.kejs, planZapis.plan.urok, planZapis.plan.kartochki,
-    (planZapis.plan.kasaniya || 0) >= 3, sportSdelan].filter(Boolean).length;
-  const {s1} = await serii();
-
-  const geroy = el("button","geroy");
-  const geroyTekst = el("div","geroy-tekst");
-  geroyTekst.append(el("div","geroy-metka","Клетки сегодня"));
-  geroyTekst.append(el("div","geroy-cifra", summaSegodnya + " из " + NORMA_KLETOK));
-  const ostalos = NORMA_KLETOK - summaSegodnya;
-  const seriyaTekst = s1 ? "серия " + s1 + " дн." : "отметь первый заход";
-  geroyTekst.append(el("div","geroy-pod", ostalos > 0
-    ? "До нормы " + ostalos + " " + slovoKletok(ostalos) + ", " + seriyaTekst
-    : "Норма есть, " + seriyaTekst));
-  geroy.append(geroyTekst);
-  geroy.append(svgKoltso(summaSegodnya, NORMA_KLETOK));
-  geroy.onclick = () => { tryaska(); vkladkaTekushhaya = "kletki"; renderVkladku(); };
-  e.append(geroy);
-
-  e.append(oglavGruppa("День", [
-    oglavStroka("План дня", planGotovo + " из 5", () => { vkladkaTekushhaya = "segodnya"; renderVkladku(); }, "den", "zel"),
-    oglavStroka("Клетки и дневник", "", () => { vkladkaTekushhaya = "kletki"; renderVkladku(); }, "kletki", "sin"),
-    oglavStroka("Итог дня", itogEst ? "записан" : "не записан", () => { vkladkaTekushhaya = "segodnya"; renderVkladku(); }, "itogDnya", "yan")
-  ]));
-
-  const uchStroki = [oglavStroka("Спарринг с заказчиком", "в чате", () => otkrytEkran(sparringEkran), "sparring", "roz")];
-  for (const kurs of KURSY){
-    const spisok = kurs.id === "peregovory" ? await gruzhu("scenarii.json") : await gruzhu(kurs.fayl);
-    const sdelano = kurs.id === "peregovory" ? (progress.peregovory || []).length : (progress[kurs.id] || []).length;
-    const [ik, ton] = KURS_IKONKA[kurs.id] || ["kniga","zel"];
-    uchStroki.push(oglavStroka(kurs.nazvanie, sdelano + " из " + spisok.length,
-      () => { tryaska(); otkrytEkran(kurs.id === "peregovory" ? spisokKejsov : () => spisokUrokov(kurs)); }, ik, ton));
-  }
-  const kSegodnya = await fcSkolkoKSegodnya();
-  uchStroki.push(oglavStroka("Карточки английского", kSegodnya != null ? kSegodnya + " к повтору" : "", () => otkrytEkran(fcSessiyaEkran), "kartochki", "zel"));
-  uchStroki.push(oglavStroka("Фокус 25 / 5", "таймер", () => otkrytEkran(fokusEkran), "fokus", "roz"));
-  e.append(oglavGruppa("Учеба", uchStroki));
-
-  const skoro = await napSkoroBudushhaya();
-  e.append(oglavGruppa("Жизнь", [
-    oglavStroka("Напоминания", skoro ? napFormatVremya(skoro.k) : "нет", () => otkrytEkran(napominaniyaEkran), "napominaniya", "yan"),
-    oglavStroka("Итоги", "серия " + s1 + " дн.", () => { vkladkaTekushhaya = "itogi"; renderVkladku(); }, "itogi", "fio")
-  ]));
-}
-
-/* ---------- спарринг с заказчиком ---------- */
 function sparringEkran(){
   ochistit();
   const e = ekran();
@@ -775,15 +884,10 @@ function sparringEkran(){
   const blok = el("div","blok");
   blok.append(el("div","teoriya","Заказчик пишет тебе в чат. Давит на цену, просит лишнее, грозит отзывом. Отвечаешь как в жизни.\n\nПосле шести реплик жми /razbor: оценка, что отдал, что удержал, эталонный ответ."));
   e.append(blok);
-  const soobshenieBezTg = el("div","pochemu","Спарринг идет в телеграме, открой тетрадь кнопкой внизу чата.");
-  soobshenieBezTg.hidden = true;
   const knopka = el("button","knopka","Начать в чате");
-  knopka.onclick = () => {
-    if (tg && tg.sendData) tg.sendData(JSON.stringify({tip:"trener"}));
-    else soobshenieBezTg.hidden = false;
-  };
+  knopka.onclick = () => { tryaska(); otpravitVChat({tip:"trener"}); };
   e.append(knopka);
-  e.append(soobshenieBezTg);
+  e.append(el("div","pochemu","Тетрадь закроется, заказчик напишет в чат."));
 }
 
 /* ---------- напоминания ---------- */
@@ -826,27 +930,41 @@ async function napDobavit(tekst, kogda){
   pishuKlyuch("nap", stroka);
   return spisok;
 }
+async function napUbratLokalno(tekst, kogda){
+  const spisok = await napGruzim();
+  const i = spisok.findIndex(z => z && z.t === tekst && z.k === kogda);
+  if (i < 0) return;
+  spisok.splice(i, 1);
+  pishuKlyuch("nap", JSON.stringify(spisok));
+}
 async function napominaniyaEkran(){
   ochistit();
   const e = ekran();
   e.append(el("div","zag-vk","Напоминания"));
+  e.append(el("p","podpis","Бот пришлет сообщение в нужное время."));
 
-  const pole = document.createElement("textarea");
-  pole.id = "nap-tekst"; pole.maxLength = 300; pole.placeholder = "Что напомнить";
-  pole.style.minHeight = "84px";
   const forma = el("div","blok");
+  const metkaPolya = el("label","metka","Что напомнить");
+  metkaPolya.htmlFor = "nap-tekst";
+  forma.append(metkaPolya);
+  const pole = document.createElement("textarea");
+  pole.id = "nap-tekst"; pole.maxLength = 300; pole.placeholder = "Например, ответить Вадиму про смету";
+  pole.style.minHeight = "84px";
   forma.append(pole);
   e.append(forma);
 
   let kogdaSek = null;
   const chipKnopki = [];
   const chipy = el("div","nap-chipy");
+  const seychasSek = () => Math.floor(Date.now()/1000);
+  const kChasu = (sdvig, chas) => { const d = novayaData(sdvig); d.setHours(chas,0,0,0); return Math.floor(d.getTime()/1000); };
   const varianty = [
-    ["Через час", () => Math.floor(Date.now()/1000) + 3600],
-    ["Через 3 часа", () => Math.floor(Date.now()/1000) + 3*3600],
-    ["Сегодня в 21:00", () => { const d = novayaData(0); d.setHours(21,0,0,0); return Math.floor(d.getTime()/1000); }],
-    ["Завтра в 10:00", () => { const d = novayaData(1); d.setHours(10,0,0,0); return Math.floor(d.getTime()/1000); }]
+    ["Через 30 минут", () => seychasSek() + 1800],
+    ["Через час", () => seychasSek() + 3600],
+    ["Через 3 часа", () => seychasSek() + 3*3600]
   ];
+  if (kChasu(0, 21) - 15*60 > seychasSek()) varianty.push(["Сегодня в 21:00", () => kChasu(0, 21)]);
+  varianty.push(["Завтра в 10:00", () => kChasu(1, 10)]);
   varianty.forEach(([podpis, poluchit]) => {
     const chip = el("button","nap-chip", podpis);
     chip.onclick = () => {
@@ -862,7 +980,9 @@ async function napominaniyaEkran(){
   forma.append(chipy);
 
   const vremyaBlok = el("div","nap-vremya-blok");
-  vremyaBlok.append(el("span","nap-podpis-malaya","или ко времени"));
+  const vremyaMetka = el("label","nap-podpis-malaya","или ко времени");
+  vremyaMetka.htmlFor = "nap-vremya";
+  vremyaBlok.append(vremyaMetka);
   const vremyaPole = document.createElement("input");
   vremyaPole.type = "time"; vremyaPole.id = "nap-vremya";
   vremyaBlok.append(vremyaPole);
@@ -879,179 +999,347 @@ async function napominaniyaEkran(){
   };
 
   const knopka = el("button","knopka","Напомнить");
-  knopka.disabled = true;
-  const soobshenieBezTg = el("div","pochemu","Напоминания идут в телеграме, открой тетрадь кнопкой внизу чата.");
-  soobshenieBezTg.hidden = true;
-  function obnovit(){ knopka.disabled = !(pole.value.trim().length && kogdaSek != null); }
+  const podskazka = el("div","pochemu");
+  function obnovit(){
+    const estTekst = pole.value.trim().length > 0;
+    knopka.disabled = !(estTekst && kogdaSek != null);
+    if (!estTekst) podskazka.textContent = "Напиши, что напомнить";
+    else if (kogdaSek == null) podskazka.textContent = "Выбери время";
+    else podskazka.textContent = "Напомню " + napFormatVremya(kogdaSek) + ". Тетрадь закроется, бот подтвердит в чате.";
+  }
   pole.oninput = obnovit;
   knopka.onclick = async () => {
     const tekst = pole.value.trim();
     if (!tekst || kogdaSek == null) return;
-    await napDobavit(tekst, kogdaSek);
-    if (tg && tg.sendData) tg.sendData(JSON.stringify({tip:"napomni", tekst, kogda: kogdaSek}));
-    else { knopka.disabled = true; soobshenieBezTg.hidden = false; }
+    if (kogdaSek <= seychasSek()) { tost("Это время уже прошло, выбери другое"); return; }
+    const kogda = kogdaSek;
+    await napDobavit(tekst, kogda);
+    otpravitVChat({tip:"napomni", tekst, kogda}, () => napUbratLokalno(tekst, kogda));
   };
+  obnovit();
   e.append(knopka);
-  e.append(soobshenieBezTg);
-  const podpisBota = el("p","podpis","Придет сообщением от бота. В чате тоже можно: /napomni 18:00 текст");
-  podpisBota.style.margin = "10px 4px 18px";
-  e.append(podpisBota);
+  e.append(podskazka);
 
-  const spisokBlok = el("div","liniya-blok");
-  spisokBlok.append(el("div","metka","Запланировано"));
   const spisok = await napGruzim();
-  const seg2 = Math.floor(Date.now()/1000);
-  const budushhie = spisok.filter(z => z && z.k > seg2).sort((a,b) => a.k - b.k);
-  if (!budushhie.length) spisokBlok.append(el("p","pusto","Пока ничего не запланировано."));
-  budushhie.forEach(z => {
+  if (!e.isConnected) return;
+  const spisokBlok = el("div","liniya-blok");
+  spisokBlok.style.marginTop = "18px";
+  spisokBlok.append(el("div","metka","Запланировано из тетради"));
+  const pustoEl = el("p","pusto","Пока ничего не запланировано.");
+  const proveritPusto = () => { pustoEl.hidden = !!spisokBlok.querySelector(".nap-zapis"); };
+  const seg2 = seychasSek();
+  spisok.filter(z => z && z.k > seg2).sort((a,b) => a.k - b.k).forEach(z => {
     const stroka = el("div","nap-zapis");
-    stroka.append(el("span","", z.t));
-    stroka.append(el("span","nap-zapis-vremya", napFormatVremya(z.k)));
+    const levo = el("div","nap-zapis-levo");
+    levo.append(el("div","", z.t));
+    levo.append(el("span","nap-zapis-vremya", napFormatVremya(z.k)));
+    stroka.append(levo);
+    const ubrat = el("button","knopka tihaya malaya","Убрать");
+    podtverzhdenie(ubrat, "Точно убрать?", async () => {
+      await napUbratLokalno(z.t, z.k);
+      stroka.remove();
+      proveritPusto();
+      otpravitVChat({tip:"napomni_ubrat", tekst:z.t, kogda:z.k}, async () => {
+        await napDobavit(z.t, z.k);
+        spisokBlok.insertBefore(stroka, pustoEl);
+        proveritPusto();
+      });
+    });
+    stroka.append(ubrat);
     spisokBlok.append(stroka);
   });
+  spisokBlok.append(pustoEl);
+  proveritPusto();
   e.append(spisokBlok);
+  e.append(el("p","podpis","Тут то, что ставил из тетради. Все напоминания в чате: /napomni"));
 }
 
 /* ---------- вкладка Сегодня ---------- */
-async function segodnyaEkran(){
-  ochistit();
-  const e = ekran();
-  const seg = novayaData(0);
-  e.append(el("div","nadzag","Сегодня"));
-  e.append(el("div","zag-vk", slovamiData(seg)));
-
-  const [privychki, itogVchera, {zapis: planZapis}] = await Promise.all([
-    poluchitPrivychki(),
-    (async () => {
-      const v = novayaData(-1);
-      const dan = await poluchitMesyacKletok(klMonthKey(v));
-      const den = denNomer(v);
-      if (!Object.keys(dan).some(k => Number(k) < v.getDate() && summaDnya(dan, k) > 0)) return null;
-      return summaDnya(dan, den);
-    })(),
-    poluchitZapisSegodnya()
-  ]);
-  if (itogVchera === 0) {
-    e.append(el("div","plashka","Вчера было пусто. Сегодня минимум одна клетка."));
-  }
-
-  const dan = await poluchitMesyacKletok(klMonthKey(seg));
-  const zapisDnya = dan[denNomer(seg)] || {};
-  const summaSegodnya = Object.values(zapisDnya).reduce((a,b) => a+b, 0);
-
-  const koltsoObl = el("div","koltso-obl");
-  koltsoObl.append(svgKoltso(summaSegodnya, NORMA_KLETOK));
-  const podpisKoltsa = el("div");
-  podpisKoltsa.append(el("div","koltso-cifra", summaSegodnya + " из " + NORMA_KLETOK));
-  podpisKoltsa.append(el("div","koltso-podpis","клеток за сегодня"));
-  koltsoObl.append(podpisKoltsa);
-  e.append(koltsoObl);
-
-  const privBlok = el("div","liniya-blok");
-  privBlok.append(el("div","metka","Клетки по привычкам"));
-  privychki.forEach(p => {
-    const stroka = el("div","privychka-stroka");
-    const levo = el("div","privychka-imya");
-    const tochka = el("i","tochka-cveta");
-    tochka.style.background = cvetPrivychki(p);
-    levo.append(tochka);
-    levo.append(el("span","", p.name));
-    stroka.append(levo);
-    stroka.append(el("span","privychka-chislo", String(zapisDnya[p.id] || 0)));
-    privBlok.append(stroka);
-  });
-  e.append(privBlok);
-
-  const planBlok = el("div","liniya-blok");
-  planBlok.append(el("div","metka","План дня"));
-
-  const punktKejs = el("div","plan-punkt");
-  const galKejs = el("button","galochka" + (planZapis.plan.kejs ? " on" : ""));
-  if (planZapis.plan.kejs) galKejs.append(svgGalochka(13));
-  galKejs.onclick = async () => { const nov = !planZapis.plan.kejs; postavitGalochku(galKejs, nov); await pravkaPlana("kejs", nov); };
-  punktKejs.append(galKejs);
-  const tekstKejs = el("button","plan-tekst","Кейс на 15 минут");
-  tekstKejs.onclick = () => { tryaska(); otkrytEkran(spisokKejsov); };
-  punktKejs.append(tekstKejs);
-  planBlok.append(punktKejs);
-
-  const punktUrok = el("div","plan-punkt");
-  const galUrok = el("button","galochka" + (planZapis.plan.urok ? " on" : ""));
-  if (planZapis.plan.urok) galUrok.append(svgGalochka(13));
-  galUrok.onclick = async () => { const nov = !planZapis.plan.urok; postavitGalochku(galUrok, nov); await pravkaPlana("urok", nov); };
-  punktUrok.append(galUrok);
-  const tekstUrok = el("button","plan-tekst","Урок на 20 минут");
-  tekstUrok.onclick = async () => { tryaska(); await otkrytPervyyNeproydennyy(); };
-  punktUrok.append(tekstUrok);
-  planBlok.append(punktUrok);
-
-  const punktKart = el("div","plan-punkt");
-  const galKart = el("button","galochka" + (planZapis.plan.kartochki ? " on" : ""));
-  if (planZapis.plan.kartochki) galKart.append(svgGalochka(13));
-  galKart.onclick = async () => { const nov = !planZapis.plan.kartochki; postavitGalochku(galKart, nov); await pravkaPlana("kartochki", nov); };
-  punktKart.append(galKart);
-  const tekstKart = el("button","plan-tekst","10 карточек английского");
-  tekstKart.onclick = () => { tryaska(); otkrytEkran(fcSessiyaEkran); };
-  punktKart.append(tekstKart);
-  planBlok.append(punktKart);
-
-  const kasaniya = planZapis.plan.kasaniya || 0;
-  const punktKasaniya = el("div","plan-punkt");
-  const galKasaniya = el("span","galochka" + (kasaniya >= 3 ? " on" : ""));
-  if (kasaniya >= 3) galKasaniya.append(svgGalochka(13));
-  punktKasaniya.append(galKasaniya);
-  const tekstKasaniya = el("button","plan-tekst","3 касания клиентам");
-  const hvostKasaniya = el("span","plan-hvost", kasaniya + "/3");
-  tekstKasaniya.onclick = async () => {
-    tryaska();
-    const nov = Math.min(3, kasaniya + 1);
-    hvostKasaniya.textContent = nov + "/3";
-    postavitGalochku(punktKasaniya.firstChild, nov >= 3);
-    await pravkaPlana("kasaniya", nov);
-  };
-  punktKasaniya.append(tekstKasaniya);
-  punktKasaniya.append(hvostKasaniya);
-  planBlok.append(punktKasaniya);
-
-  const sportSdelan = (zapisDnya.pull || 0) > 0 || (zapisDnya.push || 0) > 0;
-  const punktSport = el("div","plan-punkt");
-  const galSport = el("span","galochka" + (sportSdelan ? " on" : ""));
-  if (sportSdelan) galSport.append(svgGalochka(13));
-  punktSport.append(galSport);
-  const tekstSport = el("button","plan-tekst","Спорт");
-  tekstSport.onclick = () => { if (!sportSdelan) { vkladkaTekushhaya = "kletki"; renderVkladku(); } };
-  punktSport.append(tekstSport);
-  planBlok.append(punktSport);
-
-  e.append(planBlok);
-
-  const itogBlok = el("div","liniya-blok");
-  itogBlok.append(el("div","metka","Итог дня"));
-  const polya3 = [["sdelal","Что сделал"],["sdvinul","Что сдвинул в продажах"],["zavtra","Что завтра первым делом"]];
-  polya3.forEach(([kod, podpis]) => {
-    const podpisPolya = el("div","podpis", podpis);
-    podpisPolya.style.margin = "4px 2px 6px";
-    itogBlok.append(podpisPolya);
-    const pole = document.createElement("textarea");
-    pole.style.minHeight = "56px";
-    pole.style.marginBottom = "8px";
-    pole.value = planZapis.itog[kod] || "";
-    pole.oninput = () => pravkaItoga(kod, pole.value);
-    itogBlok.append(pole);
-  });
-  e.append(itogBlok);
+async function vcheraPusto(){
+  const v = novayaData(-1);
+  const dan = await poluchitMesyacKletok(klMonthKey(v));
+  if (!Object.keys(dan).some(k => Number(k) < v.getDate() && summaDnya(dan, k) > 0)) return false;
+  return summaDnya(dan, denNomer(v)) === 0;
 }
-
-async function otkrytPervyyNeproydennyy(){
+async function sleduyushhiyUrok(){
   for (const kurs of KURSY){
     if (!kurs.fayl) continue;
     const uroki = await gruzhu(kurs.fayl);
     const proydennye = progress[kurs.id] || [];
     const urok = uroki.find(u => !proydennye.includes(u.id));
-    if (urok){ otkrytEkran(() => urokEkran(kurs, urok)); return; }
+    if (urok) return {kurs, urok};
   }
-  vkladkaTekushhaya = "ucheba";
-  renderVkladku();
+  return null;
+}
+function sleduyushhiyKejs(kejsy){
+  const proydeno = progress.peregovory || [];
+  return kejsy.findIndex((k, i) => !proydeno.includes(String(i)));
+}
+async function segodnyaEkran(){
+  ochistit();
+  const e = ekran();
+  const seg = novayaData(0);
+  e.append(el("div","nadzag", slovamiData(seg)));
+  e.append(el("div","zag-vk", privetstvie()));
+
+  const [privychki, pustoVchera, {zapis}, dan, kejsy, sledUrok, kSegodnya, skoro, spr] = await Promise.all([
+    poluchitPrivychki(), vcheraPusto(), poluchitZapisSegodnya(), poluchitMesyacKletok(klMonthKey(seg)),
+    gruzhu("scenarii.json"), sleduyushhiyUrok(), fcSkolkoKSegodnya(), napSkoroBudushhaya(), citatKlyuchiP(["spravka"])
+  ]);
+  if (!e.isConnected) return;
+  const den = denNomer(seg);
+  const kletkiDnya = () => dan[den] || {};
+  const summaSeg = () => summaDnya(dan, den);
+  const plan = zapis.plan;
+
+  if (!spr.spravka) {
+    const kak = el("div","blok");
+    kak.append(el("div","metka","Как пользоваться"));
+    kak.append(el("div","teoriya","Сделал заход, жми на привычку в зеленом блоке. Ошибся, жми Отменить внизу экрана.\nУрок, кейс и карточки отмечаются в плане дня сами."));
+    const ryad = el("div","stroka");
+    const vse = el("button","knopka tihaya","Все подсказки");
+    vse.onclick = () => otkrytEkran(spravkaEkran);
+    const ponyal = el("button","knopka","Понятно");
+    ponyal.onclick = () => { pishuKlyuch("spravka","1"); kak.remove(); };
+    ryad.append(vse, ponyal);
+    kak.append(ryad);
+    e.append(kak);
+  }
+
+  const plashka = el("div","plashka","Вчера было пусто. Сегодня минимум одна клетка.");
+  plashka.hidden = !pustoVchera || summaSeg() > 0;
+  e.append(plashka);
+
+  const geroy = el("div","geroy");
+  const verh = el("div","geroy-verh");
+  const gTekst = el("div","geroy-tekst");
+  gTekst.append(el("div","geroy-metka","Клетки сегодня"));
+  const gCifra = el("div","geroy-cifra");
+  const gPod = el("div","geroy-pod");
+  gTekst.append(gCifra, gPod);
+  const koltso = el("div","");
+  verh.append(gTekst, koltso);
+  geroy.append(verh);
+  let geroyZapros = 0;
+  async function obnovitGeroya(){
+    const s = summaSeg();
+    gCifra.textContent = s + " из " + NORMA_KLETOK;
+    koltso.innerHTML = "";
+    koltso.append(svgKoltso(s, NORMA_KLETOK));
+    if (s > 0) plashka.hidden = true;
+    const moy = ++geroyZapros;
+    const {s1} = await serii();
+    if (moy !== geroyZapros) return;
+    const seriya = s1 ? ", серия " + s1 + " дн." : "";
+    const ost = NORMA_KLETOK - s;
+    if (s === 0 && !s1) gPod.textContent = "Жми на привычку, когда сделал заход";
+    else if (ost > 0) gPod.textContent = "До нормы " + ost + " " + slovoKletok(ost) + seriya;
+    else gPod.textContent = "Норма есть" + seriya;
+  }
+
+  const bystro = el("div","bystro");
+  privychki.forEach((p, i) => {
+    const k = el("button","bystro-knopka" + (privychki.length % 2 && i === privychki.length - 1 ? " shirokaya" : ""));
+    k.setAttribute("aria-label","Плюс клетка: " + p.name);
+    const t = el("span","bystro-tekst");
+    t.append(el("span","bystro-imya", p.name));
+    const pod = el("span","bystro-pod");
+    const tochka = el("i","tochka-cveta");
+    tochka.style.background = cvetPrivychki(p);
+    const podTekst = el("span","");
+    pod.append(tochka, podTekst);
+    t.append(pod);
+    k.append(t, el("span","bystro-plyus","+"));
+    const podpisat = () => { const n = kletkiDnya()[p.id] || 0; podTekst.textContent = n ? n + " за сегодня" : "еще нет"; };
+    podpisat();
+    k.onclick = async () => {
+      const bylo = summaSeg();
+      const n = await izmenitKletku(p.id, 1);
+      if (!k.isConnected) return;
+      podpisat(); obnovitGeroya(); obnovitPlan();
+      const norma = bylo < NORMA_KLETOK && summaSeg() >= NORMA_KLETOK;
+      tost(p.name + ": " + n + " за сегодня" + (norma ? ". Норма есть" : ""), "Отменить", async () => {
+        await izmenitKletku(p.id, -1);
+        if (!k.isConnected) return;
+        podpisat(); obnovitGeroya(); obnovitPlan();
+        tost("Отменено", null, null, 1500);
+      });
+    };
+    bystro.append(k);
+  });
+  geroy.append(bystro);
+  e.append(geroy);
+  obnovitGeroya();
+
+  const planBlok = el("div","liniya-blok");
+  const planRyad = el("div","metka-ryad");
+  planRyad.append(el("div","metka","План дня"));
+  const planSchet = el("span","sohr");
+  planRyad.append(planSchet);
+  planBlok.append(planRyad);
+  const obnovlyalki = [];
+  function punktPlana({zag, detal, gotovo, pereklyuchit, otkryt, hvost}){
+    const punkt = el("div","plan-punkt");
+    let gal;
+    if (pereklyuchit) {
+      gal = el("button","galochka");
+      gal.setAttribute("aria-label","Отметить руками: " + zag);
+      gal.onclick = () => { tryaska(); pereklyuchit(); };
+    } else gal = el("span","galochka");
+    punkt.append(gal);
+    const tekst = el("button","plan-tekst");
+    tekst.append(el("span","plan-zag", zag));
+    const det = el("span","plan-detal", detal || "");
+    det.hidden = !detal;
+    tekst.append(det);
+    tekst.onclick = () => { tryaska(); otkryt(); };
+    punkt.append(tekst);
+    if (hvost) punkt.append(hvost);
+    obnovlyalki.push(() => postavitGalochku(gal, !!gotovo()));
+    planBlok.append(punkt);
+  }
+  const pereklyuchatel = (pole) => () => { plan[pole] = !plan[pole]; pravkaPlana(pole, plan[pole]); obnovitPlan(); };
+
+  const iKejs = sleduyushhiyKejs(kejsy);
+  punktPlana({
+    zag: "Кейс на 15 минут",
+    detal: iKejs >= 0
+      ? "Дальше: " + [kejsy[iKejs].kto, (kejsy[iKejs].soobshenie || "").slice(0, 60)].filter(Boolean).join(", ")
+      : (kejsy.length ? "Все " + kejsy.length + " пройдены, можно повторить" : ""),
+    gotovo: () => plan.kejs,
+    pereklyuchit: pereklyuchatel("kejs"),
+    otkryt: () => iKejs >= 0 ? otkrytEkran(() => kejsEkran(kejsy[iKejs], iKejs)) : otkrytEkran(spisokKejsov)
+  });
+  punktPlana({
+    zag: "Урок на 20 минут",
+    detal: sledUrok ? sledUrok.kurs.nazvanie + ": " + sledUrok.urok.nazvanie : "Открыть Учебу",
+    gotovo: () => plan.urok,
+    pereklyuchit: pereklyuchatel("urok"),
+    otkryt: () => {
+      if (sledUrok) otkrytEkran(() => urokEkran(sledUrok.kurs, sledUrok.urok));
+      else { vkladkaTekushhaya = "ucheba"; renderVkladku(); }
+    }
+  });
+  punktPlana({
+    zag: "10 карточек английского",
+    detal: kSegodnya == null ? "" : (kSegodnya > 0 ? kSegodnya + " к повтору" : "на сегодня повторены, можно наперед"),
+    gotovo: () => plan.kartochki,
+    pereklyuchit: pereklyuchatel("kartochki"),
+    otkryt: () => otkrytEkran(fcSessiyaEkran)
+  });
+
+  const kasShag = el("div","shag malyy");
+  const kasMinus = el("button","krug-knopka","−");
+  kasMinus.setAttribute("aria-label","Минус касание");
+  const kasChislo = el("span","privychka-chislo");
+  const kasPlyus = el("button","krug-knopka","+");
+  kasPlyus.setAttribute("aria-label","Плюс касание");
+  kasShag.append(kasMinus, kasChislo, kasPlyus);
+  const kasIzmenit = (d) => {
+    const bylo = plan.kasaniya || 0;
+    const n = Math.max(0, Math.min(3, bylo + d));
+    if (n === bylo) { if (d > 0) tost("Три касания на сегодня уже есть"); return; }
+    tryaska();
+    plan.kasaniya = n;
+    pravkaPlana("kasaniya", n);
+    obnovitPlan();
+  };
+  kasMinus.onclick = () => kasIzmenit(-1);
+  kasPlyus.onclick = () => kasIzmenit(1);
+  punktPlana({
+    zag: "3 касания клиентам",
+    detal: "ответ, вопрос или напоминание о себе",
+    gotovo: () => (plan.kasaniya || 0) >= 3,
+    otkryt: () => kasIzmenit(1),
+    hvost: kasShag
+  });
+
+  const estSport = privychki.some(p => p.id === "pull" || p.id === "push");
+  const sportGotov = () => estSport ? ((kletkiDnya().pull || 0) + (kletkiDnya().push || 0)) > 0 : !!plan.sport;
+  punktPlana({
+    zag: "Спорт",
+    detal: estSport ? "отметится сам с первым подходом" : "отметь кружком слева",
+    gotovo: sportGotov,
+    pereklyuchit: estSport ? null : pereklyuchatel("sport"),
+    otkryt: estSport ? () => geroy.scrollIntoView({behavior:"smooth", block:"start"}) : pereklyuchatel("sport")
+  });
+  function obnovitPlan(){
+    obnovlyalki.forEach(f => f());
+    kasChislo.textContent = String(plan.kasaniya || 0);
+    const n = [plan.kejs, plan.urok, plan.kartochki, (plan.kasaniya || 0) >= 3, sportGotov()].filter(Boolean).length;
+    planSchet.textContent = n + " из 5";
+  }
+  obnovitPlan();
+  e.append(planBlok);
+
+  e.append(oglavGruppa("Под рукой", [
+    oglavStroka("Спарринг с заказчиком", "в чате", () => otkrytEkran(sparringEkran), "sparring", "roz"),
+    oglavStroka("Напоминания", skoro ? napFormatVremya(skoro.k) : "нет", () => otkrytEkran(napominaniyaEkran), "napominaniya", "yan"),
+    oglavStroka("Фокус 25 / 5", fokusStatus(), () => otkrytEkran(fokusEkran), "fokus", "fio"),
+    oglavStroka("Как пользоваться", "", () => otkrytEkran(spravkaEkran), "vopros", "ser")
+  ]));
+
+  const itogBlok = el("div","liniya-blok");
+  const itogRyad = el("div","metka-ryad");
+  itogRyad.append(el("div","metka","Итог дня"));
+  const sohr = el("span","sohr");
+  itogRyad.append(sohr);
+  itogBlok.append(itogRyad);
+  const polya3 = [
+    ["sdelal","Что сделал","Например, сдал правки Николаю"],
+    ["sdvinul","Что сдвинул в продажах","Например, два отклика на Kwork"],
+    ["zavtra","Что завтра первым делом","Например, ответить Вадиму"]
+  ];
+  polya3.forEach(([kod, podpis, primer]) => {
+    const metka = el("label","podpis", podpis);
+    metka.htmlFor = "itog-" + kod;
+    metka.style.display = "block";
+    metka.style.margin = "4px 2px 6px";
+    itogBlok.append(metka);
+    const pole = document.createElement("textarea");
+    pole.id = "itog-" + kod;
+    pole.maxLength = 500;
+    pole.placeholder = primer;
+    pole.style.minHeight = "56px";
+    pole.style.marginBottom = "8px";
+    pole.value = zapis.itog[kod] || "";
+    pole.oninput = () => {
+      sohr.textContent = "Сохраняю...";
+      pravkaItoga(kod, pole.value, st => {
+        if (!sohr.isConnected) return;
+        sohr.textContent = st === "ok" ? "Сохранено" : (st === "telefon" ? "Сохранено в телефоне" : "Не сохранилось");
+      });
+    };
+    itogBlok.append(pole);
+  });
+  e.append(itogBlok);
+}
+
+function spravkaEkran(){
+  ochistit();
+  pishuKlyuch("spravka","1");
+  const e = ekran();
+  e.append(el("div","nadzag","Подсказки"));
+  e.append(el("div","zag-vk","Как пользоваться"));
+  const razdely = [
+    ["Клетки", "Одна клетка это один заход: подход, ритуал или двадцать минут учебы. Норма 5 в день на все привычки вместе.\n\nСделал заход, жми на привычку на главной. Промахнулся, жми Отменить в плашке снизу. Точное число правится во вкладке Клетки."],
+    ["План дня", "Пять пунктов на день. Урок, кейс и карточки отмечаются сами, когда проходишь их тут. Спорт отмечается с первым подходом, касания кнопкой плюс.\n\nНажатие на пункт открывает нужный экран. Кружок слева ставит отметку руками, если сделал без тетради."],
+    ["Что уходит в чат", "Спарринг, разбор кейса и напоминания закрывают тетрадь, ответ приходит в чат.\n\nРаботает, только если тетрадь открыта кнопкой Открыть тетрадь под полем ввода. Бот промолчал? Открой этой кнопкой и нажми еще раз."],
+    ["Фокус", "25 минут работы, потом 5 перерыва. Таймер помнит время, даже если закрыть тетрадь.\n\nВторая кнопка запускает круг и просит бота написать в чат, когда он кончится."],
+    ["Итог дня", "Три строки вечером. Сохраняются сами, пока пишешь. Прошлые дни лежат во вкладке Итоги."],
+    ["Назад", "Стрелка в шапке телеграма возвращает на прошлый экран. Нажатие на открытую вкладку поднимает страницу наверх."],
+    ["Команды в чате", "/napomni 18:00 текст ставит напоминание\n/napomni без текста покажет список\n/trener начинает спарринг\n/razbor разбирает спарринг\n/kejs дает кейс"],
+    ["Где хранится", "В облаке телеграма и копией на телефоне. Если облако запись не приняло, рядом с Итогом дня будет написано Сохранено в телефоне."]
+  ];
+  razdely.forEach(([zag, tekst]) => {
+    const b = el("div","blok");
+    b.append(el("div","metka", zag));
+    b.append(el("div","teoriya", tekst));
+    e.append(b);
+  });
+  const ok = el("button","knopka","Понятно");
+  ok.onclick = () => { if (stekEkranov.length) nazadPoSteku(); else renderVkladku(); };
+  e.append(ok);
 }
 
 function svgKoltso(znachenie, norma){
@@ -1086,7 +1374,15 @@ async function kletkiEkran(){
   const dan = await poluchitMesyacKletok(klMonthKey(seg));
   const zapisDnya = dan[denNomer(seg)] || {};
 
+  if (!e.isConnected) return;
   const spisokBlok = el("div","liniya-blok");
+  const segRyad = el("div","metka-ryad");
+  segRyad.append(el("div","metka","Сегодня"));
+  const segSchet = el("span","sohr");
+  segRyad.append(segSchet);
+  spisokBlok.append(segRyad);
+  const obnovitSchet = () => { segSchet.textContent = summaDnya(dan, denNomer(seg)) + " из " + NORMA_KLETOK; };
+  obnovitSchet();
   privychki.forEach(p => {
     const stroka = el("div","privychka-stroka");
     const levo = el("div","privychka-imya");
@@ -1100,10 +1396,12 @@ async function kletkiEkran(){
 
     const pravo = el("div","shag");
     const minus = el("button","krug-knopka","−");
+    minus.setAttribute("aria-label","Минус: " + p.name);
     const chislo = el("span","privychka-chislo", String(zapisDnya[p.id] || 0));
     const plyus = el("button","krug-knopka","+");
-    minus.onclick = async () => { const nov = await izmenitKletku(p.id,-1); chislo.textContent = nov; };
-    plyus.onclick = async () => { const nov = await izmenitKletku(p.id,1); chislo.textContent = nov; };
+    plyus.setAttribute("aria-label","Плюс: " + p.name);
+    minus.onclick = async () => { const nov = await izmenitKletku(p.id,-1); chislo.textContent = nov; obnovitSchet(); };
+    plyus.onclick = async () => { const nov = await izmenitKletku(p.id,1); chislo.textContent = nov; obnovitSchet(); };
     pravo.append(minus, chislo, plyus);
     stroka.append(pravo);
     spisokBlok.append(stroka);
@@ -1212,11 +1510,18 @@ function dobavitPrivychkuEkran(){
   const e = ekran();
   e.append(el("div","zag-vk","Новая привычка"));
   e.append(el("p","podpis","Имя, единица захода, цвет из палитры."));
-  const imyaPole = document.createElement("input"); imyaPole.type = "text"; imyaPole.placeholder = "Например, чтение";
-  const edPole = document.createElement("input"); edPole.type = "text"; edPole.placeholder = "Например, страница";
-  e.append(el("div","podpis","Имя")); e.append(imyaPole);
+  const podpisPolya = (tekst, id) => {
+    const l = el("label","podpis", tekst);
+    l.htmlFor = id; l.style.display = "block"; l.style.margin = "0 2px 6px";
+    return l;
+  };
+  const imyaPole = document.createElement("input");
+  imyaPole.type = "text"; imyaPole.id = "priv-imya"; imyaPole.maxLength = 40; imyaPole.placeholder = "Например, чтение";
+  const edPole = document.createElement("input");
+  edPole.type = "text"; edPole.id = "priv-ed"; edPole.maxLength = 30; edPole.placeholder = "Например, 10 страниц";
+  e.append(podpisPolya("Имя", "priv-imya"), imyaPole);
   const blokEd = el("div"); blokEd.style.marginTop = "12px";
-  blokEd.append(el("div","podpis","Единица захода")); blokEd.append(edPole);
+  blokEd.append(podpisPolya("Единица захода", "priv-ed"), edPole);
   e.append(blokEd);
   const palBlok = el("div"); palBlok.style.marginTop = "12px";
   palBlok.append(el("div","podpis","Цвет"));
@@ -1224,6 +1529,7 @@ function dobavitPrivychkuEkran(){
   let vybranIndex = 0;
   PALITRA.forEach((cv, i) => {
     const kruzhok = el("button","cvet-obraz" + (i===0 ? " vybran" : ""));
+    kruzhok.setAttribute("aria-label","Цвет " + (i+1));
     kruzhok.style.background = temnayaTema() ? cv.colorD : cv.colorL;
     kruzhok.onclick = () => {
       vybranIndex = i;
@@ -1238,13 +1544,16 @@ function dobavitPrivychkuEkran(){
   knopka.style.marginTop = "16px";
   knopka.onclick = async () => {
     const imya = imyaPole.value.trim();
-    if (!imya) return;
+    if (!imya) { imyaPole.focus(); tost("Напиши имя привычки"); return; }
     const privychki = await poluchitPrivychki();
     const cv = PALITRA[vybranIndex];
     privychki.push({id: slugId(), name: imya, unit: edPole.value.trim() || "заход", colorL: cv.colorL, colorD: cv.colorD});
     sohranitPrivychki(privychki);
     nazadPoSteku();
+    tost("Привычка " + imya + " добавлена");
   };
+  imyaPole.onkeydown = (ev) => { if (ev.key === "Enter") edPole.focus(); };
+  edPole.onkeydown = (ev) => { if (ev.key === "Enter") knopka.click(); };
   e.append(knopka);
 }
 
@@ -1253,6 +1562,7 @@ async function ubratPrivychkuEkran(){
   const e = ekran();
   e.append(el("div","zag-vk","Убрать привычку"));
   const privychki = await poluchitPrivychki();
+  if (!e.isConnected) return;
   const spisok = el("div","liniya-blok");
   privychki.forEach(p => {
     const stroka = el("div","privychka-stroka");
@@ -1260,16 +1570,19 @@ async function ubratPrivychkuEkran(){
     const tochka = el("i","tochka-cveta"); tochka.style.background = cvetPrivychki(p);
     levo.append(tochka); levo.append(el("span","",p.name));
     stroka.append(levo);
-    const knopka = el("button","knopka tihaya malaya","Убрать");
-    knopka.onclick = () => {
-      const ostalos = privychki.filter(x => x.id !== p.id);
-      sohranitPrivychki(ostalos);
-      nazadPoSteku();
-    };
-    stroka.append(knopka);
+    if (privychki.length > 1) {
+      const knopka = el("button","knopka tihaya malaya","Убрать");
+      podtverzhdenie(knopka, "Точно убрать?", () => {
+        sohranitPrivychki(privychki.filter(x => x.id !== p.id));
+        nazadPoSteku();
+        tost("Привычка " + p.name + " убрана");
+      });
+      stroka.append(knopka);
+    }
     spisok.append(stroka);
   });
   e.append(spisok);
+  if (privychki.length <= 1) e.append(el("p","pusto","Последнюю привычку убрать нельзя."));
 }
 
 /* ---------- вкладка Учеба ---------- */
@@ -1346,12 +1659,22 @@ async function uchebaEkran(){
 }
 
 async function spisokUrokov(kurs){
+  const byl = ekran();
   const uroki = await gruzhu(kurs.fayl);
+  if (!byl.isConnected) return;
   ochistit();
   const e = ekran();
   e.append(el("div","zag-vk",kurs.nazvanie));
   if (!uroki.length){ e.append(el("p","pusto","Уроки еще готовятся.")); return; }
-  e.append(el("p","podpis", uroki.length + " уроков, в каждом теория и три вопроса."));
+  const proyd = progress[kurs.id] || [];
+  e.append(el("p","podpis", "Пройдено " + uroki.filter(u => proyd.includes(u.id)).length + " из " + uroki.length + ". В каждом уроке теория и вопросы."));
+  const sled = uroki.find(u => !proyd.includes(u.id));
+  if (sled) {
+    const dalshe = el("button","knopka","Продолжить: " + sled.nazvanie);
+    dalshe.style.marginBottom = "12px";
+    dalshe.onclick = () => { tryaska(); otkrytEkran(() => urokEkran(kurs, sled)); };
+    e.append(dalshe);
+  }
   const setka = el("div","gruppa");
   uroki.forEach((urok, nomer) => {
     const proydeno = (progress[kurs.id] || []).includes(urok.id);
@@ -1430,32 +1753,72 @@ function urokEkran(kurs, urok){
     blok.append(otvet);
     e.append(blok);
   });
-  if (!test.length) zakrytUrok(kurs, urok, 0, 0);
+  if (!test.length) {
+    const prochital = el("button","knopka","Прочитал, отметить урок");
+    prochital.onclick = () => { tryaska(); prochital.remove(); zakrytUrok(kurs, urok, 0, 0); };
+    e.append(prochital);
+  }
 }
 
-function zakrytUrok(kurs, urok, verno, vsego){
+async function zakrytUrok(kurs, urok, verno, vsego){
+  const e = ekran();
   if (!progress[kurs.id]) progress[kurs.id] = [];
   if (!progress[kurs.id].includes(urok.id)) progress[kurs.id].push(urok.id);
   pishuProgress();
-  const e = ekran();
+  const [, uroki, privychki] = await Promise.all([pravkaPlana("urok", true), gruzhu(kurs.fayl), poluchitPrivychki()]);
+  if (!e.isConnected) return;
   const itog = el("div","blok");
   itog.append(el("div","metka","Урок пройден"));
-  itog.append(el("div","", vsego ? ("Верных " + verno + " из " + vsego) : "Отмечен как пройденный"));
-  const k = el("button","knopka","К списку уроков");
-  k.style.marginTop = "12px";
-  k.onclick = () => { stekEkranov.pop(); otkrytEkran(() => spisokUrokov(kurs)); };
-  itog.append(k);
+  itog.append(el("div","", (vsego ? "Верных " + verno + " из " + vsego + ". " : "") + "В плане дня отмечено."));
+  const proyd = progress[kurs.id];
+  const i = uroki.findIndex(u => u.id === urok.id);
+  let sled = null;
+  for (let s = 1; s < uroki.length; s++){
+    const u = uroki[(i + s + uroki.length) % uroki.length];
+    if (!proyd.includes(u.id)) { sled = u; break; }
+  }
+  if (sled) {
+    const k = el("button","knopka","Следующий урок: " + sled.nazvanie);
+    k.style.marginTop = "12px";
+    k.onclick = () => { tryaska(); zamenitEkran(() => urokEkran(kurs, sled)); };
+    itog.append(k);
+  } else itog.append(el("div","pochemu","Курс пройден целиком."));
+  const learn = privychki.find(p => p.id === "learn");
+  if (learn) {
+    const kl = el("button","knopka tihaya","Закрасить клетку " + learn.name);
+    kl.style.marginTop = "10px";
+    kl.onclick = async () => {
+      kl.disabled = true;
+      const n = await izmenitKletku("learn", 1);
+      kl.replaceWith(el("div","pochemu", learn.name + ": " + n + " за сегодня"));
+    };
+    itog.append(kl);
+  }
+  const kSpisku = el("button","knopka tihaya","К списку уроков");
+  kSpisku.style.marginTop = "10px";
+  kSpisku.onclick = () => { if (stekEkranov.length >= 2) nazadPoSteku(); else zamenitEkran(() => spisokUrokov(kurs)); };
+  itog.append(kSpisku);
   e.append(itog);
   itog.scrollIntoView({behavior:"smooth", block:"end"});
 }
 
 async function spisokKejsov(){
+  const byl = ekran();
   const kejsy = await gruzhu("scenarii.json");
+  if (!byl.isConnected) return;
   ochistit();
   const e = ekran();
   e.append(el("div","zag-vk","Переговоры с заказчиком"));
   if (!kejsy.length){ e.append(el("p","pusto","Кейсы не загрузились.")); return; }
-  e.append(el("p","podpis","Реальные сообщения заказчиков. Пишешь ответ, разбор приходит в чат."));
+  const proydenoVse = progress.peregovory || [];
+  e.append(el("p","podpis","Пройдено " + kejsy.filter((k, i) => proydenoVse.includes(String(i))).length + " из " + kejsy.length + ". Реальные сообщения заказчиков, разбор приходит в чат."));
+  const iSled = sleduyushhiyKejs(kejsy);
+  if (iSled >= 0) {
+    const vzyat = el("button","knopka","Взять следующий непройденный");
+    vzyat.style.marginBottom = "12px";
+    vzyat.onclick = () => { tryaska(); otkrytEkran(() => kejsEkran(kejsy[iSled], iSled)); };
+    e.append(vzyat);
+  }
   const setka = el("div","gruppa");
   kejsy.forEach((kejs, nomer) => {
     const proydeno = (progress.peregovory || []).includes(String(nomer));
@@ -1487,37 +1850,61 @@ function kejsEkran(kejs, nomer){
   blok.append(el("div","kejs", kejs.soobshenie || ""));
   e.append(blok);
 
+  const gruz = {tip: "razbor", kejs: kejs.soobshenie || "", situaciya: kejs.chego_hotel || "", otvet: ""};
+  const klyuchChern = "chern_" + nomer;
   const otvetBlok = el("div","blok");
-  otvetBlok.append(el("div","metka","Твой ответ"));
+  const metka = el("label","metka","Твой ответ");
+  metka.htmlFor = "otvet_" + nomer;
+  otvetBlok.append(metka);
   const pole = document.createElement("textarea");
   pole.id = "otvet_" + nomer;
+  pole.maxLength = Math.max(300, Math.floor((4000 - baytyStroki(JSON.stringify(gruz))) / 2));
   pole.placeholder = "Напиши так, как отправил бы заказчику.";
+  try { pole.value = localStorage.getItem(klyuchChern) || ""; } catch(err){}
   otvetBlok.append(pole);
-  const schetchik = el("div","schetchik","0 знаков");
+  const schetchik = el("div","schetchik");
   otvetBlok.append(schetchik);
-  pole.oninput = () => {
-    schetchik.textContent = pole.value.length + " знаков" + (pole.value.length > 400 ? ", длинновато" : "");
+  const knopka = el("button","knopka","Отправить на разбор");
+  knopka.style.marginTop = "12px";
+  let chernTaymer = null;
+  const sohranitChernovik = () => {
+    clearTimeout(chernTaymer);
+    try {
+      if (pole.value.trim()) localStorage.setItem(klyuchChern, pole.value);
+      else localStorage.removeItem(klyuchChern);
+    } catch(err){}
+  };
+  const obnovit = () => {
+    const n = pole.value.length;
+    schetchik.textContent = n + " " + sklon(n, "знак", "знака", "знаков") + (n > 400 ? ", длинновато" : "") + (n ? ", черновик сохраняется" : "");
     knopka.disabled = pole.value.trim().length < 10;
   };
-  const knopka = el("button","knopka","Отправить на разбор");
-  knopka.disabled = true;
-  knopka.style.marginTop = "12px";
-  knopka.onclick = () => {
+  pole.oninput = () => { obnovit(); clearTimeout(chernTaymer); chernTaymer = setTimeout(sohranitChernovik, 400); };
+  pole.onblur = sohranitChernovik;
+  obnovit();
+  knopka.onclick = async () => {
+    const otvet = pole.value.trim();
+    if (otvet.length < 10) return;
+    tryaska();
+    knopka.disabled = true;
     if (!progress.peregovory) progress.peregovory = [];
-    if (!progress.peregovory.includes(String(nomer))) progress.peregovory.push(String(nomer));
+    const bylProyden = progress.peregovory.includes(String(nomer));
+    if (!bylProyden) progress.peregovory.push(String(nomer));
     pishuProgress();
-    const gruz = JSON.stringify({
-      tip: "razbor",
-      kejs: kejs.soobshenie || "",
-      situaciya: kejs.chego_hotel || "",
-      otvet: pole.value.trim()
+    await pravkaPlana("kejs", true);
+    clearTimeout(chernTaymer);
+    try { localStorage.removeItem(klyuchChern); } catch(err){}
+    otpravitVChat({...gruz, otvet}, () => {
+      try { localStorage.setItem(klyuchChern, pole.value); } catch(err){}
+      if (!bylProyden) {
+        progress.peregovory = progress.peregovory.filter(x => x !== String(nomer));
+        pishuProgress();
+      }
+      obnovit();
     });
-    if (tg && tg.sendData) tg.sendData(gruz);
-    else alert("Разбор работает внутри телеграма.");
   };
   otvetBlok.append(knopka);
-  const podskazka = el("div","pochemu","Разбор придет сообщением в чат: что отдал, что удержал, как надо было.");
-  otvetBlok.append(podskazka);
+  otvetBlok.append(el("div","pochemu","Тетрадь закроется, разбор придет в чат: что отдал, что удержал, как надо было."));
   e.append(otvetBlok);
 }
 
@@ -1527,6 +1914,7 @@ async function fcSessiyaEkran(){
   const e = ekran();
   e.append(el("div","zag-vk","Карточки английского"));
   const ochered = await fcOcheredKart(10);
+  if (!e.isConnected) return;
   if (!ochered.length){ e.append(el("p","pusto","На сегодня карточек нет.")); return; }
   let index = 0, otkryta = false, znayuSchet = 0;
   const oblast = el("div","");
@@ -1550,14 +1938,24 @@ async function fcSessiyaEkran(){
     knopki.append(neZnayu, znayu);
     oblast.append(knopki);
   }
-  function dalshe(){
+  async function dalshe(){
     index++;
     otkryta = false;
     if (index >= ochered.length){
       oblast.innerHTML = "";
+      await pravkaPlana("kartochki", true);
+      if (!oblast.isConnected) return;
       const itog = el("div","blok");
-      itog.append(el("div","metka","Повторено"));
-      itog.append(el("div","", "Карточек: " + ochered.length + ", отмечено знаю: " + znayuSchet));
+      itog.append(el("div","metka","Сессия закончена"));
+      itog.append(el("div","", "Повторено " + ochered.length + ", знаю " + znayuSchet + ". В плане дня отмечено."));
+      const ryad = el("div","stroka");
+      ryad.style.marginTop = "12px";
+      const esche = el("button","knopka tihaya","Еще 10");
+      esche.onclick = () => { tryaska(); zamenitEkran(fcSessiyaEkran); };
+      const gotovo = el("button","knopka","Готово");
+      gotovo.onclick = () => { if (stekEkranov.length) nazadPoSteku(); else renderVkladku(); };
+      ryad.append(esche, gotovo);
+      itog.append(ryad);
       oblast.append(itog);
       return;
     }
@@ -1567,14 +1965,46 @@ async function fcSessiyaEkran(){
 }
 
 /* ---------- фокус-таймер 25 / 5 ---------- */
-let fokusOstalos = 25*60*1000;
-let fokusKonec = null;
-let fokusRezhim = "rabota";
+const FOKUS_DLINA = {rabota: 25*60*1000, pereryv: 5*60*1000};
+let fokus = {rezhim: "rabota", konec: null, ostalos: FOKUS_DLINA.rabota};
+function fokusZagruzit(){
+  try {
+    const f = JSON.parse(localStorage.getItem("fokus") || "null");
+    if (f && FOKUS_DLINA[f.rezhim]) {
+      const ost = Number(f.ostalos);
+      fokus = {
+        rezhim: f.rezhim,
+        konec: typeof f.konec === "number" ? f.konec : null,
+        ostalos: Number.isFinite(ost) ? Math.max(0, Math.min(FOKUS_DLINA[f.rezhim], ost)) : FOKUS_DLINA[f.rezhim]
+      };
+    }
+  } catch(err){}
+  fokusProverit();
+}
+function fokusSohranit(){ try { localStorage.setItem("fokus", JSON.stringify(fokus)); } catch(err){} }
+function fokusProverit(){
+  if (fokus.konec && fokus.konec <= Date.now()) { fokus.konec = null; fokus.ostalos = 0; fokusSohranit(); }
+}
+function fokusOstalosMs(){ return fokus.konec ? Math.max(0, fokus.konec - Date.now()) : fokus.ostalos; }
+function fokusStatus(){
+  fokusProverit();
+  const min = Math.ceil(fokusOstalosMs() / 60000);
+  if (fokus.konec) return (fokus.rezhim === "rabota" ? "идет, " : "перерыв, ") + min + " мин";
+  if (fokus.ostalos <= 0) return fokus.rezhim === "rabota" ? "круг закончен" : "перерыв закончен";
+  if (fokus.ostalos < FOKUS_DLINA[fokus.rezhim]) return "на паузе";
+  return "таймер";
+}
+function fokusZapustit(rezhim, srazu){
+  fokus = {rezhim, konec: srazu ? Date.now() + FOKUS_DLINA[rezhim] : null, ostalos: FOKUS_DLINA[rezhim]};
+  fokusSohranit();
+}
 function fokusEkran(){
   ochistit();
+  fokusProverit();
   const e = ekran();
   e.append(el("div","zag-vk","Фокус 25 / 5"));
-  e.append(el("p","podpis", fokusRezhim === "rabota" ? "Двадцать пять минут работы." : "Пять минут отдыха."));
+  const podpis = el("p","podpis");
+  e.append(podpis);
 
   const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
   svg.setAttribute("class","fokus-svg"); svg.setAttribute("width","220"); svg.setAttribute("height","220");
@@ -1595,70 +2025,90 @@ function fokusEkran(){
   e.append(svg);
 
   const polnayaDlina = 2 * Math.PI * 96;
-  const dlinaRezhima = fokusRezhim === "rabota" ? 25*60*1000 : 5*60*1000;
-  function otrisovat(){
-    const ostalos = fokusKonec ? Math.max(0, fokusKonec - Date.now()) : fokusOstalos;
-    const min = Math.floor(ostalos/60000), sek = Math.floor((ostalos%60000)/1000);
-    tekstVremya.textContent = min + ":" + pad2(sek);
-    const dolya = ostalos / dlinaRezhima;
-    stlb.setAttribute("stroke-dasharray", (polnayaDlina*dolya) + " " + polnayaDlina);
-    if (fokusKonec && ostalos <= 0){
-      clearInterval(aktivnyInterval); aktivnyInterval = null;
-      fokusKonec = null; fokusOstalos = 0;
-      tryaska();
-      narisovatKnopkiPosleFinisha();
-    }
-  }
   const knopki = el("div","stroka");
-  const staryKnopka = el("button","knopka", fokusKonec ? "Пауза" : "Старт");
+  const startKnopka = el("button","knopka");
   const sbrosKnopka = el("button","knopka tihaya","Сброс");
-  staryKnopka.onclick = () => {
-    if (fokusKonec){
-      fokusOstalos = fokusKonec - Date.now();
-      fokusKonec = null;
-      if (aktivnyInterval) { clearInterval(aktivnyInterval); aktivnyInterval = null; }
-      staryKnopka.textContent = "Старт";
-    } else {
-      fokusKonec = Date.now() + fokusOstalos;
-      staryKnopka.textContent = "Пауза";
-      aktivnyInterval = setInterval(otrisovat, 500);
-    }
-  };
-  sbrosKnopka.onclick = () => {
-    if (aktivnyInterval) { clearInterval(aktivnyInterval); aktivnyInterval = null; }
-    fokusRezhim = "rabota"; fokusKonec = null; fokusOstalos = 25*60*1000;
-    otkrytEkranBezDobavleniya();
-  };
-  knopki.append(sbrosKnopka, staryKnopka);
+  knopki.append(sbrosKnopka, startKnopka);
   e.append(knopki);
-
+  const botKnopka = el("button","knopka tihaya","Старт, бот напишет в конце");
+  botKnopka.style.marginTop = "10px";
+  e.append(botKnopka);
   const posleFinisha = el("div","");
   e.append(posleFinisha);
-  function narisovatKnopkiPosleFinisha(){
-    posleFinisha.innerHTML = "";
-    if (fokusRezhim === "rabota"){
-      const kZakrasit = el("button","knopka");
-      kZakrasit.style.marginTop = "12px";
-      kZakrasit.textContent = "Закрасить клетку Учеба";
-      kZakrasit.onclick = async () => { await izmenitKletku("learn", 1); kZakrasit.textContent = "Клетка закрашена"; kZakrasit.disabled = true; };
-      posleFinisha.append(kZakrasit);
-      const kPereryv = el("button","knopka tihaya");
-      kPereryv.style.marginTop = "10px";
-      kPereryv.textContent = "Начать перерыв 5 минут";
-      kPereryv.onclick = () => { fokusRezhim = "pereryv"; fokusOstalos = 5*60*1000; fokusKonec = null; otkrytEkranBezDobavleniya(); };
-      posleFinisha.append(kPereryv);
-    } else {
-      const kSnova = el("button","knopka");
-      kSnova.style.marginTop = "12px";
-      kSnova.textContent = "Новый круг 25 минут";
-      kSnova.onclick = () => { fokusRezhim = "rabota"; fokusOstalos = 25*60*1000; fokusKonec = null; otkrytEkranBezDobavleniya(); };
-      posleFinisha.append(kSnova);
-    }
+  let finishNarisovan = false;
+
+  function nadpisi(){
+    const zakonchen = !fokus.konec && fokus.ostalos <= 0;
+    podpis.textContent = fokus.rezhim === "rabota"
+      ? "Двадцать пять минут работы, потом пять отдыха. Таймер идет, даже если закрыть тетрадь."
+      : "Пять минут отдыха. Встань, пройдись, посмотри вдаль.";
+    startKnopka.textContent = fokus.konec ? "Пауза" : (fokus.ostalos < FOKUS_DLINA[fokus.rezhim] ? "Продолжить" : "Старт");
+    knopki.hidden = zakonchen;
+    botKnopka.hidden = zakonchen || !!fokus.konec;
   }
-  function otkrytEkranBezDobavleniya(){ stekEkranov[stekEkranov.length-1] = fokusEkran; fokusEkran(); }
+  function narisovatFinish(){
+    if (finishNarisovan) return;
+    finishNarisovan = true;
+    const blok = el("div","blok");
+    const posleRaboty = fokus.rezhim === "rabota";
+    blok.append(el("div","metka", posleRaboty ? "Круг закончен" : "Перерыв закончен"));
+    if (posleRaboty) {
+      const kZakrasit = el("button","knopka","Закрасить клетку Учеба");
+      kZakrasit.onclick = async () => { kZakrasit.disabled = true; const n = await izmenitKletku("learn", 1); kZakrasit.textContent = "Учеба: " + n + " за сегодня"; };
+      const kPereryv = el("button","knopka tihaya","Начать перерыв 5 минут");
+      kPereryv.style.marginTop = "10px";
+      kPereryv.onclick = () => { tryaska(); fokusZapustit("pereryv", true); zamenitEkran(fokusEkran); };
+      blok.append(kZakrasit, kPereryv);
+    }
+    const kSnova = el("button", posleRaboty ? "knopka tihaya" : "knopka", "Новый круг 25 минут");
+    kSnova.style.marginTop = "10px";
+    kSnova.onclick = () => { tryaska(); fokusZapustit("rabota", true); zamenitEkran(fokusEkran); };
+    blok.append(kSnova);
+    posleFinisha.append(blok);
+  }
+  function otrisovat(){
+    const ostalos = fokusOstalosMs();
+    const min = Math.floor(ostalos/60000), sek = Math.floor((ostalos%60000)/1000);
+    tekstVremya.textContent = min + ":" + pad2(sek);
+    stlb.setAttribute("stroke-dasharray", (polnayaDlina * ostalos / FOKUS_DLINA[fokus.rezhim]) + " " + polnayaDlina);
+    if (fokus.konec && ostalos <= 0) {
+      if (aktivnyInterval) { clearInterval(aktivnyInterval); aktivnyInterval = null; }
+      fokus.konec = null; fokus.ostalos = 0; fokusSohranit();
+      tryaska();
+    }
+    if (!fokus.konec && fokus.ostalos <= 0) { nadpisi(); narisovatFinish(); }
+  }
+  function start(){
+    if (fokus.konec) return;
+    if (fokus.ostalos <= 0) fokus.ostalos = FOKUS_DLINA[fokus.rezhim];
+    fokus.konec = Date.now() + fokus.ostalos;
+    fokusSohranit();
+    if (aktivnyInterval) clearInterval(aktivnyInterval);
+    aktivnyInterval = setInterval(otrisovat, 500);
+    nadpisi(); otrisovat();
+  }
+  function pauza(){
+    if (!fokus.konec) return;
+    fokus.ostalos = Math.max(0, fokus.konec - Date.now());
+    fokus.konec = null;
+    fokusSohranit();
+    if (aktivnyInterval) { clearInterval(aktivnyInterval); aktivnyInterval = null; }
+    nadpisi(); otrisovat();
+  }
+  startKnopka.onclick = () => { tryaska(); if (fokus.konec) pauza(); else start(); };
+  sbrosKnopka.onclick = () => { fokusZapustit("rabota", false); zamenitEkran(fokusEkran); };
+  botKnopka.onclick = async () => {
+    tryaska();
+    start();
+    const kogda = Math.floor(fokus.konec / 1000);
+    const tekst = fokus.rezhim === "rabota" ? "25 минут фокуса прошли. Отметь клетку Учеба в тетради." : "Перерыв кончился, можно новый круг.";
+    await napDobavit(tekst, kogda);
+    otpravitVChat({tip:"napomni", tekst, kogda}, () => napUbratLokalno(tekst, kogda));
+  };
 
   otrisovat();
-  if (fokusKonec) aktivnyInterval = setInterval(otrisovat, 500);
+  nadpisi();
+  if (fokus.konec) aktivnyInterval = setInterval(otrisovat, 500);
 }
 
 /* ---------- вкладка Итоги ---------- */
@@ -1751,6 +2201,7 @@ async function itogiEkran(){
   e.append(itogiBlok);
 }
 
+fokusZagruzit();
 chitayuProgress(renderVkladku);
 </script>
 </body>
