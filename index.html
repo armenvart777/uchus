@@ -1,1 +1,352 @@
-<!doctype html><meta charset="utf-8"><title>Армен учится</title><p>Готовится.</p>
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Армен учится</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root{
+    --fon:#f4f5f7; --karta:#ffffff; --tekst:#141619; --tusklo:#6b7280;
+    --liniya:#e3e6ea; --akcent:#2f6fed; --akcent-tekst:#ffffff;
+    --zeleniy:#1f9254; --krasniy:#c9372c; --ten:0 1px 2px rgba(16,20,30,.06);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --fon:#17181c; --karta:#212329; --tekst:#eef0f3; --tusklo:#9aa1ab;
+      --liniya:#2e3138; --akcent:#5d93ff; --akcent-tekst:#0d1017;
+      --zeleniy:#4ac07d; --krasniy:#ef6a5f; --ten:0 1px 2px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --fon:#17181c; --karta:#212329; --tekst:#eef0f3; --tusklo:#9aa1ab;
+    --liniya:#2e3138; --akcent:#5d93ff; --akcent-tekst:#0d1017;
+    --zeleniy:#4ac07d; --krasniy:#ef6a5f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--fon);color:var(--tekst);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .obolochka{max-width:680px;margin:0 auto;padding:16px 16px 40px}
+  h1{font-size:22px;margin:4px 0 2px;letter-spacing:-.02em}
+  h2{font-size:17px;margin:0 0 6px;letter-spacing:-.01em}
+  .podpis{color:var(--tusklo);font-size:13px;margin:0 0 18px}
+  .setka{display:flex;flex-direction:column;gap:10px}
+  .karta{background:var(--karta);border:1px solid var(--liniya);border-radius:var(--radius);
+    padding:14px 15px;box-shadow:var(--ten);cursor:pointer;text-align:left;width:100%;
+    color:inherit;font:inherit;display:block}
+  .karta:active{transform:scale(.995)}
+  .karta .ryad{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .znak{font-size:22px;line-height:1}
+  .opis{color:var(--tusklo);font-size:13px;margin-top:3px}
+  .polosa{height:5px;background:var(--liniya);border-radius:99px;margin-top:11px;overflow:hidden}
+  .polosa i{display:block;height:100%;background:var(--akcent);border-radius:99px;transition:width .3s}
+  .schet{font-variant-numeric:tabular-nums;color:var(--tusklo);font-size:12px;margin-top:6px}
+  .nazad{background:none;border:0;color:var(--akcent);font:inherit;padding:6px 0;cursor:pointer;
+    margin-bottom:8px;display:inline-block}
+  .blok{background:var(--karta);border:1px solid var(--liniya);border-radius:var(--radius);
+    padding:15px;margin-bottom:12px;box-shadow:var(--ten)}
+  .metka{text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--tusklo);
+    margin-bottom:7px;font-weight:600}
+  .teoriya{white-space:pre-wrap}
+  .fraza{padding:10px 0;border-bottom:1px solid var(--liniya)}
+  .fraza:last-child{border-bottom:0;padding-bottom:0}
+  .fraza b{font-weight:600}
+  .fraza .per{color:var(--tusklo);font-size:13px;margin-top:2px}
+  .fraza .kogda{color:var(--tusklo);font-size:12px;margin-top:4px;font-style:italic}
+  .shablon{padding:10px 0;border-bottom:1px solid var(--liniya);white-space:pre-wrap}
+  .shablon:last-child{border-bottom:0}
+  .variant{display:block;width:100%;text-align:left;background:var(--fon);border:1px solid var(--liniya);
+    border-radius:10px;padding:11px 12px;margin-bottom:8px;color:inherit;font:inherit;cursor:pointer}
+  .variant.verno{border-color:var(--zeleniy);background:color-mix(in srgb,var(--zeleniy) 12%,transparent)}
+  .variant.neverno{border-color:var(--krasniy);background:color-mix(in srgb,var(--krasniy) 12%,transparent)}
+  .pochemu{font-size:13px;color:var(--tusklo);margin-top:6px}
+  .knopka{background:var(--akcent);color:var(--akcent-tekst);border:0;border-radius:11px;
+    padding:13px 16px;font:inherit;font-weight:600;width:100%;cursor:pointer}
+  .knopka[disabled]{opacity:.45}
+  .knopka.tihaya{background:var(--karta);color:var(--tekst);border:1px solid var(--liniya)}
+  textarea{width:100%;min-height:130px;background:var(--fon);color:var(--tekst);
+    border:1px solid var(--liniya);border-radius:11px;padding:12px;font:inherit;resize:vertical}
+  .kejs{white-space:pre-wrap;border-left:3px solid var(--akcent);padding-left:12px}
+  .schetchik{font-size:12px;color:var(--tusklo);text-align:right;margin-top:6px;
+    font-variant-numeric:tabular-nums}
+  .pusto{color:var(--tusklo);text-align:center;padding:30px 10px}
+  .stroka{display:flex;gap:8px;margin-top:10px}
+  .stroka .knopka{flex:1}
+</style>
+</head>
+<body>
+<div class="obolochka" id="ekran"></div>
+<script>
+const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+if (tg) { tg.ready(); tg.expand(); }
+
+const KURSY = [
+  {id:"peregovory", znak:"\u{1F94A}", nazvanie:"Переговоры с заказчиком", opis:"Реальные кейсы. Отвечаешь, получаешь разбор в чат.", fayl:null},
+  {id:"prodazhi", znak:"\u{1F4B0}", nazvanie:"Продажи и цена", opis:"Как называть цену, держать объем, поднимать чек.", fayl:"kurs_prodazhi.json"},
+  {id:"english", znak:"\u{1F1EC}\u{1F1E7}", nazvanie:"Английский для заказчиков", opis:"Переписка, правки, сроки, деньги.", fayl:"kurs_english.json"},
+  {id:"tehminimum", znak:"\u{1F527}", nazvanie:"Техминимум", opis:"Что вообще происходит в твоих проектах.", fayl:"kurs_tehminimum.json"}
+];
+
+const dannye = {};
+let progress = {};
+
+function hranilishe(){ return tg && tg.CloudStorage ? tg.CloudStorage : null; }
+
+function chitayuProgress(gotovo){
+  const h = hranilishe();
+  if (h) {
+    h.getItem("progress", (osh, znach) => {
+      if (!osh && znach) { try { progress = JSON.parse(znach); } catch(e){} }
+      if (!Object.keys(progress).length) mestniy();
+      gotovo();
+    });
+  } else { mestniy(); gotovo(); }
+}
+function mestniy(){
+  try { progress = JSON.parse(localStorage.getItem("progress") || "{}"); } catch(e){ progress = {}; }
+}
+function pishuProgress(){
+  const stroka = JSON.stringify(progress);
+  try { localStorage.setItem("progress", stroka); } catch(e){}
+  const h = hranilishe();
+  if (h) h.setItem("progress", stroka, () => {});
+}
+
+async function gruzhu(fayl){
+  if (!fayl) return [];
+  if (dannye[fayl]) return dannye[fayl];
+  try {
+    const otvet = await fetch(fayl + "?v=" + Date.now());
+    if (!otvet.ok) return [];
+    dannye[fayl] = await otvet.json();
+    return dannye[fayl];
+  } catch(e){ return []; }
+}
+
+function ekran(){ return document.getElementById("ekran"); }
+function ochistit(){ ekran().innerHTML = ""; window.scrollTo(0,0); }
+function el(tag, klass, tekst){
+  const u = document.createElement(tag);
+  if (klass) u.className = klass;
+  if (tekst !== undefined) u.textContent = tekst;
+  return u;
+}
+function nazad(kuda){
+  const k = el("button","nazad","← Назад");
+  k.onclick = kuda;
+  return k;
+}
+function tryaska(){ if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred("light"); }
+
+async function glavnaya(){
+  ochistit();
+  const e = ekran();
+  e.append(el("h1","","Армен учится"));
+  e.append(el("p","podpis","Четыре направления. Пятнадцать минут в день дают больше, чем час раз в неделю."));
+  const setka = el("div","setka");
+  for (const kurs of KURSY){
+    const spisok = await gruzhu(kurs.fayl);
+    const vsego = kurs.id === "peregovory" ? (await gruzhu("scenarii.json")).length : spisok.length;
+    const sdelano = (progress[kurs.id] || []).length;
+    const karta = el("button","karta");
+    const ryad = el("div","ryad");
+    const levo = el("div");
+    levo.append(el("h2","",kurs.nazvanie));
+    levo.append(el("div","opis",kurs.opis));
+    ryad.append(levo);
+    ryad.append(el("div","znak",kurs.znak));
+    karta.append(ryad);
+    const polosa = el("div","polosa");
+    const zapolnenie = el("i");
+    zapolnenie.style.width = vsego ? Math.round(sdelano/vsego*100) + "%" : "0%";
+    polosa.append(zapolnenie);
+    karta.append(polosa);
+    karta.append(el("div","schet", vsego ? sdelano + " из " + vsego : "готовится"));
+    karta.onclick = () => { tryaska(); kurs.id === "peregovory" ? spisokKejsov() : spisokUrokov(kurs); };
+    setka.append(karta);
+  }
+  e.append(setka);
+}
+
+async function spisokUrokov(kurs){
+  const uroki = await gruzhu(kurs.fayl);
+  ochistit();
+  const e = ekran();
+  e.append(nazad(glavnaya));
+  e.append(el("h1","",kurs.nazvanie));
+  if (!uroki.length){ e.append(el("p","pusto","Уроки еще готовятся.")); return; }
+  e.append(el("p","podpis", uroki.length + " уроков, в каждом теория и три вопроса."));
+  const setka = el("div","setka");
+  uroki.forEach((urok, nomer) => {
+    const proydeno = (progress[kurs.id] || []).includes(urok.id);
+    const karta = el("button","karta");
+    const ryad = el("div","ryad");
+    const levo = el("div");
+    levo.append(el("h2","", (nomer+1) + ". " + urok.nazvanie));
+    levo.append(el("div","opis", urok.zachem || ""));
+    ryad.append(levo);
+    ryad.append(el("div","znak", proydeno ? "✅" : ""));
+    karta.append(ryad);
+    karta.onclick = () => { tryaska(); urokEkran(kurs, urok); };
+    setka.append(karta);
+  });
+  e.append(setka);
+}
+
+function urokEkran(kurs, urok){
+  ochistit();
+  const e = ekran();
+  e.append(nazad(() => spisokUrokov(kurs)));
+  e.append(el("h1","",urok.nazvanie));
+  if (urok.zachem) e.append(el("p","podpis",urok.zachem));
+
+  const teor = el("div","blok");
+  teor.append(el("div","metka","Суть"));
+  teor.append(el("div","teoriya",urok.teoriya || ""));
+  e.append(teor);
+
+  if (urok.frazy && urok.frazy.length){
+    const blok = el("div","blok");
+    blok.append(el("div","metka","Фразы"));
+    urok.frazy.forEach(f => {
+      const stroka = el("div","fraza");
+      const en = el("div"); en.append(el("b","",f.en || ""));
+      stroka.append(en);
+      stroka.append(el("div","per", f.ru || ""));
+      if (f.kogda) stroka.append(el("div","kogda", f.kogda));
+      blok.append(stroka);
+    });
+    e.append(blok);
+  }
+  if (urok.shablony && urok.shablony.length){
+    const blok = el("div","blok");
+    blok.append(el("div","metka","Готовые реплики"));
+    urok.shablony.forEach(s => blok.append(el("div","shablon", s)));
+    e.append(blok);
+  }
+
+  const test = urok.test || [];
+  let verno = 0, otvecheno = 0;
+  test.forEach((vopros, nomer) => {
+    const blok = el("div","blok");
+    blok.append(el("div","metka","Вопрос " + (nomer+1)));
+    blok.append(el("div","teoriya", vopros.vopros || ""));
+    const otvet = el("div"); otvet.style.marginTop = "10px";
+    (vopros.varianty || []).forEach((variant, i) => {
+      const k = el("button","variant", variant);
+      k.onclick = () => {
+        if (blok.dataset.gotovo) return;
+        blok.dataset.gotovo = "1";
+        otvecheno++;
+        const pravilniy = Number(vopros.verniy);
+        if (i === pravilniy){ k.classList.add("verno"); verno++; tryaska(); }
+        else {
+          k.classList.add("neverno");
+          const knopki = otvet.querySelectorAll(".variant");
+          if (knopki[pravilniy]) knopki[pravilniy].classList.add("verno");
+        }
+        if (vopros.pochemu) blok.append(el("div","pochemu", vopros.pochemu));
+        if (otvecheno === test.length) zakrytUrok(kurs, urok, verno, test.length);
+      };
+      otvet.append(k);
+    });
+    blok.append(otvet);
+    e.append(blok);
+  });
+  if (!test.length) zakrytUrok(kurs, urok, 0, 0);
+}
+
+function zakrytUrok(kurs, urok, verno, vsego){
+  if (!progress[kurs.id]) progress[kurs.id] = [];
+  if (!progress[kurs.id].includes(urok.id)) progress[kurs.id].push(urok.id);
+  pishuProgress();
+  const e = ekran();
+  const itog = el("div","blok");
+  itog.append(el("div","metka","Урок пройден"));
+  itog.append(el("div","", vsego ? ("Верных " + verno + " из " + vsego) : "Отмечен как пройденный"));
+  const k = el("button","knopka","К списку уроков");
+  k.style.marginTop = "12px";
+  k.onclick = () => spisokUrokov(kurs);
+  itog.append(k);
+  e.append(itog);
+  itog.scrollIntoView({behavior:"smooth", block:"end"});
+}
+
+async function spisokKejsov(){
+  const kejsy = await gruzhu("scenarii.json");
+  ochistit();
+  const e = ekran();
+  e.append(nazad(glavnaya));
+  e.append(el("h1","","Переговоры с заказчиком"));
+  if (!kejsy.length){ e.append(el("p","pusto","Кейсы не загрузились.")); return; }
+  e.append(el("p","podpis","Реальные сообщения заказчиков. Пишешь ответ, разбор приходит в чат."));
+  const setka = el("div","setka");
+  kejsy.forEach((kejs, nomer) => {
+    const proydeno = (progress.peregovory || []).includes(String(nomer));
+    const karta = el("button","karta");
+    const ryad = el("div","ryad");
+    const levo = el("div");
+    levo.append(el("h2","", (nomer+1) + ". " + (kejs.kto || "Заказчик")));
+    const kusok = (kejs.soobshenie || "").slice(0,90);
+    levo.append(el("div","opis", kusok + ((kejs.soobshenie||"").length > 90 ? "..." : "")));
+    ryad.append(levo);
+    ryad.append(el("div","znak", proydeno ? "✅" : ""));
+    karta.append(ryad);
+    karta.onclick = () => { tryaska(); kejsEkran(kejs, nomer); };
+    setka.append(karta);
+  });
+  e.append(setka);
+}
+
+function kejsEkran(kejs, nomer){
+  ochistit();
+  const e = ekran();
+  e.append(nazad(spisokKejsov));
+  e.append(el("h1","", kejs.kto || "Заказчик"));
+  if (kejs.chego_hotel) e.append(el("p","podpis", "Чего он добивается: " + kejs.chego_hotel));
+
+  const blok = el("div","blok");
+  blok.append(el("div","metka","Сообщение заказчика"));
+  blok.append(el("div","kejs", kejs.soobshenie || ""));
+  e.append(blok);
+
+  const otvetBlok = el("div","blok");
+  otvetBlok.append(el("div","metka","Твой ответ"));
+  const pole = document.createElement("textarea");
+  pole.id = "otvet_" + nomer;
+  pole.placeholder = "Напиши так, как отправил бы заказчику.";
+  otvetBlok.append(pole);
+  const schetchik = el("div","schetchik","0 знаков");
+  otvetBlok.append(schetchik);
+  pole.oninput = () => {
+    schetchik.textContent = pole.value.length + " знаков" + (pole.value.length > 400 ? ", длинновато" : "");
+    knopka.disabled = pole.value.trim().length < 10;
+  };
+  const knopka = el("button","knopka","Отправить на разбор");
+  knopka.disabled = true;
+  knopka.style.marginTop = "12px";
+  knopka.onclick = () => {
+    if (!progress.peregovory) progress.peregovory = [];
+    if (!progress.peregovory.includes(String(nomer))) progress.peregovory.push(String(nomer));
+    pishuProgress();
+    const gruz = JSON.stringify({
+      tip: "razbor",
+      kejs: kejs.soobshenie || "",
+      situaciya: kejs.chego_hotel || "",
+      otvet: pole.value.trim()
+    });
+    if (tg && tg.sendData) tg.sendData(gruz);
+    else alert("Разбор работает внутри телеграма.");
+  };
+  otvetBlok.append(knopka);
+  const podskazka = el("div","pochemu","Разбор придет сообщением в чат: что отдал, что удержал, как надо было.");
+  otvetBlok.append(podskazka);
+  e.append(otvetBlok);
+}
+
+chitayuProgress(glavnaya);
+</script>
+</body>
+</html>
